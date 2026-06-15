@@ -23,7 +23,8 @@
   <li><a href="instalacion.html">Instalación</a></li>
   <li><a href="caso-credito.html">Crédito</a></li>
   <li><a href="caso-bi.html">BI</a></li>
-  <li><a href="caso-reclamos.html">Reclamos</a></li>
+  <li><a href="caso-reclamos.html">Reclamos Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamos RAG</a></li>
   <li><a href="ir-mas-alla.html">Más Allá</a></li>
 </ul></nav>
 
@@ -85,7 +86,7 @@
       </table>
     </div>
     <blockquote>
-      <p><strong>Por defecto:</strong> usá <code>gpt-5.4-mini</code> para todos los agentes, a menos que la tarea sea explícitamente simple. Los tres casos de uso scripteados funcionan bien con <code>gpt-5.4-mini</code>. Solo pasá a <code>gpt-5.4-nano</code> en agentes que realizan una única acción pequeña (como generar un gráfico o formatear un resumen corto).</p>
+      <p><strong>Por defecto:</strong> usá <code>gpt-5.4-mini</code> para todos los agentes, a menos que la tarea sea explícitamente simple. Los recorridos scripteados funcionan bien con <code>gpt-5.4-mini</code>. Solo pasá a <code>gpt-5.4-nano</code> en agentes que realizan una única acción pequeña (como generar un gráfico o formatear un resumen corto).</p>
     </blockquote>
 
     <!-- ── Teradata Store ────────────────────────────────── -->
@@ -120,17 +121,17 @@
           <tr>
             <td><code>claims</code></td>
             <td>200 reclamos de clientes (REC-001 a REC-200) — categoría, urgencia, estado, texto del reclamo y resolución</td>
-            <td>Análisis de Reclamos</td>
+            <td>Reclamos por Caso y Reclamos RAG</td>
           </tr>
           <tr>
             <td><code>claims_rag_enriched</code></td>
             <td>Fragmentos de texto de reclamos y resoluciones embebidos</td>
-            <td>Búsqueda semántica de Reclamos</td>
+            <td>Reclamos por Caso y Reclamos RAG</td>
           </tr>
           <tr>
             <td><code>policies_rag_enriched</code></td>
             <td>Fragmentos de 6 políticas de la empresa (devoluciones, garantías, envíos, atención, privacidad, servicio técnico)</td>
-            <td>Consulta de políticas en Reclamos</td>
+            <td>Reclamos por Caso y Reclamos RAG</td>
           </tr>
         </tbody>
       </table>
@@ -176,12 +177,12 @@
       </table>
     </div>
     <blockquote>
-      <p>Para este taller: los tres casos de uso usan <strong>Crews</strong>. Tanto el camino de Studio como el de Código crean Crews. Los Flows se presentan en <a href="instalacion.html">Instalación</a> como opción avanzada para el camino de código.</p>
+      <p>Para este taller: los recorridos principales usan <strong>Crews</strong>. Tanto el camino de Studio como el de Código crean Crews. Los Flows se presentan en <a href="instalacion.html">Instalación</a> como opción avanzada para el camino de código.</p>
     </blockquote>
 
     <!-- ── Tu primer Crew ────────────────────────────────── -->
     <h2 id="primer-crew">Tu primer Crew</h2>
-    <p>Este es el recorrido genérico en Studio. Cada sección de caso de uso más abajo tiene los valores exactos para copiar y pegar.</p>
+    <p>Este es el recorrido genérico en Studio. Cada sección de caso de uso más abajo tiene campos listos para copiar y adaptar.</p>
 
     <h3 id="studio-primer">Studio: paso a paso</h3>
 
@@ -190,7 +191,7 @@
         <div class="step-num">1</div>
         <div class="step-content">
           <h4>Crear un nuevo Crew</h4>
-          <p>Abrí CrewAI Studio y hacé clic en <strong>New Crew</strong>. Dale un nombre descriptivo (ej. <code>Credit Analysis Crew</code>).</p>
+          <p>Abrí CrewAI Studio y hacé clic en <strong>New Crew</strong>. Dale el nombre que prefieras para reconocerlo después.</p>
         </div>
       </li>
       <li class="step-item">
@@ -203,7 +204,7 @@
               <thead><tr><th>Campo</th><th>Qué hace</th></tr></thead>
               <tbody>
                 <tr><td>Role</td><td>Define la experiencia del agente. Sé específico — "Senior Credit Risk Analyst" funciona mejor que "Analyst".</td></tr>
-                <tr><td>Goal</td><td>Lo que este agente debe lograr. Delimita el resultado. Mantenelo en 1–2 oraciones.</td></tr>
+                <tr><td>Goal</td><td>Lo que este agente debe lograr. Incluí inputs entre llaves, como <code>{dni}</code> o <code>{claim_text}</code>, para que Studio los pida al ejecutar.</td></tr>
                 <tr><td>Backstory</td><td>Contexto que moldea la voz y el juicio del agente. Acá embebés el conocimiento del dominio.</td></tr>
                 <tr><td>Model</td><td>El LLM que usa este agente. Usá <code>gpt-5.4-mini</code> como tu defecto.</td></tr>
               </tbody>
@@ -230,7 +231,7 @@
             <table class="field-table">
               <thead><tr><th>Campo</th><th>Qué hace</th></tr></thead>
               <tbody>
-                <tr><td>Description</td><td>Lo que el agente debe hacer. Incluí inputs específicos (IDs de caso, DNIs, preguntas).</td></tr>
+                <tr><td>Description</td><td>Lo que el agente debe hacer. Usá los mismos inputs entre llaves que aparecen en el Goal.</td></tr>
                 <tr><td>Expected Output</td><td>El formato exacto que querés recibir. Cuanto más específico, mejor el resultado.</td></tr>
                 <tr><td>Agent</td><td>Asigná esta tarea al agente correcto.</td></tr>
               </tbody>

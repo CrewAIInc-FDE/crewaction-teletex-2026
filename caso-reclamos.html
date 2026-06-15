@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Análisis de Reclamos — CrewAI × Teradata</title>
+  <title>Reclamos por Caso — CrewAI × Teradata</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -23,7 +23,8 @@
   <li><a href="instalacion.html">Instalación</a></li>
   <li><a href="caso-credito.html">Crédito</a></li>
   <li><a href="caso-bi.html">BI</a></li>
-  <li><a href="caso-reclamos.html" class="active">Reclamos</a></li>
+  <li><a href="caso-reclamos.html" class="active">Reclamos Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamos RAG</a></li>
   <li><a href="ir-mas-alla.html">Más Allá</a></li>
 </ul></nav>
 
@@ -49,13 +50,13 @@
 
     <div class="page-header">
       <div class="page-breadcrumb"><a href="index.html">← Inicio</a></div>
-      <h1 id="descripcion">Análisis de Reclamos</h1>
+      <h1 id="descripcion">Reclamos por Caso</h1>
     </div>
 
     <div class="section-intro">
       <p>
-        En este caso de uso, los agentes trabajan juntos para resolver un reclamo de cliente de punta a punta:
-        recuperan el caso, lo clasifican por categoría y urgencia, buscan antecedentes similares en la base histórica,
+        En este caso de uso, los agentes trabajan juntos para resolver un reclamo existente de punta a punta:
+        recuperan el caso por ID, lo clasifican por categoría y urgencia, buscan antecedentes similares en la base histórica,
         consultan las políticas internas de la empresa y, finalmente, redactan una resolución fundamentada.
       </p>
       <p>
@@ -91,8 +92,6 @@
           <span class="version-arrow">▶</span>
         </summary>
         <div class="version-body">
-
-          <p><strong>Nombre del Crew:</strong> <code>Claims Analysis — V1</code></p>
 
           <div class="section-intro">
             <p>
@@ -144,7 +143,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Recuperar el reclamo, clasificarlo por categoría y urgencia, y encontrar los casos históricos más similares para contextualizar la queja</td>
+                  <td>Recuperar el reclamo {case_id}, clasificarlo por categoría y urgencia, y encontrar los casos históricos más similares para contextualizar la queja</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -173,7 +172,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Recuperá el reclamo REC-001. Clasificá su categoría y nivel de urgencia. Encontrá 3 quejas históricas semánticamente similares y resumí qué tienen en común con el caso actual.</td>
+                  <td>Recuperá el reclamo {case_id}. Clasificá su categoría y nivel de urgencia. Encontrá 3 quejas históricas semánticamente similares y resumí qué tienen en común con el caso actual.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -212,7 +211,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Redactar una recomendación de resolución fundamentada en las políticas de la empresa</td>
+                  <td>Redactar una recomendación de resolución para {case_id} fundamentada en las políticas de la empresa</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -251,7 +250,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Basándote en el análisis del caso anterior, verificá qué políticas de la empresa aplican a este reclamo. Redactá una resolución que cite la sección de política relevante, proponga una acción concreta (reembolso, reposición o explicación) e incluya una respuesta al cliente en español.</td>
+                  <td>Basándote en el análisis del caso {case_id}, verificá qué políticas de la empresa aplican a este reclamo. Redactá una resolución que cite la sección de política relevante, proponga una acción concreta (reembolso, reposición o explicación) e incluya una respuesta al cliente en español.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -267,19 +266,38 @@
 
           <blockquote>
             <p>
-              <strong>Probá con otros casos:</strong> La base de datos tiene 200 reclamos (REC-001 a REC-200).
-              Los estados varían: ~50% Resuelto, ~20% Parcialmente Resuelto, ~15% Rechazado, ~15% En proceso.
-              Probá un caso "En proceso" para ver cómo cambia el output cuando no existe una resolución previa
-              que referenciar.
+              <strong>Tip:</strong> Elegí un caso del listado de abajo para probar categorías, urgencias y estados distintos.
+              Los casos "En proceso" sirven para ver cómo cambia el output cuando no existe una resolución previa que referenciar.
             </p>
           </blockquote>
 
-          <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
+          <p class="prompt-group-label">Casos sugeridos para explorar</p>
+          <div class="table-wrap">
+            <table class="field-table">
+              <thead>
+                <tr><th>Case ID</th><th>Categoría</th><th>Urgencia</th><th>Estado</th><th>Producto</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>REC-001</code></td><td>Calidad del Producto</td><td>Media</td><td>Resuelto</td><td>Tablet Samsung 10.4"</td></tr>
+                <tr><td><code>REC-009</code></td><td>Calidad del Producto</td><td>Alta</td><td>Resuelto</td><td>Lavarropas Patrick 7kg</td></tr>
+                <tr><td><code>REC-002</code></td><td>Demora en Entrega</td><td>Media</td><td>Parcialmente Resuelto</td><td>Lavarropas Patrick 7kg</td></tr>
+                <tr><td><code>REC-004</code></td><td>Demora en Entrega</td><td>Baja</td><td>En proceso</td><td>Aire Acondicionado Surrey 3000 FC</td></tr>
+                <tr><td><code>REC-003</code></td><td>Facturación</td><td>Baja</td><td>Parcialmente Resuelto</td><td>Colchón Piero Ortopédico</td></tr>
+                <tr><td><code>REC-008</code></td><td>Facturación</td><td>Baja</td><td>Parcialmente Resuelto</td><td>Notebook BGH 15.6"</td></tr>
+                <tr><td><code>REC-005</code></td><td>Garantía</td><td>Media</td><td>Resuelto</td><td>Notebook BGH 15.6"</td></tr>
+                <tr><td><code>REC-014</code></td><td>Garantía</td><td>Media</td><td>Rechazado</td><td>Lavarropas Patrick 7kg</td></tr>
+                <tr><td><code>REC-025</code></td><td>Atención al Cliente</td><td>Media</td><td>En proceso</td><td>Lavarropas Patrick 7kg</td></tr>
+                <tr><td><code>REC-092</code></td><td>Atención al Cliente</td><td>Crítica</td><td>En proceso</td><td>Celular Motorola 128GB</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="prompt-group-label">Ideas para probar — elegí un case ID y ajustá el foco</p>
           <div class="prompt-example">
-            Analizá el caso REC-047, clasificá el reclamo, buscá 3 casos históricos similares y resumí qué tienen en común.
+            Clasificá el reclamo elegido, buscá casos históricos similares y explicá qué tienen en común.
           </div>
           <div class="prompt-example">
-            Para el caso REC-012, consultá las políticas aplicables y redactá una resolución con acción concreta y carta al cliente en español.
+            Consultá las políticas aplicables para el caso elegido y redactá una resolución con acción concreta y carta al cliente en español.
           </div>
 
         </div>
@@ -335,7 +353,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Investigar la normativa argentina vigente de protección al consumidor y los fallos recientes relevantes para este tipo de reclamo</td>
+                  <td>Investigar la normativa argentina vigente de protección al consumidor y los fallos recientes relevantes para el reclamo {case_id}</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -373,7 +391,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Buscá la normativa argentina vigente de protección al consumidor relevante para [la categoría del reclamo identificada en la Tarea 1]. Identificá 2 o 3 requisitos legales clave que la resolución de la empresa debe cumplir bajo la Ley 24.240 o fallos recientes del COPREC.</td>
+                  <td>Buscá la normativa argentina vigente de protección al consumidor relevante para el reclamo {case_id} y la categoría identificada en la Tarea 1. Identificá 2 o 3 requisitos legales clave que la resolución de la empresa debe cumplir bajo la Ley 24.240 o fallos recientes del COPREC.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -396,12 +414,12 @@
             </p>
           </blockquote>
 
-          <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
+          <p class="prompt-group-label">Ideas para probar — elegí un case ID y ajustá el foco</p>
           <div class="prompt-example">
-            Buscá los últimos fallos del COPREC sobre reclamos de garantía de productos electrónicos y resumí los requisitos legales que aplican.
+            Investigá el contexto regulatorio para la categoría del caso elegido y marcá qué requisitos debería cumplir la resolución.
           </div>
           <div class="prompt-example">
-            Para el caso REC-089 (reclamo de Garantía), investigá qué exige la Ley 24.240 e identificá si la resolución propuesta cumple con la normativa vigente.
+            Compará la resolución propuesta del caso elegido contra las políticas internas y la Ley 24.240.
           </div>
 
         </div>
@@ -456,7 +474,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Analizar el patrón más amplio de reclamos similares para determinar si este es un incidente aislado o un problema sistémico de producto o proceso</td>
+                  <td>Analizar el patrón más amplio de reclamos similares a {case_id} para determinar si es un incidente aislado o un problema sistémico de producto o proceso</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -485,7 +503,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Usando los casos similares encontrados en la Tarea 1, determiná si este tipo de reclamo representa un patrón recurrente. Estimá la frecuencia, identificá cualquier producto o servicio en común, y recomendá un nivel de escalamiento (nivel de caso, nivel de equipo, o escalamiento de producto/proceso).</td>
+                  <td>Usando los casos similares encontrados para {case_id} en la Tarea 1, determiná si este tipo de reclamo representa un patrón recurrente. Estimá la frecuencia, identificá cualquier producto o servicio en común, y recomendá un nivel de escalamiento (nivel de caso, nivel de equipo, o escalamiento de producto/proceso).</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -523,7 +541,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Producir un informe completo de resolución del caso que sea conciso, defensible y listo para la acción por parte del liderazgo de CS</td>
+                  <td>Producir un informe completo de resolución del caso {case_id} para {report_audience} que sea conciso, defensible y listo para la acción</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -552,7 +570,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Compilá un informe completo de resolución del caso REC-001 incorporando: clasificación del caso y resumen del reclamo, análisis de patrones de casos similares, requisitos regulatorios, decisión de resolución y su justificación, y la respuesta al cliente en español.</td>
+                  <td>Compilá un informe completo de resolución del caso {case_id} para {report_audience} incorporando: clasificación del caso y resumen del reclamo, análisis de patrones de casos similares, requisitos regulatorios, decisión de resolución y su justificación, y la respuesta al cliente en español.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -566,12 +584,12 @@
             </table>
           </div>
 
-          <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
+          <p class="prompt-group-label">Ideas para probar — elegí un case ID y ajustá la audiencia</p>
           <div class="prompt-example">
-            Analizá el patrón de reclamos de la categoría Facturación en los últimos 6 meses: ¿es un problema sistémico o casos aislados? Incluí recomendación de escalamiento.
+            Pedí un informe para liderazgo de CS que indique si el caso elegido revela un patrón sistémico o un incidente aislado.
           </div>
           <div class="prompt-example">
-            Generá un informe ejecutivo completo para el caso REC-155 incorporando el análisis del reclamo, el contexto regulatorio, el patrón detectado y la carta de respuesta al cliente.
+            Pedí una versión ejecutiva, legal u operativa del informe final, incluyendo contexto regulatorio y carta al cliente.
           </div>
 
         </div>
@@ -585,9 +603,9 @@
         <span class="nav-direction">← Anterior</span>
         <span class="nav-title">BI Conversacional</span>
       </a>
-      <a href="ir-mas-alla.html" class="page-nav-card next">
+      <a href="caso-reclamos-rag.html" class="page-nav-card next">
         <span class="nav-direction">Siguiente →</span>
-        <span class="nav-title">Ir Más Allá</span>
+        <span class="nav-title">Reclamos RAG</span>
       </a>
     </div>
 

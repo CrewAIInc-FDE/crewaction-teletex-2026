@@ -23,7 +23,8 @@
   <li><a href="instalacion.html">Instalación</a></li>
   <li><a href="caso-credito.html">Crédito</a></li>
   <li><a href="caso-bi.html" class="active">BI</a></li>
-  <li><a href="caso-reclamos.html">Reclamos</a></li>
+  <li><a href="caso-reclamos.html">Reclamos Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamos RAG</a></li>
   <li><a href="ir-mas-alla.html">Más Allá</a></li>
 </ul></nav>
 
@@ -84,7 +85,7 @@
         <details class="version-details" open id="studio-v1">
           <summary class="version-summary">
             <span class="version-badge v1">V1 — Básico</span>
-            <span class="version-meta">1 agente · Listo en 5 minutos</span>
+            <span class="version-meta">1 agente · Consulta conversacional</span>
             <span class="version-arrow">▶</span>
           </summary>
           <div class="version-body">
@@ -104,10 +105,6 @@
               </p>
             </div>
 
-            <p>
-              <strong>Nombre del crew:</strong> <code>Conversational BI — V1</code>
-            </p>
-
             <div class="agent-header">
               <span class="agent-label">Agente</span>
               <h3>Analista de Inteligencia Comercial</h3>
@@ -116,7 +113,7 @@
               <table class="field-table">
                 <tbody>
                   <tr><td>Role</td><td>Analista Senior de Inteligencia Comercial</td></tr>
-                  <tr><td>Goal</td><td>Responder preguntas de negocio sobre el desempeño de ventas de Teradata Store y entregar insights accionables con datos de respaldo</td></tr>
+                  <tr><td>Goal</td><td>Responder la pregunta de negocio {user_message} sobre el desempeño de ventas de Teradata Store y entregar insights accionables con datos de respaldo</td></tr>
                   <tr><td>Backstory</td><td>Sos un analista de datos retail que traduce preguntas ejecutivas en consultas estructuradas sobre datos de ventas. Entendés tendencias estacionales, desempeño regional y categorías de productos, y comunicás los insights con claridad a audiencias no técnicas.</td></tr>
                   <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
                   <tr><td>Tool</td><td><code>teradata-conversational-bi</code></td></tr>
@@ -128,8 +125,8 @@
               <strong>¿Por qué este Backstory?</strong> La herramienta devuelve JSON listo para graficar.
               Sin el Backstory adecuado, el agente podría limitarse a reproducir los datos crudos.
               Este Backstory lo lleva a convertir los números en narrativa de negocio: explicaciones estacionales,
-              análisis de picos, observaciones estratégicas. La diferencia entre "abril tuvo 247 ventas"
-              y "abril se ubica en el rango medio del año, consistente con la baja estacional post-verano" es el Backstory.
+              análisis de picos, observaciones estratégicas. La diferencia entre "ese mes tuvo muchas ventas"
+              y "ese pico coincide con una señal estacional o comercial que conviene investigar" es el Backstory.
             </blockquote>
 
             <div class="task-header">
@@ -139,22 +136,21 @@
             <div class="table-wrap">
               <table class="field-table">
                 <tbody>
-                  <tr><td>Description</td><td>¿Cuántas ventas se realizaron en abril? Mostrá la tendencia mensual de ingresos para todos los meses disponibles. Destacá los 3 meses con mayor volumen y sugerí una explicación de negocio para los picos.</td></tr>
-                  <tr><td>Expected Output</td><td>Un reporte de negocio: total de ventas en abril, tabla de ingresos mes a mes, los 3 meses pico identificados y una narrativa breve que explique el patrón estacional.</td></tr>
+                  <tr><td>Description</td><td>Respondé la pregunta del usuario: {user_message}. Usá la herramienta para consultar ventas y productos, devolvé los datos relevantes y explicá el resultado en lenguaje de negocio.</td></tr>
+                  <tr><td>Expected Output</td><td>Un reporte de negocio con la respuesta directa, los datos que la respaldan, comparaciones relevantes y una narrativa breve que explique el patrón encontrado.</td></tr>
                   <tr><td>Agent</td><td>Analista de Inteligencia Comercial</td></tr>
                 </tbody>
               </table>
             </div>
 
             <blockquote>
-              <strong>Resultado esperado:</strong> Picos estacionales en noviembre–diciembre (retail de fin de año)
-              y julio–agosto (invierno argentino). Abril aparecerá como un mes de rango medio,
-              consistente con la baja post-temporada de verano.
+              <strong>Tip:</strong> Probá preguntas sobre meses, categorías, regiones, canales o productos.
+              El agente debería convertir la consulta en datos y después explicar qué significan para el negocio.
             </blockquote>
 
-            <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
-            <div class="prompt-example">¿Cuáles son los 5 productos con mayor ingreso total en 2024?</div>
-            <div class="prompt-example">Comparar ventas por región para la categoría Electrónica y explicar las diferencias.</div>
+            <p class="prompt-group-label">Ideas para probar — usalas como punto de partida</p>
+            <div class="prompt-example">Explorá qué productos, categorías o regiones explican mejor los ingresos de un período que te interese.</div>
+            <div class="prompt-example">Pedí una comparación entre canales, temporadas o familias de productos y solicitá una explicación ejecutiva.</div>
 
           </div>
         </details>
@@ -192,7 +188,7 @@
               <table class="field-table">
                 <tbody>
                   <tr><td>Role</td><td>Analista de Inteligencia de la Industria Retail</td></tr>
-                  <tr><td>Goal</td><td>Investigar las tendencias actuales de la industria retail argentina e identificar qué factores externos explican los patrones de ventas encontrados en los datos</td></tr>
+                  <tr><td>Goal</td><td>Investigar tendencias actuales de la industria retail argentina relevantes para {user_message} e identificar qué factores externos pueden explicar los patrones de ventas encontrados</td></tr>
                   <tr><td>Backstory</td><td>Monitoréas tendencias del mercado retail argentino, cambios en el comportamiento del consumidor y patrones estacionales. Proporcionás el contexto externo que transforma datos de ventas crudos en inteligencia estratégica.</td></tr>
                   <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
                   <tr><td>Tool</td><td><code>firecrawl</code></td></tr>
@@ -215,7 +211,7 @@
             <div class="table-wrap">
               <table class="field-table">
                 <tbody>
-                  <tr><td>Description</td><td>Investigá las tendencias actuales del mercado retail argentino en 2024–2025. Identificá 2–3 factores externos (económicos, estacionales, de comportamiento del consumidor) que puedan explicar los picos y caídas de ventas encontrados en los datos.</td></tr>
+                  <tr><td>Description</td><td>Investigá el contexto actual del mercado retail argentino que ayude a interpretar {user_message}. Identificá 2–3 factores externos (económicos, estacionales o de comportamiento del consumidor) que puedan explicar los patrones encontrados en los datos.</td></tr>
                   <tr><td>Expected Output</td><td>Un briefing de 3 puntos sobre la industria: tendencia clave del mercado, factor de comportamiento estacional del consumidor y un factor macroeconómico que influye en la demanda retail en Argentina.</td></tr>
                   <tr><td>Agent</td><td>Investigador de la Industria Retail</td></tr>
                 </tbody>
@@ -240,7 +236,7 @@
               <table class="field-table">
                 <tbody>
                   <tr><td>Role</td><td>Analista de Síntesis de Business Intelligence</td></tr>
-                  <tr><td>Goal</td><td>Combinar los patrones internos de ventas con el contexto de la industria para producir insights de BI estratégicos que van más allá de los números</td></tr>
+                  <tr><td>Goal</td><td>Combinar los patrones internos de ventas relacionados con {user_message} y el contexto de la industria para producir insights de BI estratégicos que van más allá de los números</td></tr>
                   <tr><td>Backstory</td><td>Combinás datos internos de ventas con inteligencia de mercado externo para redactar briefings ejecutivos de BI. Nunca te limitás a reportar lo que pasó — explicás por qué pasó y qué significa para el negocio.</td></tr>
                   <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
                   <tr><td>Tool</td><td><em>ninguna — sintetiza el contexto de los dos agentes anteriores</em></td></tr>
@@ -255,16 +251,16 @@
             <div class="table-wrap">
               <table class="field-table">
                 <tbody>
-                  <tr><td>Description</td><td>Combiná el análisis de ventas interno y el contexto de la industria de arriba en un brief estratégico de BI. Explicá los patrones de desempeño clave, contextualizálos con los drivers de mercado e identificá una oportunidad o riesgo estratégico.</td></tr>
+                  <tr><td>Description</td><td>Combiná el análisis interno de ventas y el contexto de industria para responder {user_message} en un brief estratégico de BI. Explicá los patrones de desempeño clave, contextualizálos con drivers de mercado e identificá una oportunidad o riesgo estratégico.</td></tr>
                   <tr><td>Expected Output</td><td>Un brief estratégico: resumen de desempeño de ventas, contexto externo, insight clave ("este pico se explica por X") y una recomendación con visión de futuro.</td></tr>
                   <tr><td>Agent</td><td>Analista de Síntesis de BI</td></tr>
                 </tbody>
               </table>
             </div>
 
-            <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
-            <div class="prompt-example">Analizá las tendencias de ventas del último trimestre e identificá qué factores del mercado argentino explican los picos. Incluí contexto de inflación y estacionalidad.</div>
-            <div class="prompt-example">¿Qué categorías de producto mostraron mayor crecimiento en 2024 y cómo se compara eso con las tendencias generales del retail argentino?</div>
+            <p class="prompt-group-label">Ideas para probar — usalas como punto de partida</p>
+            <div class="prompt-example">Pedí que conecte una tendencia interna de ventas con factores externos del mercado argentino.</div>
+            <div class="prompt-example">Elegí una categoría, región o período y pedí una lectura que combine datos internos con contexto de industria.</div>
 
           </div>
         </details>
@@ -273,7 +269,7 @@
         <details class="version-details" id="studio-v3">
           <summary class="version-summary">
             <span class="version-badge v3">V3 — Crew Completo</span>
-            <span class="version-meta">5 agentes · Demo-ready</span>
+            <span class="version-meta">5 agentes · Gráficos e informe</span>
             <span class="version-arrow">▶</span>
           </summary>
           <div class="version-body">
@@ -312,7 +308,7 @@
               <table class="field-table">
                 <tbody>
                   <tr><td>Role</td><td>Especialista en Visualización de Datos</td></tr>
-                  <tr><td>Goal</td><td>Crear un gráfico de tendencia mensual de ingresos y un gráfico de desglose por categoría a partir de los datos de ventas</td></tr>
+                  <tr><td>Goal</td><td>Crear visualizaciones que ayuden a explicar la pregunta {user_message} a partir de los datos de ventas</td></tr>
                   <tr><td>Backstory</td><td>Te especializás en convertir datos de ventas en gráficos ejecutivos claros. Elegís el tipo de gráfico correcto para la historia: líneas para tendencias en el tiempo, barras para comparaciones entre categorías.</td></tr>
                   <tr><td>Model</td><td><code>gpt-5.4-nano</code></td></tr>
                   <tr><td>Tool</td><td><code>chart-generator</code></td></tr>
@@ -334,8 +330,8 @@
             <div class="table-wrap">
               <table class="field-table">
                 <tbody>
-                  <tr><td>Description</td><td>Generá dos gráficos a partir de los datos de ventas: (1) un gráfico de líneas con los ingresos totales mensuales mostrando todos los meses, (2) un gráfico de barras con los ingresos totales por categoría de producto.</td></tr>
-                  <tr><td>Expected Output</td><td>Dos imágenes de gráficos: un gráfico de líneas con la tendencia mensual de ingresos y un gráfico de barras con la comparación de ingresos por categoría.</td></tr>
+                  <tr><td>Description</td><td>Generá visualizaciones a partir de los datos usados para responder {user_message}. Elegí gráficos que aclaren la historia: tendencia temporal, comparación por categoría, región, canal o producto según corresponda.</td></tr>
+                  <tr><td>Expected Output</td><td>Una o más imágenes de gráficos con títulos claros y una breve descripción de qué muestra cada visualización.</td></tr>
                   <tr><td>Agent</td><td>Creador de Gráficos</td></tr>
                 </tbody>
               </table>
@@ -360,7 +356,7 @@
               <table class="field-table">
                 <tbody>
                   <tr><td>Role</td><td>Director de Business Intelligence</td></tr>
-                  <tr><td>Goal</td><td>Producir un informe mensual completo de BI listo para presentar al directorio</td></tr>
+                  <tr><td>Goal</td><td>Producir un informe completo de BI que responda {user_message} y pueda compartirse con una audiencia ejecutiva</td></tr>
                   <tr><td>Backstory</td><td>Redactás informes ejecutivos de BI para el directorio de una empresa retail. Tus reportes son estructurados: resumen ejecutivo, hallazgos clave, referencias visuales y una recomendación estratégica. Son concisos, respaldados en datos y listos para la toma de decisiones.</td></tr>
                   <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
                   <tr><td>Tool</td><td><em>ninguna — compila a partir de todos los agentes anteriores</em></td></tr>
@@ -375,16 +371,16 @@
             <div class="table-wrap">
               <table class="field-table">
                 <tbody>
-                  <tr><td>Description</td><td>Redactá un informe ejecutivo completo de BI para el directorio incorporando: el análisis de desempeño de ventas, el contexto de la industria, las descripciones de los gráficos y una recomendación estratégica. Abrí con un resumen ejecutivo de 3 oraciones.</td></tr>
+                  <tr><td>Description</td><td>Redactá un informe ejecutivo completo de BI para responder {user_message}. Incorporá el análisis de ventas, el contexto de industria, las descripciones de los gráficos y una recomendación estratégica. Abrí con un resumen ejecutivo de 3 oraciones.</td></tr>
                   <tr><td>Expected Output</td><td>Un informe de BI listo para el directorio: resumen ejecutivo, hallazgos clave de ventas, contexto estacional y de mercado, referencias a los gráficos y una recomendación estratégica.</td></tr>
                   <tr><td>Agent</td><td>Redactor de Informes Ejecutivos de BI</td></tr>
                 </tbody>
               </table>
             </div>
 
-            <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
-            <div class="prompt-example">Generá el informe ejecutivo mensual de BI para presentar al directorio: incluí tendencia de ingresos, análisis por categoría, contexto del mercado argentino y una recomendación estratégica para el próximo trimestre.</div>
-            <div class="prompt-example">¿Qué productos de Electrónica tuvieron mejor desempeño en el segundo semestre y cómo se posicionan frente a las tendencias del sector? Incluí gráficos y una recomendación de inventario.</div>
+            <p class="prompt-group-label">Ideas para probar — usalas como punto de partida</p>
+            <div class="prompt-example">Pedí un informe ejecutivo sobre una oportunidad comercial que combine datos, contexto externo, gráficos y recomendación.</div>
+            <div class="prompt-example">Elegí una categoría o temporada y pedí una historia completa: qué pasó, por qué pudo pasar y qué debería hacer el negocio.</div>
 
           </div>
         </details>
@@ -400,7 +396,7 @@
       </a>
       <a href="caso-reclamos.html" class="page-nav-card next">
         <span class="nav-direction">Siguiente →</span>
-        <span class="nav-title">Análisis de Reclamos</span>
+        <span class="nav-title">Reclamos por Caso</span>
       </a>
     </div>
 

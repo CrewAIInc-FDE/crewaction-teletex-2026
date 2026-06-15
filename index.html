@@ -78,13 +78,13 @@
   <li><a href="instalacion.html">Instalación</a></li>
   <li><a href="caso-credito.html">Crédito</a></li>
   <li><a href="caso-bi.html">BI</a></li>
-  <li><a href="caso-reclamos.html">Reclamos</a></li>
+  <li><a href="caso-reclamos.html">Reclamos Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamos RAG</a></li>
   <li><a href="ir-mas-alla.html">Más Allá</a></li>
 </ul></nav>
 
 <div class="index-layout">
 
-  <!-- Hero -->
   <div class="hero">
     <div class="hero-bg"></div>
     <div class="hero-bg-image"></div>
@@ -101,10 +101,9 @@
     </div>
   </div>
 
-  <!-- Overview -->
   <div class="section-title">Descripción general</div>
   <p class="overview-intro">
-    Tres casos de uso, cada uno con una herramienta AMP que maneja el acceso a datos internamente.
+    Tres dominios de negocio y cuatro recorridos prácticos, cada uno con una herramienta AMP que maneja el acceso a datos internamente.
     Vos traés los agentes; las herramientas traen los datos. Dos caminos para avanzar:
     <strong>Comenzar</strong> (sin código, directo en Studio) e <strong>Instalación</strong> (con código, entorno local en Python).
     Ambos producen el mismo resultado.
@@ -125,48 +124,52 @@
           <td><strong>Análisis de Crédito</strong></td>
           <td>Recuperan el perfil crediticio del cliente, interpretan el score y los factores de riesgo, recomiendan aprobación</td>
           <td><code>teradata-credit-analysis</code></td>
-          <td><em>Explicá la decisión crediticia para el DNI 10436124 e incluí los principales factores de riesgo.</em></td>
+          <td><em>Elegí un DNI del listado y evaluá una solicitud de crédito con monto, plazo y propósito.</em></td>
         </tr>
         <tr>
           <td><strong>BI Conversacional</strong></td>
           <td>Responden preguntas de ventas en lenguaje natural, identifican tendencias y patrones estacionales</td>
           <td><code>teradata-conversational-bi</code></td>
-          <td><em>¿Cuántas ventas hubo en abril? Mostrá la tendencia mensual por ingresos totales.</em></td>
+          <td><em>Hacé una pregunta de negocio sobre ventas, productos, regiones, canales o tendencias.</em></td>
         </tr>
         <tr>
-          <td><strong>Análisis de Reclamos</strong></td>
-          <td>Clasifican el reclamo, buscan casos similares, consultan políticas y redactan una resolución</td>
+          <td><strong>Reclamos por Caso</strong></td>
+          <td>Clasifican un reclamo existente, buscan casos similares, consultan políticas y redactan una resolución</td>
           <td><code>teradata-claims-analysis</code></td>
-          <td><em>Analizá el caso REC-001, clasificá el reclamo, encontrá casos históricos similares y sugerí una resolución respaldada por la política vigente.</em></td>
+          <td><em>Elegí un caso del listado y pedí clasificación, antecedentes, políticas aplicables y resolución.</em></td>
+        </tr>
+        <tr>
+          <td><strong>Reclamos RAG</strong></td>
+          <td>Parten de un reclamo nuevo, encuentran casos similares y políticas relevantes, y recomiendan próximos pasos</td>
+          <td><code>teradata-claims-analysis</code></td>
+          <td><em>Pegá el mensaje de un cliente y pedí una guía de resolución para soporte.</em></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Version tiers -->
   <div class="section-title" style="margin-top: 2.5rem;">Niveles de profundidad</div>
   <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-    Cada caso de uso tiene tres versiones. Podés ir tan profundo como quieras.
+    Cada recorrido tiene tres versiones. Podés ir tan profundo como quieras.
   </p>
   <div class="versions-overview">
     <div class="version-card">
       <div class="vnum" style="color: var(--coral);">V1 — Básico</div>
       <div class="vtitle">1–2 agentes</div>
-      <div class="vdesc">Recuperación y explicación básica. Funcionando en menos de 5 minutos.</div>
+      <div class="vdesc">Recuperación y explicación básica con una herramienta de datos.</div>
     </div>
     <div class="version-card">
       <div class="vnum" style="color: var(--teradata-orange);">V2 — Explorador</div>
       <div class="vtitle">3 agentes</div>
-      <div class="vdesc">Investigación web vía Firecrawl. Handoff real entre múltiples agentes.</div>
+      <div class="vdesc">Investigación web, búsqueda semántica o handoff real entre múltiples agentes.</div>
     </div>
     <div class="version-card">
       <div class="vnum" style="color: var(--coal);">V3 — Crew Completo</div>
       <div class="vtitle">5 agentes</div>
-      <div class="vdesc">Generación de gráficos e informes completos. Listo para demo.</div>
+      <div class="vdesc">Generación de gráficos, reportes y entregables ejecutivos.</div>
     </div>
   </div>
 
-  <!-- Use case cards -->
   <div class="section-title">Casos de uso</div>
   <div class="use-case-cards">
     <a href="caso-credito.html" class="use-case-card">
@@ -189,24 +192,34 @@
     </a>
     <a href="caso-reclamos.html" class="use-case-card">
       <div class="card-icon">📋</div>
-      <div class="card-title">Análisis de Reclamos</div>
+      <div class="card-title">Reclamos por Caso</div>
       <div class="card-desc">
-        Los agentes clasifican el reclamo, encuentran casos similares, consultan políticas
+        Los agentes recuperan un caso existente, encuentran casos similares, consultan políticas
         y redactan una resolución respaldada por normativa.
+      </div>
+      <div class="card-link">Ver guía →</div>
+    </a>
+    <a href="caso-reclamos-rag.html" class="use-case-card">
+      <div class="card-icon">🔎</div>
+      <div class="card-title">Reclamos RAG</div>
+      <div class="card-desc">
+        Los agentes analizan un reclamo nuevo, buscan antecedentes semánticamente similares
+        y sugieren una respuesta para soporte.
       </div>
       <div class="card-link">Ver guía →</div>
     </a>
   </div>
 
-  <!-- CTA to getting started -->
   <div style="text-align: center; margin-top: 1rem; padding: 2.5rem; background: var(--off-white); border-radius: 10px;">
     <h2 style="border: none; margin-top: 0; font-size: 1.5rem;">¿Listo para empezar?</h2>
     <p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
       Si querés arrancar directo en Studio (sin instalar nada), seguí <strong>Comenzar</strong>.
       Si preferís correr los agentes en tu máquina con Python, arrancá por <strong>Instalación</strong>.
     </p>
-    <a href="comenzar.html" class="hero-cta">Comenzar el taller →</a>
-    <a href="instalacion.html" style="margin-left: 1rem; color: var(--text-secondary); font-size: 0.9rem;">Instalación (con código) →</a>
+    <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+      <a href="comenzar.html" class="hero-cta" style="font-size: 0.9rem;">Studio: Comenzar →</a>
+      <a href="instalacion.html" class="hero-cta" style="font-size: 0.9rem; background: var(--coal);">Código: Instalación →</a>
+    </div>
   </div>
 
 </div>
@@ -219,8 +232,11 @@
 
 <script>
   const btn = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 400));
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
   btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
 </script>
+
 </body>
 </html>
