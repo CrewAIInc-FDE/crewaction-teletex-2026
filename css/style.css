@@ -514,7 +514,7 @@ details.version-details[open] .version-arrow { transform: rotate(90deg); }
 /* ── Use-Case Cards (index page) ───────────────────────────── */
 .use-case-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 1.25rem;
   margin: 2rem 0;
 }

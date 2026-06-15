@@ -23,7 +23,8 @@
   <li><a href="instalacion.html" class="active">Instalación</a></li>
   <li><a href="caso-credito.html">Crédito</a></li>
   <li><a href="caso-bi.html">BI</a></li>
-  <li><a href="caso-reclamos.html">Reclamos</a></li>
+  <li><a href="caso-reclamos.html">Reclamos Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamos RAG</a></li>
   <li><a href="ir-mas-alla.html">Más Allá</a></li>
 </ul></nav>
 
@@ -250,7 +251,7 @@ TERADATA_STORE_CONNECTION_STRING=mongodb+srv://...</code></pre>
     <h2 id="flows">Flows — Pipelines deterministas</h2>
     <p>Los Flows son para cuando querés que los pasos se ejecuten en un orden garantizado con estado tipado compartido. Usá un Flow cuando de otro modo encadenarías scripts manualmente o necesitás pasar datos tipados entre etapas.</p>
     <blockquote>
-      <p><strong>Crew vs Flow:</strong> la comparación conceptual está en <a href="comenzar.html#crew-vs-flow">Comenzar → Crew vs Flow</a>. Los tres casos de uso del taller usan Crews; los Flows son una opción avanzada para pipelines personalizados.</p>
+      <p><strong>Crew vs Flow:</strong> la comparación conceptual está en <a href="comenzar.html#crew-vs-flow">Comenzar → Crew vs Flow</a>. Los recorridos principales del taller usan Crews; los Flows son una opción avanzada para pipelines personalizados.</p>
     </blockquote>
     <p>Estructura mínima de un Flow:</p>
     <div style="position:relative">
@@ -312,7 +313,7 @@ pip install teradata-store-search==0.1.0</code></pre>
           </tr>
           <tr>
             <td><code>teradata-claims-analysis==0.1.3</code></td>
-            <td>Análisis de Reclamos — recupera y busca reclamos semánticamente</td>
+            <td>Reclamos por Caso y Reclamos RAG — recupera y busca reclamos semánticamente</td>
           </tr>
           <tr>
             <td><code>teradata-store-search==0.1.0</code></td>

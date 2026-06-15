@@ -23,7 +23,8 @@
   <li><a href="instalacion.html">Instalación</a></li>
   <li><a href="caso-credito.html" class="active">Crédito</a></li>
   <li><a href="caso-bi.html">BI</a></li>
-  <li><a href="caso-reclamos.html">Reclamos</a></li>
+  <li><a href="caso-reclamos.html">Reclamos Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamos RAG</a></li>
   <li><a href="ir-mas-alla.html">Más Allá</a></li>
 </ul></nav>
 
@@ -64,7 +65,7 @@
       </p>
       <p>
         Vas a construir el crew en tres versiones: empezás con un único agente que ya resuelve el caso
-        de negocio básico, y en cada iteración sumás capacidades hasta tener un crew demo-ready de cinco agentes.
+        de negocio básico, y en cada iteración sumás capacidades hasta tener un crew de cinco agentes.
       </p>
     </div>
 
@@ -77,12 +78,10 @@
       <details class="version-details" open id="studio-v1">
         <summary class="version-summary">
           <span class="version-badge v1">V1 — Básico</span>
-          <span class="version-meta">1 agente · Listo en 5 minutos</span>
+          <span class="version-meta">1 agente · Decisión crediticia</span>
           <span class="version-arrow">▶</span>
         </summary>
         <div class="version-body">
-
-          <p><strong>Nombre del Crew:</strong> <code>Credit Analysis — V1</code></p>
 
           <div class="info-box">
             <p>
@@ -108,7 +107,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Evaluar la solvencia de un cliente, identificar los principales factores de riesgo y emitir una recomendación clara de otorgamiento de crédito</td>
+                  <td>Evaluar la solvencia del cliente con DNI {dni} para la solicitud {credit_request}, identificar los principales factores de riesgo y emitir una recomendación clara de otorgamiento de crédito</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -140,7 +139,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Recuperá el perfil crediticio del DNI 10436124. Analizá el score, el nivel de riesgo y los principales factores de riesgo. Indicá si aprobarías la solicitud de crédito y por qué.</td>
+                  <td>Recuperá el perfil crediticio del DNI {dni}. Analizá el score, el nivel de riesgo y los principales factores de riesgo frente a esta solicitud: {credit_request}. Indicá si aprobarías el crédito y por qué.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -155,15 +154,35 @@
           </div>
 
           <blockquote>
-            <p><strong>Resultado esperado:</strong> Score 789 (banda de riesgo Bajo), cliente Olivia Rodriguez, historial de pagos sólido en los últimos 12 meses, aprobación recomendada con justificación de bajo riesgo.</p>
-          </blockquote>
-          <blockquote>
-            <p><strong>Probá con otros DNIs:</strong> La base de datos tiene 300 perfiles. Cambiá <code>10436124</code> por cualquier otro DNI del dataset. Las bandas de riesgo varían en la población (≥720 Bajo, 620–719 Medio, 520–619 Alto, &lt;520 Muy Alto).</p>
+            <p><strong>Tip:</strong> Elegí un DNI del listado de abajo para probar perfiles de riesgo distintos. Cambiá también el monto, el plazo y el tipo de crédito en <code>{credit_request}</code> para ver cómo cambia la recomendación.</p>
           </blockquote>
 
-          <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
-          <div class="prompt-example">Analizá el perfil crediticio del DNI 10436124 y decime si aprobarías un préstamo personal de $500.000 ARS. Justificá la decisión con los principales factores de riesgo.</div>
-          <div class="prompt-example">Buscá un cliente con nivel de riesgo Alto en la base de datos y explicá qué factores lo llevaron a esa clasificación. Comparalo con dos perfiles de riesgo Bajo.</div>
+          <p class="prompt-group-label">DNIs sugeridos para probar perfiles distintos</p>
+          <div class="table-wrap">
+            <table class="field-table">
+              <thead>
+                <tr><th>Riesgo</th><th>DNI</th><th>Score</th><th>Perfil</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Bajo</td><td><code>40425269</code></td><td>720</td><td>Historial impecable</td></tr>
+                <tr><td>Bajo</td><td><code>15494223</code></td><td>830</td><td>Ingresos elevados</td></tr>
+                <tr><td>Bajo</td><td><code>43335079</code></td><td>850</td><td>Riesgo mínimo</td></tr>
+                <tr><td>Medio</td><td><code>21786268</code></td><td>628</td><td>Deuda/ingreso moderada</td></tr>
+                <tr><td>Medio</td><td><code>14326645</code></td><td>672</td><td>Retraso puntual</td></tr>
+                <tr><td>Medio</td><td><code>33375940</code></td><td>719</td><td>Límite superior de Medio</td></tr>
+                <tr><td>Alto</td><td><code>44327104</code></td><td>522</td><td>Deudas acumuladas</td></tr>
+                <tr><td>Alto</td><td><code>17648178</code></td><td>580</td><td>Pagos atrasados</td></tr>
+                <tr><td>Alto</td><td><code>31941638</code></td><td>618</td><td>Límite superior de Alto</td></tr>
+                <tr><td>Muy Alto</td><td><code>18717928</code></td><td>356</td><td>Incumplimientos múltiples</td></tr>
+                <tr><td>Muy Alto</td><td><code>10038379</code></td><td>462</td><td>Deuda alta</td></tr>
+                <tr><td>Muy Alto</td><td><code>17620787</code></td><td>515</td><td>Límite superior de Muy Alto</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="prompt-group-label">Ideas para probar — elegí un DNI y ajustá la solicitud</p>
+          <div class="prompt-example">Evaluá un préstamo personal, hipotecario o prendario indicando monto, plazo, destino del crédito y tolerancia al riesgo.</div>
+          <div class="prompt-example">Compará cómo cambia la recomendación entre un perfil Bajo, Medio, Alto y Muy Alto para una solicitud similar.</div>
 
         </div>
       </details>
@@ -179,8 +198,8 @@
 
           <div class="info-box">
             <p>
-              Un score de 789 sobre 850 suena excelente —pero ¿excelente en qué contexto? Si las tasas de
-              crédito al consumo en Argentina están al 80% anual, incluso un perfil Bajo riesgo puede
+              Un score alto suena excelente —pero ¿excelente en qué contexto? Si las tasas de
+              crédito al consumo en Argentina están muy altas, incluso un perfil de bajo riesgo puede
               encontrar condiciones de mercado que compliquen el otorgamiento. En V2 sumás dos agentes nuevos:
               uno que va a buscar contexto de mercado en tiempo real usando Firecrawl, y otro que sintetiza
               los datos internos del cliente con esa inteligencia externa para producir una recomendación más
@@ -209,7 +228,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Investigar las condiciones actuales del mercado de crédito minorista en Argentina e identificar 2 a 3 tendencias relevantes para una solicitud de crédito al consumo</td>
+                  <td>Investigar las condiciones actuales del mercado de crédito minorista en Argentina e identificar 2 a 3 tendencias relevantes para la solicitud {credit_request}</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -228,7 +247,7 @@
           </div>
 
           <blockquote>
-            <p><strong>¿Por qué Firecrawl acá?</strong> Los datos internos te dan el score del cliente, pero no el contexto de mercado. Un score de 789 se ve diferente cuando las tasas están al 40% versus al 80%. Firecrawl permite que un agente obtenga datos de mercado en tiempo real para enmarcar la decisión.</p>
+            <p><strong>¿Por qué Firecrawl acá?</strong> Los datos internos te dan el score del cliente, pero no el contexto de mercado. El mismo perfil se ve diferente cuando las tasas, la inflación o la disponibilidad de crédito cambian. Firecrawl permite que un agente obtenga datos de mercado en tiempo real para enmarcar la decisión.</p>
           </blockquote>
 
           <!-- Task: Market Context -->
@@ -241,7 +260,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Buscá las tasas de interés actuales del crédito minorista y las condiciones de disponibilidad de crédito en Argentina. Identificá 2 a 3 tendencias clave del mercado relevantes para una solicitud de crédito al consumo hoy.</td>
+                  <td>Buscá las tasas de interés actuales del crédito minorista y las condiciones de disponibilidad de crédito en Argentina. Identificá 2 a 3 tendencias clave del mercado relevantes para esta solicitud: {credit_request}.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -279,7 +298,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Combinar el análisis crediticio del cliente con el contexto de mercado actual para producir una recomendación de crédito completa y bien fundamentada</td>
+                  <td>Combinar el análisis crediticio del cliente con DNI {dni} y el contexto de mercado actual para producir una recomendación completa sobre {credit_request}</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -307,7 +326,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Combiná el análisis crediticio del cliente y el contexto de mercado anterior en un informe crediticio completo. Incluí la decisión, el resumen de riesgo, la comparación con el mercado y la recomendación final.</td>
+                  <td>Combiná el análisis crediticio del cliente con DNI {dni} y el contexto de mercado anterior en un informe crediticio completo para {credit_request}. Incluí la decisión, el resumen de riesgo, la comparación con el mercado y la recomendación final.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -321,9 +340,9 @@
             </table>
           </div>
 
-          <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
-          <div class="prompt-example">Analizá el crédito del DNI 10436124 considerando el contexto del mercado financiero argentino actual. ¿Cambiaría tu recomendación si las tasas de referencia subieran un 20%?</div>
-          <div class="prompt-example">Comparar el perfil crediticio del DNI 10436124 con las condiciones actuales del mercado. ¿Es un buen momento para otorgar un crédito hipotecario o conviene esperar?</div>
+          <p class="prompt-group-label">Ideas para probar — elegí un DNI y ajustá la solicitud</p>
+          <div class="prompt-example">Pedí que contraste una solicitud de crédito con el contexto actual de tasas, inflación o disponibilidad de financiamiento.</div>
+          <div class="prompt-example">Probá una solicitud conservadora y otra agresiva para el mismo DNI y pedí que explique cómo cambia la recomendación.</div>
 
         </div>
       </details>
@@ -332,7 +351,7 @@
       <details class="version-details" id="studio-v3">
         <summary class="version-summary">
           <span class="version-badge v3">V3 — Crew Completo</span>
-          <span class="version-meta">5 agentes · Demo-ready</span>
+          <span class="version-meta">5 agentes · Gráfico e informe</span>
           <span class="version-arrow">▶</span>
         </summary>
         <div class="version-body">
@@ -370,7 +389,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Crear un gráfico de barras que muestre la posición del score del cliente dentro de las cuatro bandas de riesgo</td>
+                  <td>Crear una visualización que muestre la posición del score del cliente con DNI {dni} dentro de las cuatro bandas de riesgo para apoyar la decisión sobre {credit_request}</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -402,7 +421,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Generá un gráfico de barras que muestre el score crediticio del DNI 10436124 (789) en relación con las 4 bandas de riesgo: Muy Alto (menos de 520), Alto (520–619), Medio (620–719), Bajo (720 en adelante). Destacá la banda del cliente.</td>
+                  <td>Generá un gráfico de barras que muestre el score crediticio del DNI {dni} en relación con las 4 bandas de riesgo: Muy Alto (menos de 520), Alto (520–619), Medio (620–719), Bajo (720 en adelante). Destacá la banda del cliente y conectá la visualización con {credit_request}.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -430,7 +449,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Compilar todos los hallazgos en un informe crediticio formal, prolijo y profesional, listo para el comité de crédito</td>
+                  <td>Compilar todos los hallazgos en un informe crediticio formal para {report_audience}, usando el DNI {dni} y la solicitud {credit_request}</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
@@ -458,7 +477,7 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Redactá un informe completo para el comité de crédito del DNI 10436124 que incorpore: el análisis crediticio, el contexto de mercado, la descripción de la visualización del score y un resumen ejecutivo de 3 oraciones al inicio. Formatealo como un documento formal con secciones.</td>
+                  <td>Redactá un informe completo para {report_audience} sobre el DNI {dni} y la solicitud {credit_request}. Incorporá el análisis crediticio, el contexto de mercado, la descripción de la visualización del score y un resumen ejecutivo de 3 oraciones al inicio. Formatealo como un documento formal con secciones.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
@@ -472,9 +491,9 @@
             </table>
           </div>
 
-          <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
-          <div class="prompt-example">Generá el informe crediticio completo para el DNI 10436124, incluyendo la visualización del score y el contexto de mercado actual. El informe debe estar listo para presentar al comité de crédito mañana.</div>
-          <div class="prompt-example">Analizá el DNI 10436124 y preparame un informe ejecutivo con gráfico de score para una reunión de directorio. Necesito la decisión de aprobación con justificación en no más de media página.</div>
+          <p class="prompt-group-label">Ideas para probar — elegí un DNI, solicitud y audiencia</p>
+          <div class="prompt-example">Pedí un informe para comité de crédito que combine score, contexto de mercado, gráfico y recomendación final.</div>
+          <div class="prompt-example">Pedí una versión para directorio, sucursal o equipo comercial y observá cómo cambia el tono del informe.</div>
 
         </div>
       </details>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reclamos RAG — CrewAI × Teradata</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-brand">
+    <img src="assets/teradata-logo.png" alt="Teradata" class="teradata-logo">
+    <div class="header-divider"></div>
+    <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
+  </div>
+  <span class="header-label">Taller Práctico · Buenos Aires</span>
+</header>
+
+<nav class="site-nav"><ul>
+  <li><a href="index.html">Inicio</a></li>
+  <li><a href="comenzar.html">Comenzar</a></li>
+  <li><a href="instalacion.html">Instalación</a></li>
+  <li><a href="caso-credito.html">Crédito</a></li>
+  <li><a href="caso-bi.html">BI</a></li>
+  <li><a href="caso-reclamos.html">Reclamos Caso</a></li>
+  <li><a href="caso-reclamos-rag.html" class="active">Reclamos RAG</a></li>
+  <li><a href="ir-mas-alla.html">Más Allá</a></li>
+</ul></nav>
+
+<div class="page-layout">
+
+  <aside class="toc-sidebar">
+    <details open>
+      <summary>En esta página</summary>
+      <nav>
+        <p class="toc-title">Contenido</p>
+        <a href="#descripcion">Descripción</a>
+        <a href="#studio">Studio</a>
+        <a href="#studio-v1" class="toc-h3">V1 — Básico</a>
+        <a href="#studio-v2" class="toc-h3">V2 — Explorador</a>
+        <a href="#studio-v3" class="toc-h3">V3 — Crew Completo</a>
+      </nav>
+    </details>
+  </aside>
+
+  <main class="main-content">
+
+    <div class="page-header">
+      <div class="page-breadcrumb"><a href="index.html">← Inicio</a></div>
+      <h1 id="descripcion">Reclamos RAG</h1>
+    </div>
+
+    <div class="section-intro">
+      <p>
+        Este recorrido parte de un reclamo nuevo que todavía no tiene case ID. La persona de soporte pega el
+        mensaje del cliente y el crew usa recuperación semántica para encontrar reclamos históricos parecidos,
+        resoluciones previas y fragmentos de políticas internas que ayuden a decidir qué hacer.
+      </p>
+      <p>
+        La herramienta <code>teradata-claims-analysis</code> acepta <code>claim_text</code>, busca en
+        reclamos y resoluciones embebidas, consulta políticas embebidas y devuelve clasificación, casos
+        similares, riesgos y una resolución sugerida. El objetivo no es automatizar la decisión a ciegas:
+        es darle a soporte una recomendación trazable y defendible.
+      </p>
+    </div>
+
+    <div id="studio-wrap">
+      <h2 id="studio">Studio</h2>
+
+      <div class="versions-list">
+
+        <details class="version-details" open id="studio-v1">
+          <summary class="version-summary">
+            <span class="version-badge v1">V1 — Básico</span>
+            <span class="version-meta">1 agente · Reclamo nuevo</span>
+            <span class="version-arrow">▶</span>
+          </summary>
+          <div class="version-body">
+
+            <div class="info-box">
+              <p>
+                En V1 construís el primer paso del asistente: leer el texto del cliente, clasificar el tema,
+                detectar urgencia y buscar antecedentes parecidos. Es la base de cualquier operación de soporte
+                que quiera responder con contexto, no sólo con intuición.
+              </p>
+            </div>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente</span>
+              <h3>Analista de Reclamo Entrante</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Analista de Reclamos Entrantes</td></tr>
+                  <tr><td>Goal</td><td>Analizar el reclamo nuevo {claim_text}, clasificarlo y encontrar antecedentes históricos similares para orientar al equipo de soporte</td></tr>
+                  <tr><td>Backstory</td><td>Sos un analista de operaciones de soporte que convierte mensajes desordenados de clientes en contexto accionable. Identificás el tema central, la urgencia, las señales de riesgo y los precedentes que pueden guiar una buena resolución.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
+                  <tr><td>Tool</td><td><code>teradata-claims-analysis</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="task-header">
+              <span class="task-label">Tarea</span>
+              <h3>Clasificación y Antecedentes</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>Analizá el reclamo nuevo: {claim_text}. Usá la herramienta pasando este texto como claim_text. Clasificá tema, urgencia y sentimiento, encontrá casos históricos similares y resumí qué resoluciones previas podrían orientar al equipo de soporte.</td></tr>
+                  <tr><td>Expected Output</td><td>Resumen estructurado: categoría probable, urgencia, señales de riesgo, casos similares con resolución previa cuando exista, y primera recomendación operativa para soporte.</td></tr>
+                  <tr><td>Agent</td><td>Analista de Reclamo Entrante</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="prompt-group-label">Mensajes de cliente para probar — adaptalos libremente</p>
+            <div class="prompt-example">El producto llegó roto, necesito una solución urgente porque era para un regalo y ya hice el reclamo por la app sin respuesta.</div>
+            <div class="prompt-example">Me cobraron dos veces la misma compra y todavía no veo la devolución acreditada en mi tarjeta.</div>
+
+          </div>
+        </details>
+
+        <details class="version-details" id="studio-v2">
+          <summary class="version-summary">
+            <span class="version-badge v2">V2 — Explorador</span>
+            <span class="version-meta">3 agentes · Casos y políticas</span>
+            <span class="version-arrow">▶</span>
+          </summary>
+          <div class="version-body">
+
+            <div class="section-intro">
+              <p>
+                En V2 separás el trabajo en dos rutas: un agente mira antecedentes históricos y otro mira
+                políticas internas. Después un sintetizador cruza ambas fuentes para decir qué camino de
+                resolución está mejor respaldado.
+              </p>
+            </div>
+
+            <p>Agregá estos dos agentes y tareas sobre la base de V1.</p>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente 2</span>
+              <h3>Investigador de Casos Similares</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Investigador de Reclamos Históricos</td></tr>
+                  <tr><td>Goal</td><td>Encontrar reclamos y resoluciones históricas semánticamente similares a {claim_text} para identificar precedentes útiles</td></tr>
+                  <tr><td>Backstory</td><td>Buscás patrones en reclamos históricos y te enfocás en cómo se resolvieron casos parecidos. Separás coincidencias superficiales de precedentes realmente útiles para la decisión actual.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
+                  <tr><td>Tool</td><td><code>teradata-claims-analysis</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="task-header">
+              <span class="task-label">Tarea 2</span>
+              <h3>Precedentes Históricos</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>Usá {claim_text} para encontrar reclamos y resoluciones históricas similares. Priorizá coincidencias por causa raíz, producto, urgencia y tipo de compensación o explicación ofrecida.</td></tr>
+                  <tr><td>Expected Output</td><td>Lista breve de precedentes: similitud con el reclamo actual, resultado de resolución, qué aprendizaje aplica y qué diferencia debe revisar soporte antes de copiar la solución.</td></tr>
+                  <tr><td>Agent</td><td>Investigador de Casos Similares</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente 3</span>
+              <h3>Especialista en Políticas</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Especialista en Políticas de Atención al Cliente</td></tr>
+                  <tr><td>Goal</td><td>Consultar políticas internas relevantes para {claim_text} y traducirlas en criterios prácticos para soporte</td></tr>
+                  <tr><td>Backstory</td><td>Conocés las políticas de devoluciones, garantías, entregas, atención y privacidad. Tu trabajo es conectar el reclamo con reglas aplicables y explicar qué acciones están respaldadas por la política.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
+                  <tr><td>Tool</td><td><code>teradata-claims-analysis</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="task-header">
+              <span class="task-label">Tarea 3</span>
+              <h3>Consulta de Políticas</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>Consultá las políticas internas aplicables al reclamo {claim_text}. Identificá secciones o criterios relevantes y explicá qué acciones de soporte están permitidas, recomendadas o deberían escalarse.</td></tr>
+                  <tr><td>Expected Output</td><td>Resumen de política aplicable: reglas relevantes, acción recomendada, riesgos de cumplimiento y preguntas que soporte debería validar con el cliente.</td></tr>
+                  <tr><td>Agent</td><td>Especialista en Políticas</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="prompt-group-label">Mensajes de cliente para probar — adaptalos libremente</p>
+            <div class="prompt-example">El envío figura entregado pero nunca recibí el paquete. El correo no me da respuesta y necesito que me reintegren o reenvíen el producto.</div>
+            <div class="prompt-example">Mandé el producto a garantía, pasó el plazo prometido y nadie me informa si corresponde reparación, cambio o devolución.</div>
+
+          </div>
+        </details>
+
+        <details class="version-details" id="studio-v3">
+          <summary class="version-summary">
+            <span class="version-badge v3">V3 — Crew Completo</span>
+            <span class="version-meta">5 agentes · Guía de soporte</span>
+            <span class="version-arrow">▶</span>
+          </summary>
+          <div class="version-body">
+
+            <div class="section-intro">
+              <p>
+                En V3 el crew produce un paquete listo para una persona de soporte: diagnóstico, precedentes,
+                políticas, riesgos y una respuesta sugerida en el tono pedido. La persona sigue tomando la
+                decisión, pero con evidencia reunida y ordenada.
+              </p>
+            </div>
+
+            <p>Agregá estos dos agentes y tareas sobre la base de V2.</p>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente 4</span>
+              <h3>Evaluador de Riesgo y Escalamiento</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Evaluador de Riesgo de Reclamos</td></tr>
+                  <tr><td>Goal</td><td>Detectar riesgos de escalamiento en {claim_text} y recomendar si soporte puede resolverlo directamente o debe derivarlo</td></tr>
+                  <tr><td>Backstory</td><td>Revisás reclamos buscando señales de urgencia, lenguaje legal, montos altos, exposición reputacional y casos donde una respuesta estándar puede empeorar la situación.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
+                  <tr><td>Tool</td><td><code>teradata-claims-analysis</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="task-header">
+              <span class="task-label">Tarea 4</span>
+              <h3>Riesgo y Escalamiento</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>Evaluá {claim_text} junto con los casos similares y políticas encontradas. Identificá señales de riesgo, recomendá un nivel de escalamiento y explicá qué información adicional debería pedir soporte antes de responder.</td></tr>
+                  <tr><td>Expected Output</td><td>Matriz breve de riesgo: severidad, motivo, recomendación de escalamiento, datos faltantes y próximos pasos para la persona de soporte.</td></tr>
+                  <tr><td>Agent</td><td>Evaluador de Riesgo y Escalamiento</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente 5</span>
+              <h3>Redactor de Respuesta de Soporte</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Redactor Senior de Atención al Cliente</td></tr>
+                  <tr><td>Goal</td><td>Redactar una guía de resolución y una respuesta al cliente para {claim_text} usando un tono {response_tone}</td></tr>
+                  <tr><td>Backstory</td><td>Escribís respuestas empáticas y claras para equipos de soporte. Convertís políticas, precedentes y riesgos en una recomendación práctica que una persona pueda revisar y enviar con mínimos ajustes.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
+                  <tr><td>Tool</td><td><em>ninguna — compila a partir de los agentes anteriores</em></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="task-header">
+              <span class="task-label">Tarea 5</span>
+              <h3>Guía de Resolución para Soporte</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>Compilá una guía de resolución para soporte basada en {claim_text}. Incluí diagnóstico, casos similares, políticas aplicables, riesgo de escalamiento, acción recomendada y un borrador de respuesta al cliente en tono {response_tone}.</td></tr>
+                  <tr><td>Expected Output</td><td>Guía práctica para soporte: resumen del reclamo, evidencia recuperada, recomendación de resolución, condiciones a validar, nivel de escalamiento y respuesta lista para revisar.</td></tr>
+                  <tr><td>Agent</td><td>Redactor de Respuesta de Soporte</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="prompt-group-label">Mensajes de cliente para probar — adaptalos libremente</p>
+            <div class="prompt-example">El operador me trató mal, cortó el chat y sigo sin solución. Quiero que revisen el caso y me den una respuesta formal.</div>
+            <div class="prompt-example">Compré un electrodoméstico, falló al segundo uso y la tienda me dice que no corresponde cambio. Necesito saber qué opciones tengo.</div>
+
+          </div>
+        </details>
+
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <a href="caso-reclamos.html" class="page-nav-card">
+        <span class="nav-direction">← Anterior</span>
+        <span class="nav-title">Reclamos por Caso</span>
+      </a>
+      <a href="ir-mas-alla.html" class="page-nav-card next">
+        <span class="nav-direction">Siguiente →</span>
+        <span class="nav-title">Ir Más Allá</span>
+      </a>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <p>Guía preparada para el evento CrewAI × Teradata · Buenos Aires · Junio 2026</p>
+</footer>
+
+<button id="back-to-top" title="Volver arriba">↑</button>
+
+<script>
+  const btn = document.getElementById('back-to-top');
+  const tocLinks = Array.from(document.querySelectorAll('.toc-sidebar nav a'));
+  const targets = tocLinks
+    .map(a => { const el = document.getElementById(a.getAttribute('href').slice(1)); return el ? {link: a, el} : null; })
+    .filter(Boolean);
+
+  function syncScroll() {
+    btn.classList.toggle('visible', window.scrollY > 400);
+    if (!targets.length) return;
+    const line = window.innerHeight * 0.28;
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    let activeIdx = 0;
+    targets.forEach((t, i) => { if (t.el.getBoundingClientRect().top <= line) activeIdx = i; });
+    if (atBottom) activeIdx = targets.length - 1;
+    targets.forEach((t, i) => t.link.classList.toggle('active', i === activeIdx));
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(() => { syncScroll(); ticking = false; }); ticking = true; }
+  });
+  btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+  syncScroll();
+</script>
+
+</body>
+</html>
