@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Análisis de Reclamos — CrewAI × Teradata</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-brand">
+    <img src="assets/teradata-logo.png" alt="Teradata" class="teradata-logo">
+    <div class="header-divider"></div>
+    <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
+  </div>
+  <span class="header-label">Taller Práctico · Buenos Aires</span>
+</header>
+
+<nav class="site-nav"><ul>
+  <li><a href="index.html">Inicio</a></li>
+  <li><a href="comenzar.html">Comenzar</a></li>
+  <li><a href="instalacion.html">Instalación</a></li>
+  <li><a href="caso-credito.html">Crédito</a></li>
+  <li><a href="caso-bi.html">BI</a></li>
+  <li><a href="caso-reclamos.html" class="active">Reclamos</a></li>
+  <li><a href="ir-mas-alla.html">Más Allá</a></li>
+</ul></nav>
+
+<div class="page-layout">
+
+  <!-- Sidebar TOC -->
+  <aside class="toc-sidebar">
+    <details open>
+      <summary>En esta página</summary>
+      <nav>
+        <p class="toc-title">Contenido</p>
+        <a href="#descripcion">Descripción</a>
+        <a href="#studio">Guía Studio</a>
+        <a href="#studio-v1" class="toc-h3">V1 — Básico</a>
+        <a href="#studio-v2" class="toc-h3">V2 — Explorador</a>
+        <a href="#studio-v3" class="toc-h3">V3 — Crew Completo</a>
+      </nav>
+    </details>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-content">
+
+    <div class="page-header">
+      <div class="page-breadcrumb"><a href="index.html">← Inicio</a></div>
+      <h1 id="descripcion">Análisis de Reclamos</h1>
+    </div>
+
+    <div class="section-intro">
+      <p>
+        En este caso de uso, los agentes trabajan juntos para resolver un reclamo de cliente de punta a punta:
+        recuperan el caso, lo clasifican por categoría y urgencia, buscan antecedentes similares en la base histórica,
+        consultan las políticas internas de la empresa y, finalmente, redactan una resolución fundamentada.
+      </p>
+      <p>
+        El valor está en la combinación de recuperación estructurada (datos del reclamo) con búsqueda semántica
+        (textos de reclamos similares, documentos de política): así el agente no sólo encuentra el caso
+        sino que entiende el contexto legal y operativo que respalda la decisión.
+      </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- STUDIO CONTENT                                         -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+
+    <h2 id="studio">Guía Studio</h2>
+
+    <div class="info-box">
+      <p>
+        Este caso de uso trabaja con tres colecciones en MongoDB Atlas: <code>claims</code> (200 reclamos
+        estructurados), <code>claims_rag_enriched</code> (textos de reclamos y resoluciones embebidos para
+        búsqueda semántica), y <code>policies_rag_enriched</code> (documentos de política de la empresa
+        también embebidos). La herramienta <code>teradata-claims-analysis</code> accede a las tres de forma
+        automática — vos solo escribís las instrucciones del agente.
+      </p>
+    </div>
+
+    <div class="versions-list">
+
+      <!-- V1 — OPEN -->
+      <details class="version-details" open id="studio-v1">
+        <summary class="version-summary">
+          <span class="version-badge v1">V1 — Básico</span>
+          <span class="version-meta">2 agentes · El handoff real</span>
+          <span class="version-arrow">▶</span>
+        </summary>
+        <div class="version-body">
+
+          <p><strong>Nombre del Crew:</strong> <code>Claims Analysis — V1</code></p>
+
+          <div class="section-intro">
+            <p>
+              El análisis de reclamos es el caso más complejo de los tres porque involucra dos tipos de
+              recuperación simultánea: datos estructurados del reclamo (categoría, urgencia, estado) y
+              búsqueda semántica sobre textos históricos. Esto permite que el agente no sólo sepa
+              <em>qué</em> pasó, sino también <em>qué pasó en casos parecidos</em> y cómo se resolvieron.
+            </p>
+            <p>
+              Por eso en V1 arrancamos directamente con dos agentes en lugar de uno. Cada agente tiene una
+              responsabilidad clara y diferenciada, y el handoff entre ellos muestra en acción cómo CrewAI
+              pasa contexto de una tarea a la siguiente.
+            </p>
+          </div>
+
+          <blockquote>
+            <p>
+              <strong>¿Por qué 2 agentes desde el comienzo?</strong> El diseño de dos agentes refleja cómo
+              funcionan las operaciones de atención al cliente reales: una persona clasifica y reúne el
+              contexto, otra toma la decisión y redacta la respuesta. Separar estas responsabilidades
+              también permite que cada agente use el output del anterior como input — el resumen estructurado
+              del Analista se convierte en el punto de partida del Especialista. Así podés ver el handoff
+              multi-agente de CrewAI en acción desde el primer crew.
+            </p>
+          </blockquote>
+
+          <!-- Agent 1 -->
+          <div class="info-box">
+            <p>
+              El primer agente tiene una sola misión: entender el reclamo. Recupera los datos del caso,
+              lo categoriza, determina la urgencia y busca antecedentes similares en la base histórica.
+              No toma decisiones — prepara el contexto para quien sí lo hará. Este rol de "clasificador y
+              recopilador" es clave en cualquier operación de CS de volumen: sin un buen contexto,
+              cualquier resolución es un disparo al aire.
+            </p>
+          </div>
+
+          <div class="agent-header">
+            <span class="agent-label">Agente 1</span>
+            <h3 id="v1-agente1" style="margin:0;">Analista de Reclamos</h3>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Role</td>
+                  <td>Analista de Reclamos de Atención al Cliente</td>
+                </tr>
+                <tr>
+                  <td>Goal</td>
+                  <td>Recuperar el reclamo, clasificarlo por categoría y urgencia, y encontrar los casos históricos más similares para contextualizar la queja</td>
+                </tr>
+                <tr>
+                  <td>Backstory</td>
+                  <td>Sos un analista de operaciones de CS especializado en clasificación de reclamos. Revisás los casos de forma sistemática, identificás patrones en los antecedentes y resumís la situación con claridad para que los especialistas en resolución puedan actuar rápido.</td>
+                </tr>
+                <tr>
+                  <td>Model</td>
+                  <td><code>gpt-5.4-mini</code></td>
+                </tr>
+                <tr>
+                  <td>Tool</td>
+                  <td><code>teradata-claims-analysis</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Task 1 -->
+          <div class="task-header">
+            <span class="task-label">Tarea 1</span>
+            <h4 style="margin:0;">Clasificación del Reclamo</h4>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Description</td>
+                  <td>Recuperá el reclamo REC-001. Clasificá su categoría y nivel de urgencia. Encontrá 3 quejas históricas semánticamente similares y resumí qué tienen en común con el caso actual.</td>
+                </tr>
+                <tr>
+                  <td>Expected Output</td>
+                  <td>Resumen estructurado del caso: ID del caso, categoría, urgencia, resumen del reclamo en una oración, y una lista de 3 casos similares con su estado de resolución y resultado.</td>
+                </tr>
+                <tr>
+                  <td>Agent</td>
+                  <td>Analista de Reclamos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Agent 2 -->
+          <div class="info-box">
+            <p>
+              El segundo agente entra con el contexto ya armado: sabe qué tipo de reclamo es, qué urgencia
+              tiene y qué precedentes existen. Su trabajo es consultar las políticas de la empresa,
+              determinar qué artículos aplican y redactar una resolución que sea coherente con esas políticas
+              y con el marco legal argentino. Esto no es solo responder al cliente — es dejar un registro
+              defensible que proteja tanto al cliente como a la empresa.
+            </p>
+          </div>
+
+          <div class="agent-header">
+            <span class="agent-label">Agente 2</span>
+            <h3 id="v1-agente2" style="margin:0;">Especialista en Resolución</h3>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Role</td>
+                  <td>Especialista en Resolución con Respaldo en Políticas</td>
+                </tr>
+                <tr>
+                  <td>Goal</td>
+                  <td>Redactar una recomendación de resolución fundamentada en las políticas de la empresa</td>
+                </tr>
+                <tr>
+                  <td>Backstory</td>
+                  <td>Sos un gerente senior de CS que resuelve disputas de clientes aplicando las políticas de la empresa. Siempre citás la sección de política relevante, te asegurás de que la resolución cumpla con la ley argentina de defensa del consumidor (Ley 24.240), y comunicás con claridad tanto al cliente como a los equipos internos.</td>
+                </tr>
+                <tr>
+                  <td>Model</td>
+                  <td><code>gpt-5.4-mini</code></td>
+                </tr>
+                <tr>
+                  <td>Tool</td>
+                  <td><code>teradata-claims-analysis</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <blockquote>
+            <p>
+              <strong>¿Por qué mencionar la Ley 24.240 en el backstory?</strong> Los documentos de política
+              de la empresa incluyen referencias explícitas a la Ley 24.240 (ley de protección al consumidor).
+              Al mencionarla en el backstory, le decís al agente que busque y cite ese contexto legal cuando
+              lo encuentre en los documentos recuperados — lo que hace que la resolución esté anclada en el
+              marco regulatorio real, no sólo en las reglas internas.
+            </p>
+          </blockquote>
+
+          <!-- Task 2 -->
+          <div class="task-header">
+            <span class="task-label">Tarea 2</span>
+            <h4 style="margin:0;">Borrador de Resolución</h4>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Description</td>
+                  <td>Basándote en el análisis del caso anterior, verificá qué políticas de la empresa aplican a este reclamo. Redactá una resolución que cite la sección de política relevante, proponga una acción concreta (reembolso, reposición o explicación) e incluya una respuesta al cliente en español.</td>
+                </tr>
+                <tr>
+                  <td>Expected Output</td>
+                  <td>Resumen de resolución: secciones de política aplicables, acción recomendada, y una carta de respuesta al cliente en español.</td>
+                </tr>
+                <tr>
+                  <td>Agent</td>
+                  <td>Especialista en Resolución</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <blockquote>
+            <p>
+              <strong>Probá con otros casos:</strong> La base de datos tiene 200 reclamos (REC-001 a REC-200).
+              Los estados varían: ~50% Resuelto, ~20% Parcialmente Resuelto, ~15% Rechazado, ~15% En proceso.
+              Probá un caso "En proceso" para ver cómo cambia el output cuando no existe una resolución previa
+              que referenciar.
+            </p>
+          </blockquote>
+
+          <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
+          <div class="prompt-example">
+            Analizá el caso REC-047, clasificá el reclamo, buscá 3 casos históricos similares y resumí qué tienen en común.
+          </div>
+          <div class="prompt-example">
+            Para el caso REC-012, consultá las políticas aplicables y redactá una resolución con acción concreta y carta al cliente en español.
+          </div>
+
+        </div>
+      </details>
+
+      <!-- V2 — CLOSED -->
+      <details class="version-details" id="studio-v2">
+        <summary class="version-summary">
+          <span class="version-badge v2">V2 — Explorador</span>
+          <span class="version-meta">3 agentes · Investigación regulatoria en vivo</span>
+          <span class="version-arrow">▶</span>
+        </summary>
+        <div class="version-body">
+
+          <div class="section-intro">
+            <p>
+              Las políticas internas cubren las reglas de la empresa — pero el contexto regulatorio cambia.
+              Fallos del COPREC, actualizaciones de la Ley 24.240, resoluciones de organismos de defensa
+              del consumidor: todo eso puede afectar cómo debe resolverse un reclamo, especialmente si es
+              de alta urgencia o alto valor económico.
+            </p>
+            <p>
+              En V2 sumamos un tercer agente que sale a buscar ese contexto en tiempo real usando
+              <code>firecrawl</code>. Así el crew pasa de trabajar sólo con datos internos a combinar
+              inteligencia interna con información regulatoria actualizada — un salto cualitativo importante
+              para casos donde el cumplimiento legal es crítico.
+            </p>
+          </div>
+
+          <p>Agregá este agente y tarea sobre la base de V1.</p>
+
+          <!-- Agent 3 -->
+          <div class="info-box">
+            <p>
+              Este agente actúa como el abogado del equipo: rastrea la normativa vigente y los fallos
+              recientes para asegurarse de que la resolución no sólo sea coherente con las políticas
+              internas, sino también con lo que exige la ley. Usa <code>firecrawl</code> para navegar
+              fuentes regulatorias en vivo — algo que la base de datos interna no puede hacer.
+            </p>
+          </div>
+
+          <div class="agent-header">
+            <span class="agent-label">Agente 3</span>
+            <h3 id="v2-agente3" style="margin:0;">Analista Regulatorio</h3>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Role</td>
+                  <td>Analista Regulatorio de Derechos del Consumidor</td>
+                </tr>
+                <tr>
+                  <td>Goal</td>
+                  <td>Investigar la normativa argentina vigente de protección al consumidor y los fallos recientes relevantes para este tipo de reclamo</td>
+                </tr>
+                <tr>
+                  <td>Backstory</td>
+                  <td>Seguís de cerca la Ley 24.240 de defensa del consumidor, los fallos del COPREC y las actualizaciones regulatorias. Identificás cuándo las políticas de la empresa deben alinearse con los requisitos legales y marcás cualquier riesgo de incumplimiento en las resoluciones propuestas.</td>
+                </tr>
+                <tr>
+                  <td>Model</td>
+                  <td><code>gpt-5.4-mini</code></td>
+                </tr>
+                <tr>
+                  <td>Tool</td>
+                  <td><code>firecrawl</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <blockquote>
+            <p>
+              <strong>¿Por qué este agente?</strong> Los documentos de política internos cubren las reglas
+              de la empresa. Este agente cubre el panorama legal externo: puede recuperar fallos recientes
+              del COPREC o cambios regulatorios que afectan cómo debe resolverse un reclamo. Especialmente
+              útil para casos de alta urgencia o alto valor económico.
+            </p>
+          </blockquote>
+
+          <!-- Task 3 -->
+          <div class="task-header">
+            <span class="task-label">Tarea 3</span>
+            <h4 style="margin:0;">Investigación Regulatoria</h4>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Description</td>
+                  <td>Buscá la normativa argentina vigente de protección al consumidor relevante para [la categoría del reclamo identificada en la Tarea 1]. Identificá 2 o 3 requisitos legales clave que la resolución de la empresa debe cumplir bajo la Ley 24.240 o fallos recientes del COPREC.</td>
+                </tr>
+                <tr>
+                  <td>Expected Output</td>
+                  <td>Resumen de contexto legal: 2 o 3 requisitos regulatorios específicos con su fuente (artículo o fallo), y una lista de verificación de cumplimiento para la resolución.</td>
+                </tr>
+                <tr>
+                  <td>Agent</td>
+                  <td>Analista Regulatorio</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <blockquote>
+            <p>
+              <strong>Nota para la Tarea 2:</strong> Actualizá la descripción de la Tarea de Borrador de
+              Resolución agregando: <em>"También incorporá los requisitos regulatorios identificados en la
+              investigación anterior."</em> Esto asegura que el Especialista en Resolución use el contexto
+              de los tres agentes.
+            </p>
+          </blockquote>
+
+          <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
+          <div class="prompt-example">
+            Buscá los últimos fallos del COPREC sobre reclamos de garantía de productos electrónicos y resumí los requisitos legales que aplican.
+          </div>
+          <div class="prompt-example">
+            Para el caso REC-089 (reclamo de Garantía), investigá qué exige la Ley 24.240 e identificá si la resolución propuesta cumple con la normativa vigente.
+          </div>
+
+        </div>
+      </details>
+
+      <!-- V3 — CLOSED -->
+      <details class="version-details" id="studio-v3">
+        <summary class="version-summary">
+          <span class="version-badge v3">V3 — Crew Completo</span>
+          <span class="version-meta">5 agentes · Informe completo listo para liderazgo de CS</span>
+          <span class="version-arrow">▶</span>
+        </summary>
+        <div class="version-body">
+
+          <div class="section-intro">
+            <p>
+              Un reclamo resuelto es una cosa. Pero si diez clientes reportan el mismo problema con el
+              mismo producto, eso ya no es un caso individual — es una señal de algo sistémico. El V3
+              agrega dos agentes que elevan el análisis al nivel de operaciones: uno que detecta patrones
+              y determina si hay que escalar más allá del equipo de CS, y otro que compila todo en un
+              informe ejecutivo listo para el liderazgo.
+            </p>
+            <p>
+              Este es el crew que podrías presentar a un director de experiencia del cliente: completo,
+              estructurado y con una recomendación de acción clara en cada sección.
+            </p>
+          </div>
+
+          <p>Agregá estos dos agentes y tareas sobre la base de V2.</p>
+
+          <!-- Agent 4 -->
+          <div class="info-box">
+            <p>
+              La diferencia entre resolver un reclamo y mejorar un proceso está en detectar el patrón.
+              Este agente mira el panorama completo: usa los casos similares encontrados en V1 para
+              determinar si el reclamo es un evento aislado o la manifestación de un problema mayor en
+              un producto o proceso. Su output define si hay que escalar o no.
+            </p>
+          </div>
+
+          <div class="agent-header">
+            <span class="agent-label">Agente 4</span>
+            <h3 id="v3-agente4" style="margin:0;">Analista de Patrones de Reclamos</h3>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Role</td>
+                  <td>Analista de Inteligencia de Reclamos</td>
+                </tr>
+                <tr>
+                  <td>Goal</td>
+                  <td>Analizar el patrón más amplio de reclamos similares para determinar si este es un incidente aislado o un problema sistémico de producto o proceso</td>
+                </tr>
+                <tr>
+                  <td>Backstory</td>
+                  <td>Mirás más allá de los reclamos individuales para encontrar patrones sistémicos. Cuando múltiples clientes reportan el mismo problema, lo escalás como una falla de producto o proceso — no sólo como un asunto de atención al cliente. Tu análisis habilita soluciones proactivas, no sólo respuestas reactivas.</td>
+                </tr>
+                <tr>
+                  <td>Model</td>
+                  <td><code>gpt-5.4-mini</code></td>
+                </tr>
+                <tr>
+                  <td>Tool</td>
+                  <td><code>teradata-claims-analysis</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Task 4 -->
+          <div class="task-header">
+            <span class="task-label">Tarea 4</span>
+            <h4 style="margin:0;">Análisis de Patrones</h4>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Description</td>
+                  <td>Usando los casos similares encontrados en la Tarea 1, determiná si este tipo de reclamo representa un patrón recurrente. Estimá la frecuencia, identificá cualquier producto o servicio en común, y recomendá un nivel de escalamiento (nivel de caso, nivel de equipo, o escalamiento de producto/proceso).</td>
+                </tr>
+                <tr>
+                  <td>Expected Output</td>
+                  <td>Resumen de patrón: evaluación del patrón (aislado vs. sistémico), estimación de frecuencia, producto o servicio involucrado en común, y recomendación de escalamiento.</td>
+                </tr>
+                <tr>
+                  <td>Agent</td>
+                  <td>Analista de Patrones de Reclamos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Agent 5 -->
+          <div class="info-box">
+            <p>
+              El quinto agente es el narrador: no accede a nuevas fuentes de datos, sino que integra todo
+              lo que produjeron los cuatro agentes anteriores en un informe ejecutivo coherente. Este rol
+              existe porque sintetizar bien es una habilidad distinta a analizar bien — y en un crew de
+              múltiples agentes, siempre es útil tener un agente dedicado a la redacción final.
+            </p>
+          </div>
+
+          <div class="agent-header">
+            <span class="agent-label">Agente 5</span>
+            <h3 id="v3-agente5" style="margin:0;">Autor del Informe de Resolución</h3>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Role</td>
+                  <td>Autor Senior de Informes de Experiencia del Cliente</td>
+                </tr>
+                <tr>
+                  <td>Goal</td>
+                  <td>Producir un informe completo de resolución del caso que sea conciso, defensible y listo para la acción por parte del liderazgo de CS</td>
+                </tr>
+                <tr>
+                  <td>Backstory</td>
+                  <td>Escribís informes de resolución de casos para el liderazgo senior de CS. Tus documentos cubren el resumen del caso, el análisis de patrones, el contexto legal, la justificación de la resolución y la comunicación al cliente. Son estructurados, profesionales y diseñados para revisión rápida.</td>
+                </tr>
+                <tr>
+                  <td>Model</td>
+                  <td><code>gpt-5.4-mini</code></td>
+                </tr>
+                <tr>
+                  <td>Tool</td>
+                  <td><em>Ninguna — compila a partir de los agentes anteriores</em></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Task 5 -->
+          <div class="task-header">
+            <span class="task-label">Tarea 5</span>
+            <h4 style="margin:0;">Informe Completo de Resolución</h4>
+          </div>
+
+          <div class="table-wrap">
+            <table class="field-table">
+              <tbody>
+                <tr>
+                  <td>Description</td>
+                  <td>Compilá un informe completo de resolución del caso REC-001 incorporando: clasificación del caso y resumen del reclamo, análisis de patrones de casos similares, requisitos regulatorios, decisión de resolución y su justificación, y la respuesta al cliente en español.</td>
+                </tr>
+                <tr>
+                  <td>Expected Output</td>
+                  <td>Expediente completo del caso: resumen ejecutivo (3 oraciones), detalles del caso, evaluación de patrón, contexto regulatorio, decisión de resolución, y carta de respuesta al cliente en español.</td>
+                </tr>
+                <tr>
+                  <td>Agent</td>
+                  <td>Autor del Informe de Resolución</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
+          <div class="prompt-example">
+            Analizá el patrón de reclamos de la categoría Facturación en los últimos 6 meses: ¿es un problema sistémico o casos aislados? Incluí recomendación de escalamiento.
+          </div>
+          <div class="prompt-example">
+            Generá un informe ejecutivo completo para el caso REC-155 incorporando el análisis del reclamo, el contexto regulatorio, el patrón detectado y la carta de respuesta al cliente.
+          </div>
+
+        </div>
+      </details>
+
+    </div><!-- /versions-list -->
+
+    <!-- Prev/Next -->
+    <div class="page-nav">
+      <a href="caso-bi.html" class="page-nav-card">
+        <span class="nav-direction">← Anterior</span>
+        <span class="nav-title">BI Conversacional</span>
+      </a>
+      <a href="ir-mas-alla.html" class="page-nav-card next">
+        <span class="nav-direction">Siguiente →</span>
+        <span class="nav-title">Ir Más Allá</span>
+      </a>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <p>Guía preparada para el evento CrewAI × Teradata · Buenos Aires · Junio 2026</p>
+</footer>
+
+<button id="back-to-top" title="Volver arriba">↑</button>
+
+<script>
+  const btn = document.getElementById('back-to-top');
+  const tocLinks = Array.from(document.querySelectorAll('.toc-sidebar nav a'));
+  // Resolve each TOC link to its target element (works for h1, h2 and <details> wrappers alike).
+  const targets = tocLinks
+    .map(a => { const el = document.getElementById(a.getAttribute('href').slice(1)); return el ? {link: a, el} : null; })
+    .filter(Boolean);
+
+  function syncScroll() {
+    btn.classList.toggle('visible', window.scrollY > 400);
+    if (!targets.length) return;
+    const line = window.innerHeight * 0.28;            // activation line, ~28% down the viewport
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    let activeIdx = 0;                                 // default to the first section at the top of the page
+    targets.forEach((t, i) => { if (t.el.getBoundingClientRect().top <= line) activeIdx = i; });
+    if (atBottom) activeIdx = targets.length - 1;      // snap to the last section at the bottom of the page
+    targets.forEach((t, i) => t.link.classList.toggle('active', i === activeIdx));
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(() => { syncScroll(); ticking = false; }); ticking = true; }
+  });
+  btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+  syncScroll();
+</script>
+
+</body>
+</html>

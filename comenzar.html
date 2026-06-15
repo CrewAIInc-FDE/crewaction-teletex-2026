@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comenzar — CrewAI × Teradata</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-brand">
+    <img src="assets/teradata-logo.png" alt="Teradata" class="teradata-logo">
+    <div class="header-divider"></div>
+    <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
+  </div>
+  <span class="header-label">Taller Práctico · Buenos Aires</span>
+</header>
+
+<nav class="site-nav"><ul>
+  <li><a href="index.html">Inicio</a></li>
+  <li><a href="comenzar.html" class="active">Comenzar</a></li>
+  <li><a href="instalacion.html">Instalación</a></li>
+  <li><a href="caso-credito.html">Crédito</a></li>
+  <li><a href="caso-bi.html">BI</a></li>
+  <li><a href="caso-reclamos.html">Reclamos</a></li>
+  <li><a href="ir-mas-alla.html">Más Allá</a></li>
+</ul></nav>
+
+<div class="page-layout">
+  <aside class="toc-sidebar">
+    <details open>
+      <summary>En esta página</summary>
+      <nav>
+        <p class="toc-title">Contenido</p>
+        <a href="#prerequisitos">Prerequisitos</a>
+        <a href="#modelos">Modelos recomendados</a>
+        <a href="#teradata-store">El Teradata Store</a>
+        <a href="#crew-vs-flow">Crew vs Flow</a>
+        <a href="#primer-crew">Tu primer Crew</a>
+        <a href="#studio-primer" class="toc-h3">Studio: paso a paso</a>
+      </nav>
+    </details>
+  </aside>
+
+  <main class="main-content">
+
+    <div class="page-header">
+      <div class="page-breadcrumb"><a href="index.html">Inicio</a> · Comenzar</div>
+      <h1>Comenzar</h1>
+      <div class="page-meta">
+        <span class="meta-pill">Studio · Sin código</span>
+      </div>
+    </div>
+
+    <!-- ── Prerequisitos ─────────────────────────────────── -->
+    <h2 id="prerequisitos">Prerequisitos</h2>
+
+    <blockquote>
+      <p><strong>Usuarios de Studio</strong> — no necesitás configurar nada. Las variables de entorno y las credenciales de las herramientas están preconfiguradas en AMP. Podés continuar leyendo para conocer el Teradata Store antes de armar tu primer Crew.</p>
+    </blockquote>
+
+    <div class="info-box">
+      <p><strong>¿Preferís trabajar con código?</strong> Entonces <a href="instalacion.html">Instalación</a> es tu próximo paso — ahí encontrás el setup completo con <code>uv</code>, el CLI de CrewAI, y las herramientas de Teradata instalables con <code>pip</code>.</p>
+    </div>
+
+    <!-- ── Modelos recomendados ──────────────────────────── -->
+    <h2 id="modelos">Modelos recomendados</h2>
+    <p>Hoy tenemos disponibles dos modelos:</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Modelo</th><th>Ideal para</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>gpt-5.4-mini</code></td>
+            <td>La mayoría de los agentes — recuperación, explicación, análisis, síntesis, generación de informes</td>
+          </tr>
+          <tr>
+            <td><code>gpt-5.4-nano</code></td>
+            <td>Agentes livianos — clasificación simple, resúmenes breves, generación de gráficos</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <blockquote>
+      <p><strong>Por defecto:</strong> usá <code>gpt-5.4-mini</code> para todos los agentes, a menos que la tarea sea explícitamente simple. Los tres casos de uso scripteados funcionan bien con <code>gpt-5.4-mini</code>. Solo pasá a <code>gpt-5.4-nano</code> en agentes que realizan una única acción pequeña (como generar un gráfico o formatear un resumen corto).</p>
+    </blockquote>
+
+    <!-- ── Teradata Store ────────────────────────────────── -->
+    <h2 id="teradata-store">El Teradata Store — Qué hay adentro</h2>
+    <p>Seis colecciones precargadas con datos sintéticos argentinos:</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Colección</th><th>Contenido</th><th>Usado por</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>credito_clientes</code></td>
+            <td>300 perfiles crediticios — DNI, score (300–850), banda de riesgo, historial de pagos, ingresos, deudas</td>
+            <td>Análisis de Crédito</td>
+          </tr>
+          <tr>
+            <td><code>bi_productos</code></td>
+            <td>40 productos en 4 categorías (Electrónica, Indumentaria, Hogar, Alimentación) — precio, stock, marca</td>
+            <td>BI Conversacional</td>
+          </tr>
+          <tr>
+            <td><code>bi_ventas</code></td>
+            <td>3.000 transacciones de ventas (2024–2025) — fecha, producto, región, canal, total</td>
+            <td>BI Conversacional</td>
+          </tr>
+          <tr>
+            <td><code>bi_produtos_rag_enriched</code></td>
+            <td>Fragmentos de texto del catálogo de productos embebidos (4 PDFs)</td>
+            <td>Contexto semántico de BI</td>
+          </tr>
+          <tr>
+            <td><code>claims</code></td>
+            <td>200 reclamos de clientes (REC-001 a REC-200) — categoría, urgencia, estado, texto del reclamo y resolución</td>
+            <td>Análisis de Reclamos</td>
+          </tr>
+          <tr>
+            <td><code>claims_rag_enriched</code></td>
+            <td>Fragmentos de texto de reclamos y resoluciones embebidos</td>
+            <td>Búsqueda semántica de Reclamos</td>
+          </tr>
+          <tr>
+            <td><code>policies_rag_enriched</code></td>
+            <td>Fragmentos de 6 políticas de la empresa (devoluciones, garantías, envíos, atención, privacidad, servicio técnico)</td>
+            <td>Consulta de políticas en Reclamos</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <blockquote>
+      <p><strong>Tip:</strong> No interactuás directamente con estas colecciones — las herramientas AMP manejan todas las consultas. La tabla de arriba es solo contexto para entender qué datos respaldan cada caso de uso.</p>
+    </blockquote>
+
+    <!-- ── Crew vs Flow ──────────────────────────────────── -->
+    <h2 id="crew-vs-flow">Crew vs Flow</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th></th><th>Crew</th><th>Flow</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Qué es</strong></td>
+            <td>Un equipo de agentes de IA que colaboran en tareas</td>
+            <td>Un pipeline determinista de pasos (puede incluir agentes)</td>
+          </tr>
+          <tr>
+            <td><strong>Estado</strong></td>
+            <td>Se pasa entre agentes mediante el contexto de tareas</td>
+            <td>Objeto de estado Pydantic tipado (<code>self.state</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>Cuándo usarlo</strong></td>
+            <td>Cuando múltiples agentes necesitan razonar juntos y hacer handoffs</td>
+            <td>Cuando los pasos deben ejecutarse en un orden fijo y predecible</td>
+          </tr>
+          <tr>
+            <td><strong>¿Disponible en Studio?</strong></td>
+            <td>Sí</td>
+            <td>No — solo código</td>
+          </tr>
+          <tr>
+            <td><strong>Ejemplo</strong></td>
+            <td>Analista de crédito → investigador de mercado → redactor de informe</td>
+            <td>Cargar PDFs → fragmentar → embeber → almacenar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <blockquote>
+      <p>Para este taller: los tres casos de uso usan <strong>Crews</strong>. Tanto el camino de Studio como el de Código crean Crews. Los Flows se presentan en <a href="instalacion.html">Instalación</a> como opción avanzada para el camino de código.</p>
+    </blockquote>
+
+    <!-- ── Tu primer Crew ────────────────────────────────── -->
+    <h2 id="primer-crew">Tu primer Crew</h2>
+    <p>Este es el recorrido genérico en Studio. Cada sección de caso de uso más abajo tiene los valores exactos para copiar y pegar.</p>
+
+    <h3 id="studio-primer">Studio: paso a paso</h3>
+
+    <ol class="step-list">
+      <li class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Crear un nuevo Crew</h4>
+          <p>Abrí CrewAI Studio y hacé clic en <strong>New Crew</strong>. Dale un nombre descriptivo (ej. <code>Credit Analysis Crew</code>).</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Agregar un Agente</h4>
+          <p>Hacé clic en <strong>Add Agent</strong>. Completá cuatro campos:</p>
+          <div class="table-wrap">
+            <table class="field-table">
+              <thead><tr><th>Campo</th><th>Qué hace</th></tr></thead>
+              <tbody>
+                <tr><td>Role</td><td>Define la experiencia del agente. Sé específico — "Senior Credit Risk Analyst" funciona mejor que "Analyst".</td></tr>
+                <tr><td>Goal</td><td>Lo que este agente debe lograr. Delimita el resultado. Mantenelo en 1–2 oraciones.</td></tr>
+                <tr><td>Backstory</td><td>Contexto que moldea la voz y el juicio del agente. Acá embebés el conocimiento del dominio.</td></tr>
+                <tr><td>Model</td><td>El LLM que usa este agente. Usá <code>gpt-5.4-mini</code> como tu defecto.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Agregar una Herramienta desde AMP</h4>
+          <p>En la sección de herramientas del agente, hacé clic en <strong>Add Tool</strong> → <strong>Browse AMP</strong>. Buscá por nombre de herramienta (ej. <code>teradata-credit-analysis</code>). Seleccionala y agregala al agente.</p>
+          <blockquote>
+            <p><strong>Tip:</strong> <code>firecrawl</code>, <code>chart-generator</code> y <code>teradata-store-search</code> también están disponibles en AMP para crews V2/V3 y exploraciones personalizadas.</p>
+          </blockquote>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Agregar una Tarea</h4>
+          <p>Hacé clic en <strong>Add Task</strong>. Completá:</p>
+          <div class="table-wrap">
+            <table class="field-table">
+              <thead><tr><th>Campo</th><th>Qué hace</th></tr></thead>
+              <tbody>
+                <tr><td>Description</td><td>Lo que el agente debe hacer. Incluí inputs específicos (IDs de caso, DNIs, preguntas).</td></tr>
+                <tr><td>Expected Output</td><td>El formato exacto que querés recibir. Cuanto más específico, mejor el resultado.</td></tr>
+                <tr><td>Agent</td><td>Asigná esta tarea al agente correcto.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Ejecutar</h4>
+          <p>Hacé clic en <strong>Run</strong>. Observá cómo trabajan los agentes. El resultado de cada agente se alimenta automáticamente a la siguiente tarea.</p>
+        </div>
+      </li>
+    </ol>
+
+    <!-- ── Prev/Next ──────────────────────────────────────── -->
+    <div class="page-nav">
+      <a href="index.html" class="page-nav-card">
+        <span class="nav-direction">← Anterior</span>
+        <span class="nav-title">Inicio</span>
+      </a>
+      <a href="instalacion.html" class="page-nav-card next">
+        <span class="nav-direction">Siguiente →</span>
+        <span class="nav-title">Instalación (código)</span>
+      </a>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <p>Guía preparada para el evento CrewAI × Teradata · Buenos Aires · Junio 2026</p>
+</footer>
+
+<button id="back-to-top" title="Volver arriba">↑</button>
+
+<script>
+  const btn = document.getElementById('back-to-top');
+  const tocLinks = Array.from(document.querySelectorAll('.toc-sidebar nav a'));
+  // Resolve each TOC link to its target element (works for h1, h2 and <details> wrappers alike).
+  const targets = tocLinks
+    .map(a => { const el = document.getElementById(a.getAttribute('href').slice(1)); return el ? {link: a, el} : null; })
+    .filter(Boolean);
+
+  function syncScroll() {
+    btn.classList.toggle('visible', window.scrollY > 400);
+    if (!targets.length) return;
+    const line = window.innerHeight * 0.28;            // activation line, ~28% down the viewport
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    let activeIdx = 0;                                 // default to the first section at the top of the page
+    targets.forEach((t, i) => { if (t.el.getBoundingClientRect().top <= line) activeIdx = i; });
+    if (atBottom) activeIdx = targets.length - 1;      // snap to the last section at the bottom of the page
+    targets.forEach((t, i) => t.link.classList.toggle('active', i === activeIdx));
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(() => { syncScroll(); ticking = false; }); ticking = true; }
+  });
+  btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+  syncScroll();
+</script>
+</body>
+</html>

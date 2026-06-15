@@ -1,0 +1,998 @@
+/* ============================================================
+   CrewAI × Teradata Workshop — Shared Stylesheet
+   Field-labs inspired design with joint co-branding
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Inter:wght@400;600&family=Geist+Mono:wght@400&display=swap');
+
+/* ── Custom Properties ─────────────────────────────────────── */
+:root {
+  --coral:            #FF5A50;
+  --teradata-orange:  #F26522;
+  --black:            #000000;
+  --coal:             #161616;
+  --off-white:        #F5F3F0;
+  --card-grey:        #EDEDED;
+  --border-light:     #CCC5B9;
+  --text-secondary:   #686868;
+  --text-muted:       #8E8E8E;
+  --header-dark:      #2D3A42;
+  --header-darker:    #1A2530;
+  --header-height:    56px;
+  --sidebar-width:    250px;
+  --content-width:    960px;
+  --outer-width:      1280px;
+}
+
+/* ── Reset / Base ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--coal);
+  background: #fff;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.site-header {
+  background: linear-gradient(135deg, var(--header-dark) 0%, var(--header-darker) 100%);
+  height: var(--header-height);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.header-brand img.teradata-logo {
+  height: 20px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+.header-divider {
+  width: 1px;
+  height: 22px;
+  background: rgba(255,255,255,0.25);
+  flex-shrink: 0;
+}
+
+.crewai-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.crewai-logo-img {
+  height: 24px;
+  width: auto;
+  display: block;
+}
+
+.header-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+/* ── Top Navigation ────────────────────────────────────────── */
+.site-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 90;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 0;
+  max-width: var(--outer-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.site-nav ul li {
+  position: relative;
+}
+
+.site-nav ul li a {
+  display: block;
+  padding: 0.65rem 1rem;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.site-nav ul li a:hover,
+.site-nav ul li a.active {
+  color: var(--coral);
+}
+
+.site-nav ul li:has(a:hover)::after,
+.site-nav ul li:has(a.active)::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--coral);
+}
+
+/* ── Page Layout ───────────────────────────────────────────── */
+.page-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  max-width: var(--outer-width);
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ── Sidebar TOC ───────────────────────────────────────────── */
+.toc-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 54px);
+  max-height: calc(100vh - var(--header-height) - 74px);
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.toc-sidebar nav {
+  border-left: 1px solid var(--border-light);
+  padding-left: 1rem;
+}
+
+.toc-title {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.toc-sidebar nav a {
+  display: block;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  margin-left: -1rem;
+  border-radius: 0 4px 4px 0;
+  transition: all 0.15s;
+  line-height: 1.4;
+}
+
+.toc-sidebar nav a:hover {
+  color: var(--coal);
+  background: var(--off-white);
+}
+
+.toc-sidebar nav a.active {
+  color: var(--coral);
+  border-left-color: var(--coral);
+  background: var(--off-white);
+  font-weight: 600;
+}
+
+.toc-sidebar nav a.toc-h3 {
+  font-size: 0.78rem;
+  padding-left: 1.2rem;
+}
+
+/* ── Main Content ──────────────────────────────────────────── */
+.main-content {
+  min-width: 0;
+  max-width: var(--content-width);
+}
+
+/* ── Typography ────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--coal);
+}
+
+h1 { font-size: 2.4rem; margin-bottom: 1rem; }
+h2 { font-size: 1.7rem; margin-top: 2.5rem; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border-light); }
+h3 { font-size: 1.25rem; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+h4 { font-size: 1rem; margin-top: 1.25rem; margin-bottom: 0.4rem; font-family: 'Inter', sans-serif; font-weight: 600; }
+
+p { margin-bottom: 1rem; }
+
+a { color: var(--coral); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+strong { font-weight: 600; }
+
+hr { border: none; border-top: 1px solid var(--border-light); margin: 2rem 0; }
+
+ul, ol { margin: 0.5rem 0 1rem 1.5rem; }
+li { margin-bottom: 0.25rem; }
+
+/* ── Inline Code ───────────────────────────────────────────── */
+code {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.84em;
+  background: var(--card-grey);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  color: var(--coal);
+}
+
+/* ── Code Blocks ───────────────────────────────────────────── */
+pre {
+  background: var(--coal);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  overflow-x: auto;
+  margin: 1rem 0 1.5rem;
+  position: relative;
+}
+
+pre code {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.84rem;
+  background: none;
+  color: #EDEDED;
+  padding: 0;
+  border-radius: 0;
+}
+
+.code-lang {
+  position: absolute;
+  top: 0.6rem;
+  right: 1rem;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Tables ────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; margin: 1rem 0 1.5rem; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+thead tr {
+  background: var(--card-grey);
+  border-bottom: 2px solid var(--coral);
+}
+
+thead th {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+  color: var(--coal);
+  font-weight: 400;
+}
+
+tbody tr { border-bottom: 1px solid var(--border-light); }
+tbody tr:nth-child(even) { background: var(--off-white); }
+
+td {
+  padding: 0.55rem 0.85rem;
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+td code { font-size: 0.8em; }
+
+/* ── Callout / Blockquote ──────────────────────────────────── */
+blockquote {
+  border-left: 3px solid var(--coral);
+  background: var(--off-white);
+  border-radius: 0 6px 6px 0;
+  padding: 0.75rem 1.1rem;
+  margin: 1rem 0 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.93rem;
+}
+
+blockquote p:last-child { margin-bottom: 0; }
+
+blockquote strong { color: var(--coal); }
+
+/* ── Mode Toggle ───────────────────────────────────────────── */
+.mode-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.mode-toggle-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.mode-toggle {
+  display: inline-flex;
+  border: 1.5px solid var(--border-light);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.toggle-btn {
+  padding: 0.45rem 1.1rem;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  border: none;
+  background: #fff;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.toggle-btn + .toggle-btn {
+  border-left: 1.5px solid var(--border-light);
+}
+
+.toggle-btn.active {
+  background: var(--coral);
+  color: #fff;
+}
+
+.toggle-btn:hover:not(.active) {
+  background: var(--off-white);
+  color: var(--coal);
+}
+
+/* ── Version Accordions ────────────────────────────────────── */
+.versions-list { margin-top: 1rem; }
+
+details.version-details {
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+details.version-details[open] {
+  border-color: var(--card-grey);
+}
+
+summary.version-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.1rem;
+  cursor: pointer;
+  list-style: none;
+  background: #fff;
+  transition: background 0.12s;
+}
+
+summary.version-summary::-webkit-details-marker { display: none; }
+
+details.version-details[open] summary.version-summary {
+  background: var(--off-white);
+  border-bottom: 1px solid var(--border-light);
+}
+
+summary.version-summary:hover { background: var(--off-white); }
+
+.version-badge {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.version-badge.v1 { background: var(--coral); }
+.version-badge.v2 { background: var(--teradata-orange); }
+.version-badge.v3 { background: var(--coal); }
+
+.version-meta {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.version-arrow {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+}
+
+details.version-details[open] .version-arrow { transform: rotate(90deg); }
+
+.version-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.version-body > *:last-child { margin-bottom: 0; }
+
+/* ── Step boxes (installation) ─────────────────────────────── */
+.step-list { list-style: none; margin: 0; padding: 0; }
+
+.step-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: flex-start;
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: #fff;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+
+.step-content h4 { margin-top: 0; }
+
+/* ── Checklist ─────────────────────────────────────────────── */
+.checklist {
+  background: var(--off-white);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 1.1rem 1.4rem;
+  margin: 1.5rem 0;
+}
+
+.checklist h4 {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.checklist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.checklist ul li {
+  padding: 0.2rem 0;
+  padding-left: 1.4rem;
+  position: relative;
+  font-size: 0.9rem;
+}
+
+.checklist ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--coral);
+  font-weight: 600;
+}
+
+/* ── Use-Case Cards (index page) ───────────────────────────── */
+.use-case-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 2rem 0;
+}
+
+.use-case-card {
+  border: 1.5px solid var(--border-light);
+  border-radius: 10px;
+  padding: 1.4rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.use-case-card:hover {
+  border-color: var(--coral);
+  box-shadow: 0 4px 16px rgba(255,90,80,0.1);
+  text-decoration: none;
+}
+
+.card-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.card-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--coal);
+}
+
+.card-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.card-link {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-top: 0.25rem;
+}
+
+/* ── Hero (index page) ─────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--header-darker) 0%, var(--header-dark) 100%);
+}
+
+/* Accent image + dark scrim baked in (WP-A owns the asset path).
+   WP-E only needs the <div class="hero-bg-image"> present + the file copied —
+   it must NOT set background-image inline, or it would drop the scrim. */
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(100deg,
+      rgba(22,30,40,0.95) 0%,
+      rgba(22,30,40,0.80) 42%,
+      rgba(22,30,40,0.42) 100%),
+    url('../assets/what-is-an-ai-agent-hero.webp');
+  /* gradient scrim covers fully; image is zoomed slightly so it can be
+     nudged to the right without leaving a gap */
+  background-size: cover, 122% auto;
+  background-position: center, 18% center;
+  background-repeat: no-repeat, no-repeat;
+  opacity: 1;
+}
+
+.hero-content {
+  position: relative;
+  padding: 3rem;
+  max-width: 760px;
+}
+
+.hero-logos {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-logos img.teradata-logo {
+  height: 22px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+.hero-logos .crewai-logo-img {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+
+.hero-logos .hero-div {
+  width: 1px;
+  height: 22px;
+  background: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  color: #fff;
+  margin-bottom: 0.75rem;
+  line-height: 1.15;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 0.4rem;
+}
+
+.hero-date {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 1.75rem;
+}
+
+.hero-cta {
+  display: inline-block;
+  background: var(--coral);
+  color: #fff;
+  padding: 0.65rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.hero-cta:hover {
+  background: #e04840;
+  text-decoration: none;
+}
+
+/* ── Section intro (use case pages) ───────────────────────── */
+.section-intro {
+  background: var(--off-white);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.section-intro p:last-child { margin-bottom: 0; }
+
+.tool-badge {
+  display: inline-block;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.78rem;
+  background: var(--coal);
+  color: #EDEDED;
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px;
+}
+
+/* ── Agent/Task Field Tables ───────────────────────────────── */
+.field-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0 1.25rem;
+  font-size: 0.88rem;
+}
+
+.field-table td:first-child {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  color: var(--text-muted);
+  padding: 0.5rem 0.75rem 0.5rem 0;
+  vertical-align: top;
+  width: 120px;
+}
+
+.field-table td:last-child {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--coal);
+}
+
+/* ── Agent header ──────────────────────────────────────────── */
+.agent-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.agent-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.task-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.task-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--teradata-orange);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+/* ── Page header (inner pages) ─────────────────────────────── */
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-breadcrumb {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.page-breadcrumb a { color: var(--text-muted); }
+.page-breadcrumb a:hover { color: var(--coral); text-decoration: none; }
+
+.page-meta {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ── Prev/Next navigation ──────────────────────────────────── */
+.page-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.page-nav-card {
+  border: 1.5px solid var(--border-light);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+}
+
+.page-nav-card:hover {
+  border-color: var(--coral);
+  text-decoration: none;
+}
+
+.page-nav-card.next { text-align: right; }
+
+.nav-direction {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.nav-title {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--coal);
+}
+
+/* ── Back to top ───────────────────────────────────────────── */
+#back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(255,90,80,0.4);
+  transition: background 0.15s;
+  z-index: 200;
+}
+
+#back-to-top.visible { display: flex; }
+#back-to-top:hover { background: #e04840; }
+
+/* ── Footer ────────────────────────────────────────────────── */
+.site-footer {
+  border-top: 1px solid var(--border-light);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.site-footer p {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── Prompt examples ───────────────────────────────────────── */
+.prompt-example {
+  background: var(--coal);
+  border-radius: 8px;
+  padding: 0.85rem 1.1rem;
+  margin: 0.6rem 0;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.83rem;
+  color: #EDEDED;
+  border-left: 3px solid var(--teradata-orange);
+}
+
+/* Label that marks a block of prompts as suggested test prompts */
+.prompt-group-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--teradata-orange);
+  margin: 1.6rem 0 0.5rem;
+}
+.prompt-group-label::before {
+  content: "▶";
+  font-size: 0.6rem;
+}
+
+/* ── Info box ──────────────────────────────────────────────── */
+.info-box {
+  background: #EEF6FF;
+  border-left: 3px solid #4A90D9;
+  border-radius: 0 6px 6px 0;
+  padding: 0.75rem 1.1rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.9rem;
+  color: #1a4a7a;
+}
+
+.info-box p:last-child { margin-bottom: 0; }
+
+/* ── Checkpoint callout (green) — "punto de control" in labs ── */
+.checkpoint {
+  background: #F0FAF4;
+  border-left: 3px solid #2E9E5B;
+  border-radius: 0 6px 6px 0;
+  padding: 0.75rem 1.1rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.9rem;
+  color: #1d5e38;
+}
+
+.checkpoint strong { color: #14492a; }
+.checkpoint p:last-child { margin-bottom: 0; }
+
+/* ── Warning callout (amber) — caveats / graceful degradation ── */
+.callout-warn {
+  background: #FFF7E6;
+  border-left: 3px solid var(--teradata-orange);
+  border-radius: 0 6px 6px 0;
+  padding: 0.75rem 1.1rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.9rem;
+  color: #7a4a12;
+}
+
+.callout-warn strong { color: #5a3608; }
+.callout-warn p:last-child { margin-bottom: 0; }
+
+/* ── Mobile (< 1080px) ─────────────────────────────────────── */
+@media (max-width: 1079px) {
+  .page-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .toc-sidebar {
+    position: static;
+    max-height: none;
+    padding-right: 0;
+  }
+
+  .toc-sidebar details { border: 1px solid var(--border-light); border-radius: 6px; }
+  .toc-sidebar details summary {
+    padding: 0.6rem 0.85rem;
+    cursor: pointer;
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    list-style: none;
+  }
+  .toc-sidebar details summary::-webkit-details-marker { display: none; }
+  .toc-sidebar details nav { padding: 0.5rem 0.85rem 0.85rem; border-left: none; }
+
+  .use-case-cards { grid-template-columns: 1fr; }
+  .page-nav { grid-template-columns: 1fr; }
+
+  .hero { min-height: 280px; border-radius: 8px; }
+  .hero h1 { font-size: 1.9rem; }
+  .hero-content { padding: 2rem; }
+
+  .site-nav ul { overflow-x: auto; white-space: nowrap; }
+}
+
+@media (max-width: 640px) {
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.35rem; }
+  .hero { min-height: 240px; }
+  .hero-content { padding: 1.5rem; }
+  .hero h1 { font-size: 1.6rem; }
+}
+
+/* ── Shared JS toggle visibility ───────────────────────────── */
+[hidden] { display: none !important; }
+
+/* ── Utility ───────────────────────────────────────────────── */
+.mt-0 { margin-top: 0 !important; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }

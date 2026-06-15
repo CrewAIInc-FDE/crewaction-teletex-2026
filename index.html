@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrewAI × Teradata — Taller Buenos Aires 2026</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Index-specific: full width, no sidebar */
+    .index-layout {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    .section-title {
+      font-family: 'Geist Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .overview-intro {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: none;
+    }
+    .versions-overview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0 3rem;
+    }
+    .version-card {
+      background: var(--off-white);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+    }
+    .version-card .vnum {
+      font-family: 'Geist Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+    .version-card .vtitle {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+    .version-card .vdesc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    @media (max-width: 700px) {
+      .versions-overview { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-brand">
+    <img src="assets/teradata-logo.png" alt="Teradata" class="teradata-logo">
+    <div class="header-divider"></div>
+    <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
+  </div>
+  <span class="header-label">Taller Práctico · Buenos Aires</span>
+</header>
+
+<nav class="site-nav"><ul>
+  <li><a href="index.html" class="active">Inicio</a></li>
+  <li><a href="comenzar.html">Comenzar</a></li>
+  <li><a href="instalacion.html">Instalación</a></li>
+  <li><a href="caso-credito.html">Crédito</a></li>
+  <li><a href="caso-bi.html">BI</a></li>
+  <li><a href="caso-reclamos.html">Reclamos</a></li>
+  <li><a href="ir-mas-alla.html">Más Allá</a></li>
+</ul></nav>
+
+<div class="index-layout">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-bg-image"></div>
+    <div class="hero-content">
+      <div class="hero-logos">
+        <img src="assets/teradata-logo.png" alt="Teradata" class="teradata-logo">
+        <div class="hero-div"></div>
+        <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
+      </div>
+      <h1>De Datos Confiables<br>a Acción Agéntica</h1>
+      <p class="hero-subtitle">Desplegando Agentes de IA Empresariales con Teradata y CrewAI</p>
+      <p class="hero-date">Taller práctico · WeWork Vicente López · Buenos Aires · 16–17 de Junio 2026</p>
+      <a href="comenzar.html" class="hero-cta">Comenzar el taller →</a>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <div class="section-title">Descripción general</div>
+  <p class="overview-intro">
+    Tres casos de uso, cada uno con una herramienta AMP que maneja el acceso a datos internamente.
+    Vos traés los agentes; las herramientas traen los datos. Dos caminos para avanzar:
+    <strong>Comenzar</strong> (sin código, directo en Studio) e <strong>Instalación</strong> (con código, entorno local en Python).
+    Ambos producen el mismo resultado.
+  </p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Caso de uso</th>
+          <th>Los agentes hacen</th>
+          <th>Herramienta AMP</th>
+          <th>Prompt de inicio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Análisis de Crédito</strong></td>
+          <td>Recuperan el perfil crediticio del cliente, interpretan el score y los factores de riesgo, recomiendan aprobación</td>
+          <td><code>teradata-credit-analysis</code></td>
+          <td><em>Explicá la decisión crediticia para el DNI 10436124 e incluí los principales factores de riesgo.</em></td>
+        </tr>
+        <tr>
+          <td><strong>BI Conversacional</strong></td>
+          <td>Responden preguntas de ventas en lenguaje natural, identifican tendencias y patrones estacionales</td>
+          <td><code>teradata-conversational-bi</code></td>
+          <td><em>¿Cuántas ventas hubo en abril? Mostrá la tendencia mensual por ingresos totales.</em></td>
+        </tr>
+        <tr>
+          <td><strong>Análisis de Reclamos</strong></td>
+          <td>Clasifican el reclamo, buscan casos similares, consultan políticas y redactan una resolución</td>
+          <td><code>teradata-claims-analysis</code></td>
+          <td><em>Analizá el caso REC-001, clasificá el reclamo, encontrá casos históricos similares y sugerí una resolución respaldada por la política vigente.</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Version tiers -->
+  <div class="section-title" style="margin-top: 2.5rem;">Niveles de profundidad</div>
+  <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+    Cada caso de uso tiene tres versiones. Podés ir tan profundo como quieras.
+  </p>
+  <div class="versions-overview">
+    <div class="version-card">
+      <div class="vnum" style="color: var(--coral);">V1 — Básico</div>
+      <div class="vtitle">1–2 agentes</div>
+      <div class="vdesc">Recuperación y explicación básica. Funcionando en menos de 5 minutos.</div>
+    </div>
+    <div class="version-card">
+      <div class="vnum" style="color: var(--teradata-orange);">V2 — Explorador</div>
+      <div class="vtitle">3 agentes</div>
+      <div class="vdesc">Investigación web vía Firecrawl. Handoff real entre múltiples agentes.</div>
+    </div>
+    <div class="version-card">
+      <div class="vnum" style="color: var(--coal);">V3 — Crew Completo</div>
+      <div class="vtitle">5 agentes</div>
+      <div class="vdesc">Generación de gráficos e informes completos. Listo para demo.</div>
+    </div>
+  </div>
+
+  <!-- Use case cards -->
+  <div class="section-title">Casos de uso</div>
+  <div class="use-case-cards">
+    <a href="caso-credito.html" class="use-case-card">
+      <div class="card-icon">💳</div>
+      <div class="card-title">Análisis de Crédito</div>
+      <div class="card-desc">
+        Los agentes buscan un cliente por DNI, recuperan su score crediticio y factores de riesgo,
+        y generan un informe de decisión de crédito.
+      </div>
+      <div class="card-link">Ver guía →</div>
+    </a>
+    <a href="caso-bi.html" class="use-case-card">
+      <div class="card-icon">📊</div>
+      <div class="card-title">BI Conversacional</div>
+      <div class="card-desc">
+        Los agentes responden preguntas de negocio en lenguaje natural sobre datos de ventas
+        y productos, identificando tendencias y patrones estacionales.
+      </div>
+      <div class="card-link">Ver guía →</div>
+    </a>
+    <a href="caso-reclamos.html" class="use-case-card">
+      <div class="card-icon">📋</div>
+      <div class="card-title">Análisis de Reclamos</div>
+      <div class="card-desc">
+        Los agentes clasifican el reclamo, encuentran casos similares, consultan políticas
+        y redactan una resolución respaldada por normativa.
+      </div>
+      <div class="card-link">Ver guía →</div>
+    </a>
+  </div>
+
+  <!-- CTA to getting started -->
+  <div style="text-align: center; margin-top: 1rem; padding: 2.5rem; background: var(--off-white); border-radius: 10px;">
+    <h2 style="border: none; margin-top: 0; font-size: 1.5rem;">¿Listo para empezar?</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 1.25rem;">
+      Si querés arrancar directo en Studio (sin instalar nada), seguí <strong>Comenzar</strong>.
+      Si preferís correr los agentes en tu máquina con Python, arrancá por <strong>Instalación</strong>.
+    </p>
+    <a href="comenzar.html" class="hero-cta">Comenzar el taller →</a>
+    <a href="instalacion.html" style="margin-left: 1rem; color: var(--text-secondary); font-size: 0.9rem;">Instalación (con código) →</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <p>Guía preparada para el evento CrewAI × Teradata · Buenos Aires · Junio 2026</p>
+</footer>
+
+<button id="back-to-top" title="Volver arriba">↑</button>
+
+<script>
+  const btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 400));
+  btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+</script>
+</body>
+</html>

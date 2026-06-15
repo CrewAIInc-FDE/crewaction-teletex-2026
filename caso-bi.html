@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BI Conversacional — CrewAI × Teradata</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-brand">
+    <img src="assets/teradata-logo.png" alt="Teradata" class="teradata-logo">
+    <div class="header-divider"></div>
+    <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
+  </div>
+  <span class="header-label">Taller Práctico · Buenos Aires</span>
+</header>
+
+<nav class="site-nav"><ul>
+  <li><a href="index.html">Inicio</a></li>
+  <li><a href="comenzar.html">Comenzar</a></li>
+  <li><a href="instalacion.html">Instalación</a></li>
+  <li><a href="caso-credito.html">Crédito</a></li>
+  <li><a href="caso-bi.html" class="active">BI</a></li>
+  <li><a href="caso-reclamos.html">Reclamos</a></li>
+  <li><a href="ir-mas-alla.html">Más Allá</a></li>
+</ul></nav>
+
+<div class="page-layout">
+
+  <!-- Sidebar TOC -->
+  <aside class="toc-sidebar">
+    <details open>
+      <summary>En esta página</summary>
+      <nav>
+        <p class="toc-title">Contenido</p>
+        <a href="#descripcion">Descripción</a>
+        <a href="#studio">Studio</a>
+        <a href="#studio-v1" class="toc-h3">V1 — Básico</a>
+        <a href="#studio-v2" class="toc-h3">V2 — Explorador</a>
+        <a href="#studio-v3" class="toc-h3">V3 — Crew Completo</a>
+      </nav>
+    </details>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-content">
+
+    <div class="page-header">
+      <p class="page-breadcrumb"><a href="index.html">← Inicio</a></p>
+      <h1 id="descripcion">BI Conversacional</h1>
+    </div>
+
+    <div class="section-intro">
+      <p>
+        Imaginá que cualquier persona del negocio — no solo los analistas — pueda hacerle preguntas
+        a los datos de ventas en lenguaje natural y obtener respuestas con contexto. Eso es exactamente
+        lo que construís en este caso de uso.
+      </p>
+      <p>
+        Los agentes consultan datos de ventas y productos usando lenguaje natural, identifican tendencias
+        y patrones estacionales, enriquecen el análisis con contexto externo del mercado argentino,
+        generan gráficos y producen un informe ejecutivo de BI listo para presentar.
+      </p>
+      <p>
+        El dataset incluye 40 productos en 4 categorías (Electrónica, Indumentaria, Hogar, Alimentación)
+        y 3.000 transacciones de ventas entre 2024 y 2025. Los picos estacionales están baked in:
+        noviembre–diciembre (fiestas), julio–agosto (invierno argentino). La herramienta
+        <code>teradata-conversational-bi</code> interpreta cualquier pregunta en lenguaje natural
+        y devuelve datos estructurados listos para analizar o graficar.
+      </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         STUDIO CONTENT
+    ════════════════════════════════════════════════════ -->
+    <div id="studio-wrap">
+      <h2 id="studio">Studio</h2>
+
+      <div class="versions-list">
+
+        <!-- V1 — BÁSICO -->
+        <details class="version-details" open id="studio-v1">
+          <summary class="version-summary">
+            <span class="version-badge v1">V1 — Básico</span>
+            <span class="version-meta">1 agente · Listo en 5 minutos</span>
+            <span class="version-arrow">▶</span>
+          </summary>
+          <div class="version-body">
+
+            <div class="info-box">
+              <p>
+                En V1 construís el núcleo del BI conversacional: un único agente capaz de responder
+                cualquier pregunta sobre ventas en lenguaje natural. Sin SQL, sin dashboards predefinidos —
+                solo una pregunta y una respuesta con narrativa de negocio.
+              </p>
+              <p>
+                El agente recibe la pregunta, usa <code>teradata-conversational-bi</code> para consultar
+                las colecciones <code>bi_ventas</code> y <code>bi_productos</code>, y devuelve un análisis
+                con tendencias, comparaciones y explicaciones estacionales. El Backstory es clave: sin él,
+                el agente puede limitarse a devolver los datos crudos. Con él, transforma números en
+                narrativa de negocio.
+              </p>
+            </div>
+
+            <p>
+              <strong>Nombre del crew:</strong> <code>Conversational BI — V1</code>
+            </p>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente</span>
+              <h3>Analista de Inteligencia Comercial</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Analista Senior de Inteligencia Comercial</td></tr>
+                  <tr><td>Goal</td><td>Responder preguntas de negocio sobre el desempeño de ventas de Teradata Store y entregar insights accionables con datos de respaldo</td></tr>
+                  <tr><td>Backstory</td><td>Sos un analista de datos retail que traduce preguntas ejecutivas en consultas estructuradas sobre datos de ventas. Entendés tendencias estacionales, desempeño regional y categorías de productos, y comunicás los insights con claridad a audiencias no técnicas.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
+                  <tr><td>Tool</td><td><code>teradata-conversational-bi</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <blockquote>
+              <strong>¿Por qué este Backstory?</strong> La herramienta devuelve JSON listo para graficar.
+              Sin el Backstory adecuado, el agente podría limitarse a reproducir los datos crudos.
+              Este Backstory lo lleva a convertir los números en narrativa de negocio: explicaciones estacionales,
+              análisis de picos, observaciones estratégicas. La diferencia entre "abril tuvo 247 ventas"
+              y "abril se ubica en el rango medio del año, consistente con la baja estacional post-verano" es el Backstory.
+            </blockquote>
+
+            <div class="task-header">
+              <span class="task-label">Tarea</span>
+              <h3>Informe de Desempeño de Ventas</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>¿Cuántas ventas se realizaron en abril? Mostrá la tendencia mensual de ingresos para todos los meses disponibles. Destacá los 3 meses con mayor volumen y sugerí una explicación de negocio para los picos.</td></tr>
+                  <tr><td>Expected Output</td><td>Un reporte de negocio: total de ventas en abril, tabla de ingresos mes a mes, los 3 meses pico identificados y una narrativa breve que explique el patrón estacional.</td></tr>
+                  <tr><td>Agent</td><td>Analista de Inteligencia Comercial</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <blockquote>
+              <strong>Resultado esperado:</strong> Picos estacionales en noviembre–diciembre (retail de fin de año)
+              y julio–agosto (invierno argentino). Abril aparecerá como un mes de rango medio,
+              consistente con la baja post-temporada de verano.
+            </blockquote>
+
+            <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
+            <div class="prompt-example">¿Cuáles son los 5 productos con mayor ingreso total en 2024?</div>
+            <div class="prompt-example">Comparar ventas por región para la categoría Electrónica y explicar las diferencias.</div>
+
+          </div>
+        </details>
+
+        <!-- V2 — EXPLORADOR -->
+        <details class="version-details" id="studio-v2">
+          <summary class="version-summary">
+            <span class="version-badge v2">V2 — Explorador</span>
+            <span class="version-meta">3 agentes · Investigación web en vivo</span>
+            <span class="version-arrow">▶</span>
+          </summary>
+          <div class="version-body">
+
+            <div class="info-box">
+              <p>
+                Los datos internos te dan los números, pero no el contexto. Un pico de ventas en noviembre
+                se interpreta de forma muy distinta si lo explica el Black Friday que si fue una campaña
+                puntual del área comercial. En V2 sumás un agente que investiga el mercado argentino en
+                tiempo real para darle sentido a lo que muestran los datos.
+              </p>
+              <p>
+                Agregá estos dos agentes y sus tareas al crew de V1. La secuencia es:
+                el <strong>Analista de Inteligencia Comercial</strong> analiza los datos internos →
+                el <strong>Investigador de la Industria Retail</strong> investiga el contexto de mercado con Firecrawl →
+                el <strong>Analista de Síntesis de BI</strong> combina ambas fuentes en un brief estratégico.
+                Es el primer handoff multi-agente real del taller.
+              </p>
+            </div>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente</span>
+              <h3>Investigador de la Industria Retail</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Analista de Inteligencia de la Industria Retail</td></tr>
+                  <tr><td>Goal</td><td>Investigar las tendencias actuales de la industria retail argentina e identificar qué factores externos explican los patrones de ventas encontrados en los datos</td></tr>
+                  <tr><td>Backstory</td><td>Monitoréas tendencias del mercado retail argentino, cambios en el comportamiento del consumidor y patrones estacionales. Proporcionás el contexto externo que transforma datos de ventas crudos en inteligencia estratégica.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
+                  <tr><td>Tool</td><td><code>firecrawl</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <blockquote>
+              <strong>¿Por qué Firecrawl acá?</strong> Los datos internos te dan los números de ventas, pero no el contexto de mercado.
+              Un pico en noviembre se lee distinto si lo explica el Black Friday que si fue una promoción puntual.
+              Firecrawl le permite al agente traer datos de mercado en vivo — artículos, reportes sectoriales,
+              noticias de consumo — para darle sentido a lo que muestran los números internos.
+              Esta combinación de datos propios + contexto externo es lo que hace poderoso al BI conversacional.
+            </blockquote>
+
+            <div class="task-header">
+              <span class="task-label">Tarea</span>
+              <h3>Contexto de la Industria</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>Investigá las tendencias actuales del mercado retail argentino en 2024–2025. Identificá 2–3 factores externos (económicos, estacionales, de comportamiento del consumidor) que puedan explicar los picos y caídas de ventas encontrados en los datos.</td></tr>
+                  <tr><td>Expected Output</td><td>Un briefing de 3 puntos sobre la industria: tendencia clave del mercado, factor de comportamiento estacional del consumidor y un factor macroeconómico que influye en la demanda retail en Argentina.</td></tr>
+                  <tr><td>Agent</td><td>Investigador de la Industria Retail</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente</span>
+              <h3>Analista de Síntesis de BI</h3>
+            </div>
+
+            <div class="section-intro">
+              <p>
+                Este agente no usa herramientas: trabaja exclusivamente con el output de los dos agentes
+                anteriores. Su rol es el de integrador: toma los datos internos y el contexto de mercado
+                y produce un brief que va más allá de los números. La pregunta que responde no es
+                "¿qué pasó?" sino "¿por qué pasó y qué significa para el negocio?".
+              </p>
+            </div>
+
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Analista de Síntesis de Business Intelligence</td></tr>
+                  <tr><td>Goal</td><td>Combinar los patrones internos de ventas con el contexto de la industria para producir insights de BI estratégicos que van más allá de los números</td></tr>
+                  <tr><td>Backstory</td><td>Combinás datos internos de ventas con inteligencia de mercado externo para redactar briefings ejecutivos de BI. Nunca te limitás a reportar lo que pasó — explicás por qué pasó y qué significa para el negocio.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
+                  <tr><td>Tool</td><td><em>ninguna — sintetiza el contexto de los dos agentes anteriores</em></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="task-header">
+              <span class="task-label">Tarea</span>
+              <h3>Brief Estratégico de BI</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>Combiná el análisis de ventas interno y el contexto de la industria de arriba en un brief estratégico de BI. Explicá los patrones de desempeño clave, contextualizálos con los drivers de mercado e identificá una oportunidad o riesgo estratégico.</td></tr>
+                  <tr><td>Expected Output</td><td>Un brief estratégico: resumen de desempeño de ventas, contexto externo, insight clave ("este pico se explica por X") y una recomendación con visión de futuro.</td></tr>
+                  <tr><td>Agent</td><td>Analista de Síntesis de BI</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
+            <div class="prompt-example">Analizá las tendencias de ventas del último trimestre e identificá qué factores del mercado argentino explican los picos. Incluí contexto de inflación y estacionalidad.</div>
+            <div class="prompt-example">¿Qué categorías de producto mostraron mayor crecimiento en 2024 y cómo se compara eso con las tendencias generales del retail argentino?</div>
+
+          </div>
+        </details>
+
+        <!-- V3 — CREW COMPLETO -->
+        <details class="version-details" id="studio-v3">
+          <summary class="version-summary">
+            <span class="version-badge v3">V3 — Crew Completo</span>
+            <span class="version-meta">5 agentes · Demo-ready</span>
+            <span class="version-arrow">▶</span>
+          </summary>
+          <div class="version-body">
+
+            <div class="info-box">
+              <p>
+                En V3 el crew produce algo que podés mostrar a un directivo: un informe ejecutivo completo
+                con gráficos, contexto de mercado y una recomendación estratégica. Agregás dos agentes
+                sobre V2: uno especializado en visualización de datos y otro que compila todo en un reporte
+                listo para el directorio.
+              </p>
+              <p>
+                La lógica de separar la generación de gráficos del reporte final no es solo técnica —
+                refleja cómo trabajan los equipos reales: un analista hace los gráficos, otro redacta
+                el informe. En CrewAI, cada agente tiene un rol y un foco bien definido.
+              </p>
+            </div>
+
+            <p>Agregá estos dos agentes y tareas sobre V2.</p>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente</span>
+              <h3>Creador de Gráficos</h3>
+            </div>
+
+            <div class="section-intro">
+              <p>
+                La generación de gráficos es una tarea acotada: el agente recibe los datos del análisis
+                de V1, los formatea y llama a <code>chart-generator</code>. Por eso usamos
+                <code>gpt-5.4-nano</code>: no hace falta razonamiento complejo, solo formatear bien
+                los datos para la herramienta. Usar nano acá reduce latencia y costo sin sacrificar calidad.
+              </p>
+            </div>
+
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Especialista en Visualización de Datos</td></tr>
+                  <tr><td>Goal</td><td>Crear un gráfico de tendencia mensual de ingresos y un gráfico de desglose por categoría a partir de los datos de ventas</td></tr>
+                  <tr><td>Backstory</td><td>Te especializás en convertir datos de ventas en gráficos ejecutivos claros. Elegís el tipo de gráfico correcto para la historia: líneas para tendencias en el tiempo, barras para comparaciones entre categorías.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-nano</code></td></tr>
+                  <tr><td>Tool</td><td><code>chart-generator</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <blockquote>
+              <strong>¿Por qué nano acá?</strong> La generación de gráficos es una tarea liviana: formatear datos
+              para una llamada a herramienta. No se necesita razonamiento pesado.
+              <code>gpt-5.4-nano</code> es más rápido y económico para este paso, y en el crew completo eso se nota
+              en la latencia total.
+            </blockquote>
+
+            <div class="task-header">
+              <span class="task-label">Tarea</span>
+              <h3>Gráficos de Ventas</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>Generá dos gráficos a partir de los datos de ventas: (1) un gráfico de líneas con los ingresos totales mensuales mostrando todos los meses, (2) un gráfico de barras con los ingresos totales por categoría de producto.</td></tr>
+                  <tr><td>Expected Output</td><td>Dos imágenes de gráficos: un gráfico de líneas con la tendencia mensual de ingresos y un gráfico de barras con la comparación de ingresos por categoría.</td></tr>
+                  <tr><td>Agent</td><td>Creador de Gráficos</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="agent-header">
+              <span class="agent-label">Agente</span>
+              <h3>Redactor de Informes Ejecutivos de BI</h3>
+            </div>
+
+            <div class="section-intro">
+              <p>
+                El último agente del crew no usa herramientas: su trabajo es compilar y sintetizar
+                todo lo que produjeron los cuatro agentes anteriores. Es el equivalente a un Chief BI Officer
+                que revisa el análisis, el contexto de mercado y los gráficos, y produce el documento
+                final que va al directorio. La tarea más difícil no es hacer el análisis — es convertirlo
+                en un mensaje claro y accionable para quien toma decisiones.
+              </p>
+            </div>
+
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Role</td><td>Director de Business Intelligence</td></tr>
+                  <tr><td>Goal</td><td>Producir un informe mensual completo de BI listo para presentar al directorio</td></tr>
+                  <tr><td>Backstory</td><td>Redactás informes ejecutivos de BI para el directorio de una empresa retail. Tus reportes son estructurados: resumen ejecutivo, hallazgos clave, referencias visuales y una recomendación estratégica. Son concisos, respaldados en datos y listos para la toma de decisiones.</td></tr>
+                  <tr><td>Model</td><td><code>gpt-5.4-mini</code></td></tr>
+                  <tr><td>Tool</td><td><em>ninguna — compila a partir de todos los agentes anteriores</em></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="task-header">
+              <span class="task-label">Tarea</span>
+              <h3>Informe Ejecutivo de BI</h3>
+            </div>
+            <div class="table-wrap">
+              <table class="field-table">
+                <tbody>
+                  <tr><td>Description</td><td>Redactá un informe ejecutivo completo de BI para el directorio incorporando: el análisis de desempeño de ventas, el contexto de la industria, las descripciones de los gráficos y una recomendación estratégica. Abrí con un resumen ejecutivo de 3 oraciones.</td></tr>
+                  <tr><td>Expected Output</td><td>Un informe de BI listo para el directorio: resumen ejecutivo, hallazgos clave de ventas, contexto estacional y de mercado, referencias a los gráficos y una recomendación estratégica.</td></tr>
+                  <tr><td>Agent</td><td>Redactor de Informes Ejecutivos de BI</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="prompt-group-label">Prompts sugeridos para probar — pegá cualquiera al ejecutar el crew</p>
+            <div class="prompt-example">Generá el informe ejecutivo mensual de BI para presentar al directorio: incluí tendencia de ingresos, análisis por categoría, contexto del mercado argentino y una recomendación estratégica para el próximo trimestre.</div>
+            <div class="prompt-example">¿Qué productos de Electrónica tuvieron mejor desempeño en el segundo semestre y cómo se posicionan frente a las tendencias del sector? Incluí gráficos y una recomendación de inventario.</div>
+
+          </div>
+        </details>
+
+      </div><!-- /versions-list -->
+    </div><!-- /studio-wrap -->
+
+    <!-- Prev/Next navigation -->
+    <div class="page-nav">
+      <a href="caso-credito.html" class="page-nav-card prev">
+        <span class="nav-direction">← Anterior</span>
+        <span class="nav-title">Análisis de Crédito</span>
+      </a>
+      <a href="caso-reclamos.html" class="page-nav-card next">
+        <span class="nav-direction">Siguiente →</span>
+        <span class="nav-title">Análisis de Reclamos</span>
+      </a>
+    </div>
+
+  </main>
+</div><!-- /page-layout -->
+
+<footer class="site-footer">
+  <p>Guía preparada para el evento CrewAI × Teradata · Buenos Aires · Junio 2026</p>
+</footer>
+
+<button id="back-to-top" title="Volver arriba">↑</button>
+
+<script>
+  const btn = document.getElementById('back-to-top');
+  const tocLinks = Array.from(document.querySelectorAll('.toc-sidebar nav a'));
+  // Resolve each TOC link to its target element (works for h1, h2 and <details> wrappers alike).
+  const targets = tocLinks
+    .map(a => { const el = document.getElementById(a.getAttribute('href').slice(1)); return el ? {link: a, el} : null; })
+    .filter(Boolean);
+
+  function syncScroll() {
+    btn.classList.toggle('visible', window.scrollY > 400);
+    if (!targets.length) return;
+    const line = window.innerHeight * 0.28;            // activation line, ~28% down the viewport
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    let activeIdx = 0;                                 // default to the first section at the top of the page
+    targets.forEach((t, i) => { if (t.el.getBoundingClientRect().top <= line) activeIdx = i; });
+    if (atBottom) activeIdx = targets.length - 1;      // snap to the last section at the bottom of the page
+    targets.forEach((t, i) => t.link.classList.toggle('active', i === activeIdx));
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(() => { syncScroll(); ticking = false; }); ticking = true; }
+  });
+  btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+  syncScroll();
+</script>
+
+</body>
+</html>
