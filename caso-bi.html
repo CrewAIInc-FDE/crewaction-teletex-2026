@@ -298,11 +298,16 @@
             <div class="section-intro">
               <p>
                 La generación de gráficos es una tarea acotada: el agente recibe los datos del análisis
-                de V1, los formatea y llama a <code>chart-generator</code>. Por eso usamos
+                de V1 y los convierte en gráficos markdown legibles — tablas con barras, bloques ASCII
+                o secciones estructuradas. No usa herramientas. Por eso usamos
                 <code>gpt-5.4-nano</code>: no hace falta razonamiento complejo, solo formatear bien
-                los datos para la herramienta. Usar nano acá reduce latencia y costo sin sacrificar calidad.
+                los datos en markdown. Usar nano acá reduce latencia y costo sin sacrificar calidad.
               </p>
             </div>
+
+            <blockquote>
+              <p><strong>Studio y gráficos:</strong> Studio no renderiza gráficos como imágenes de forma confiable. Por eso el agente visualizador no usa herramientas: produce los gráficos directamente en markdown.</p>
+            </blockquote>
 
             <div class="table-wrap">
               <table class="field-table">
@@ -311,14 +316,14 @@
                   <tr><td>Goal</td><td>Crear visualizaciones que ayuden a explicar la pregunta {user_message} a partir de los datos de ventas</td></tr>
                   <tr><td>Backstory</td><td>Te especializás en convertir datos de ventas en gráficos ejecutivos claros. Elegís el tipo de gráfico correcto para la historia: líneas para tendencias en el tiempo, barras para comparaciones entre categorías.</td></tr>
                   <tr><td>Model</td><td><code>gpt-5.4-nano</code></td></tr>
-                  <tr><td>Tool</td><td><code>chart-generator</code></td></tr>
+                  <tr><td>Tool</td><td><em>ninguna — genera gráficos en markdown</em></td></tr>
                 </tbody>
               </table>
             </div>
 
             <blockquote>
               <strong>¿Por qué nano acá?</strong> La generación de gráficos es una tarea liviana: formatear datos
-              para una llamada a herramienta. No se necesita razonamiento pesado.
+              en gráficos markdown legibles. No se necesita razonamiento pesado.
               <code>gpt-5.4-nano</code> es más rápido y económico para este paso, y en el crew completo eso se nota
               en la latencia total.
             </blockquote>

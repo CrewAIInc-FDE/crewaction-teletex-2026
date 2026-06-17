@@ -360,14 +360,14 @@
             <p>
               En V3 el crew pasa de análisis a producción: dos agentes adicionales convierten los resultados
               en artefactos que podés llevar a una reunión de comité. El Visualizador genera un gráfico de
-              barras que muestra dónde cae el score del cliente dentro de las cuatro bandas de riesgo —
-              una imagen vale más que un número. El Redactor de Informes toma todos los outputs anteriores
+              barras en markdown que muestra dónde cae el score del cliente dentro de las cuatro bandas de riesgo —
+              un gráfico claro vale más que un número suelto. El Redactor de Informes toma todos los outputs anteriores
               y los compila en un documento formal con resumen ejecutivo, listo para que cualquier decisor
               lo lea en 90 segundos.
             </p>
             <p>
               Notá el cambio de modelo en el Visualizador: usamos <code>gpt-5.4-nano</code> porque generar
-              un gráfico es una tarea liviana (formatear datos para una llamada a la herramienta). Reservamos
+              un gráfico markdown es una tarea liviana (formatear datos en una visualización legible). Reservamos
               <code>gpt-5.4-mini</code> para los agentes que necesitan razonar. Esa asignación inteligente
               de modelos es parte del diseño de un crew eficiente.
             </p>
@@ -380,6 +380,11 @@
             <span class="agent-label">Agente</span>
             <h3>Visualizador de Datos Crediticios</h3>
           </div>
+
+          <blockquote>
+            <p><strong>Studio y gráficos:</strong> Studio no renderiza gráficos como imágenes de forma confiable. Por eso el agente visualizador no usa herramientas: produce los gráficos directamente en markdown.</p>
+          </blockquote>
+
           <div class="table-wrap">
             <table class="field-table">
               <tbody>
@@ -393,7 +398,7 @@
                 </tr>
                 <tr>
                   <td>Backstory</td>
-                  <td>Sos un especialista en visualización de datos que traduce métricas financieras en gráficos claros y listos para presentaciones ejecutivas. Elegís el tipo de gráfico que mejor comunica la historia que hay en los datos.</td>
+                  <td>Sos un especialista en visualización de datos que traduce métricas financieras en gráficos claros en markdown — sin herramientas de imagen. Elegís el formato que mejor comunica la historia: tablas con barras o indicadores de banda para comparaciones de score.</td>
                 </tr>
                 <tr>
                   <td>Model</td>
@@ -401,14 +406,14 @@
                 </tr>
                 <tr>
                   <td>Tool</td>
-                  <td><code>chart-generator</code></td>
+                  <td><em>ninguna — genera gráficos en markdown</em></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <blockquote>
-            <p><strong>¿Por qué nano acá?</strong> La generación de gráficos es una tarea liviana —formatear datos para una llamada a la herramienta. No se necesita razonamiento pesado. <code>gpt-5.4-nano</code> es más rápido y económico para este paso.</p>
+            <p><strong>¿Por qué nano acá?</strong> La generación de gráficos es una tarea liviana — formatear datos en un gráfico markdown legible. No se necesita razonamiento pesado. <code>gpt-5.4-nano</code> es más rápido y económico para este paso.</p>
           </blockquote>
 
           <!-- Task: Score Visualization -->
@@ -425,7 +430,7 @@
                 </tr>
                 <tr>
                   <td>Expected Output</td>
-                  <td>Una imagen de gráfico que muestre las bandas de distribución del score con la posición del cliente claramente marcada.</td>
+                  <td>Una sección markdown con título, breve descripción y un gráfico basado en texto (tabla con indicadores de barra o bloques ASCII) que muestre las cuatro bandas de riesgo con la posición del cliente claramente marcada.</td>
                 </tr>
                 <tr>
                   <td>Agent</td>
