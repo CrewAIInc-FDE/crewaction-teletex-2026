@@ -381,10 +381,6 @@
             <h3>Visualizador de Datos Crediticios</h3>
           </div>
 
-          <blockquote>
-            <p><strong>Studio y gráficos:</strong> Studio no renderiza gráficos como imágenes de forma confiable. Por eso el agente visualizador no usa herramientas: produce los gráficos directamente en markdown.</p>
-          </blockquote>
-
           <div class="table-wrap">
             <table class="field-table">
               <tbody>
@@ -394,11 +390,11 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Crear una visualización que muestre la posición del score del cliente con DNI {dni} dentro de las cuatro bandas de riesgo para apoyar la decisión sobre {credit_request}</td>
+                  <td>Crear una visualización en markdown que muestre la posición del score del cliente con DNI {dni} dentro de las cuatro bandas de riesgo para apoyar la decisión sobre {credit_request}, usando una tabla con barras horizontales (█) — no ejes cartesianos ni gráficos con coordenadas X/Y</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
-                  <td>Sos un especialista en visualización de datos que traduce métricas financieras en gráficos claros en markdown — sin herramientas de imagen. Elegís el formato que mejor comunica la historia: tablas con barras o indicadores de banda para comparaciones de score.</td>
+                  <td>Sos un especialista en visualización de datos que traduce métricas financieras en gráficos claros en markdown. Siempre usás tablas con columnas Banda, Rango, Score del cliente (si aplica) y Visual (barras █). Marcás la banda del cliente con una flecha o etiqueta en la columna Visual. Nunca dibujes ejes X/Y, cuadrículas cartesianas ni diagramas de coordenadas.</td>
                 </tr>
                 <tr>
                   <td>Model</td>
@@ -426,11 +422,11 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Generá un gráfico de barras que muestre el score crediticio del DNI {dni} en relación con las 4 bandas de riesgo: Muy Alto (menos de 520), Alto (520–619), Medio (620–719), Bajo (720 en adelante). Destacá la banda del cliente y conectá la visualización con {credit_request}.</td>
+                  <td>Generá un gráfico de barras en markdown que muestre el score crediticio del DNI {dni} en relación con las 4 bandas de riesgo: Muy Alto (menos de 520), Alto (520–619), Medio (620–719), Bajo (720 en adelante). Usá una tabla con columnas Banda, Rango, Visual (barras █) y marcá claramente la banda del cliente. Conectá la visualización con {credit_request}. No uses ejes X/Y, cuadrículas cartesianas ni diagramas de coordenadas.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
-                  <td>Una sección markdown con título, breve descripción y un gráfico basado en texto (tabla con indicadores de barra o bloques ASCII) que muestre las cuatro bandas de riesgo con la posición del cliente claramente marcada.</td>
+                  <td>Una sección markdown con título, breve descripción y una tabla como: <code>| Banda | Rango | Visual |</code> con barras █ proporcionales y la banda del cliente marcada (ej. <code>████████ ← DNI {dni}: 745</code>).</td>
                 </tr>
                 <tr>
                   <td>Agent</td>

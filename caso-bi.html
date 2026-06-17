@@ -298,23 +298,18 @@
             <div class="section-intro">
               <p>
                 La generación de gráficos es una tarea acotada: el agente recibe los datos del análisis
-                de V1 y los convierte en gráficos markdown legibles — tablas con barras, bloques ASCII
-                o secciones estructuradas. No usa herramientas. Por eso usamos
+                de V1 y los convierte en tablas markdown con barras horizontales (█). Por eso usamos
                 <code>gpt-5.4-nano</code>: no hace falta razonamiento complejo, solo formatear bien
-                los datos en markdown. Usar nano acá reduce latencia y costo sin sacrificar calidad.
+                los datos en un formato legible. Usar nano acá reduce latencia y costo sin sacrificar calidad.
               </p>
             </div>
-
-            <blockquote>
-              <p><strong>Studio y gráficos:</strong> Studio no renderiza gráficos como imágenes de forma confiable. Por eso el agente visualizador no usa herramientas: produce los gráficos directamente en markdown.</p>
-            </blockquote>
 
             <div class="table-wrap">
               <table class="field-table">
                 <tbody>
                   <tr><td>Role</td><td>Especialista en Visualización de Datos</td></tr>
-                  <tr><td>Goal</td><td>Crear visualizaciones que ayuden a explicar la pregunta {user_message} a partir de los datos de ventas</td></tr>
-                  <tr><td>Backstory</td><td>Te especializás en convertir datos de ventas en gráficos ejecutivos claros. Elegís el tipo de gráfico correcto para la historia: líneas para tendencias en el tiempo, barras para comparaciones entre categorías.</td></tr>
+                  <tr><td>Goal</td><td>Crear visualizaciones en markdown que ayuden a explicar la pregunta {user_message} a partir de los datos de ventas, usando tablas con barras horizontales (█) — no ejes cartesianos ni gráficos con coordenadas X/Y</td></tr>
+                  <tr><td>Backstory</td><td>Te especializás en convertir datos de ventas en gráficos ejecutivos en markdown. Siempre usás tablas con columnas claras (categoría, valor, visual) y barras horizontales con el carácter █ en la columna Visual. Para comparaciones usás filas con barras proporcionales; para tendencias temporales, una fila por período con su barra. Nunca dibujes ejes X/Y, cuadrículas cartesianas ni diagramas de coordenadas.</td></tr>
                   <tr><td>Model</td><td><code>gpt-5.4-nano</code></td></tr>
                   <tr><td>Tool</td><td><em>ninguna — genera gráficos en markdown</em></td></tr>
                 </tbody>
@@ -335,8 +330,8 @@
             <div class="table-wrap">
               <table class="field-table">
                 <tbody>
-                  <tr><td>Description</td><td>Generá visualizaciones a partir de los datos usados para responder {user_message}. Elegí gráficos que aclaren la historia: tendencia temporal, comparación por categoría, región, canal o producto según corresponda.</td></tr>
-                  <tr><td>Expected Output</td><td>Una o más imágenes de gráficos con títulos claros y una breve descripción de qué muestra cada visualización.</td></tr>
+                  <tr><td>Description</td><td>Generá visualizaciones a partir de los datos usados para responder {user_message}. Elegí el formato que aclare la historia: comparación por categoría, región, canal o producto con tablas y barras █; tendencia temporal con una fila por período y su barra proporcional. No uses ejes X/Y, cuadrículas cartesianas, diagramas de coordenadas ni herramientas de imagen.</td></tr>
+                  <tr><td>Expected Output</td><td>Una o más secciones markdown con título y breve descripción. Cada gráfico debe ser una tabla con columnas como Categoría/Período, Valor y Visual (barras █ proporcionales). Ejemplo de fila: <code>| Nov 2024 | $1.2M | ████████████ |</code></td></tr>
                   <tr><td>Agent</td><td>Creador de Gráficos</td></tr>
                 </tbody>
               </table>
