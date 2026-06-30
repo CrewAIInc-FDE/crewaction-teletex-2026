@@ -1000,10 +1000,9 @@ details.version-details[open] .version-arrow { transform: rotate(90deg); }
 
 /* ── Data Ref Box (case pages) ──────────────────────────────── */
 .data-ref-box {
-  display: flex; align-items: flex-start; gap: 0.5rem;
   background: var(--off-white); border-left: 3px solid var(--coral);
   border-radius: 0 6px 6px 0; padding: 0.65rem 0.9rem;
-  font-size: 0.88rem; margin-top: 1rem;
+  font-size: 0.88rem; margin-top: 1rem; line-height: 1.55;
 }
 .data-ref-box a { color: var(--coral); text-decoration: none; }
 .data-ref-box a:hover { text-decoration: underline; }

@@ -31,7 +31,15 @@
     .pdf-card .pdf-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
     .pdf-viewer { display: none; width: 100%; height: 800px; border: 1px solid var(--border-light); border-radius: 6px; }
     .loading { color: var(--text-secondary); font-style: italic; padding: 2rem 0; }
-    td.trunc { max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: default; }
+    td.trunc { max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+    #table-reclamos tbody tr:nth-child(even) { background: transparent; }
+    #table-reclamos tbody tr.row-alt td { background: var(--off-white); }
+    #table-reclamos tbody tr.expandable { cursor: pointer; }
+    #table-reclamos tbody tr.expandable:hover td { background: #fbeae6; }
+    #table-reclamos tbody tr.expandable.open td { background: #fff7f5; }
+    #table-reclamos tbody tr.detail-row { display: none; }
+    #table-reclamos tbody tr.detail-row.open { display: table-row; }
+    #table-reclamos tbody tr.detail-row td { white-space: normal; padding: 0.9rem 0.95rem 1.1rem; line-height: 1.65; color: var(--text-secondary); background: #fff7f5; border-bottom: 2px solid var(--coral); }
     @media (max-width: 680px) {
       .tab-btn { padding: 0.5rem 0.7rem; font-size: 0.75rem; }
     }
@@ -91,6 +99,7 @@
   <div id="tab-reclamos" class="tab-panel active">
     <div class="stats-bar" id="stats-reclamos"></div>
     <div class="search-wrap"><input type="search" placeholder="Filtrar por qualquer campo..." id="search-reclamos"></div>
+    <p style="font-size:0.8rem;color:var(--text-secondary);margin:-0.25rem 0 0.75rem;">💡 Clique em uma linha para ver a reclamação completa.</p>
     <div class="filter-row" id="filters-reclamos"></div>
     <div class="table-wrap" id="table-reclamos"><p class="loading">Carregando dados...</p></div>
     <div class="pagination" id="page-reclamos"></div>
@@ -482,15 +491,27 @@ function renderTable(name, cols, data, page) {
   const slice = data.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   if (!slice.length) { wrap.innerHTML = '<p style="color:var(--text-secondary)">Nenhum resultado.</p>'; return; }
   const ths = cols.map(c => `<th>${c.label}</th>`).join('');
-  const rows = slice.map(row =>
-    '<tr>' + cols.map(col => {
+  const truncCol = cols.find(c => c.trunc);
+  const rows = slice.map((row, i) => {
+    const tds = cols.map(col => {
       const v = String(cellVal(col, row) ?? '');
-      return col.trunc
-        ? `<td class="trunc" title="${v.replace(/"/g, '&quot;')}">${v}</td>`
-        : `<td>${v}</td>`;
-    }).join('') + '</tr>'
-  ).join('');
+      return col.trunc ? `<td class="trunc">${v}</td>` : `<td>${v}</td>`;
+    }).join('');
+    const alt = i % 2 ? ' row-alt' : '';
+    if (!truncCol) return `<tr class="${alt.trim()}">${tds}</tr>`;
+    const full = String(cellVal(truncCol, row) ?? '');
+    return `<tr class="expandable${alt}">${tds}</tr>`
+         + `<tr class="detail-row"><td colspan="${cols.length}">${full}</td></tr>`;
+  }).join('');
   wrap.innerHTML = `<table><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table>`;
+  wrap.onclick = (e) => {
+    const tr = e.target.closest('tr.expandable');
+    if (!tr) return;
+    const detail = tr.nextElementSibling;
+    const wasOpen = detail.classList.contains('open');
+    wrap.querySelectorAll('.detail-row.open, .expandable.open').forEach(el => el.classList.remove('open'));
+    if (!wasOpen) { detail.classList.add('open'); tr.classList.add('open'); }
+  };
 }
 
 function renderPagination(name, cols, data) {
