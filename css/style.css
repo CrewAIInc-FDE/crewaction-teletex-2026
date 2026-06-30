@@ -122,16 +122,13 @@ body {
   text-transform: uppercase;
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.15s;
-  border-bottom: 2px solid transparent;
-  position: relative;
-  bottom: -1px; /* overlap nav border-bottom so indicator covers it */
+  transition: color 0.15s, box-shadow 0.15s;
 }
 
 .site-nav ul li a:hover,
 .site-nav ul li a.active {
   color: var(--coral);
-  border-bottom-color: var(--coral);
+  box-shadow: 0 2px 0 var(--coral);
 }
 
 /* ── Page Layout ───────────────────────────────────────────── */
