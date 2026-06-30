@@ -134,7 +134,7 @@ body {
 .site-nav ul li:has(a.active)::after {
   content: '';
   position: absolute;
-  bottom: -1px;
+  bottom: 0;
   left: 0;
   right: 0;
   height: 2px;
@@ -996,3 +996,35 @@ details.version-details[open] .version-arrow { transform: rotate(90deg); }
 /* ── Utility ───────────────────────────────────────────────── */
 .mt-0 { margin-top: 0 !important; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* ── Data Ref Box (case pages) ──────────────────────────────── */
+.data-ref-box {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  background: var(--off-white); border-left: 3px solid var(--coral);
+  border-radius: 0 6px 6px 0; padding: 0.65rem 0.9rem;
+  font-size: 0.88rem; margin-top: 1rem;
+}
+.data-ref-box a { color: var(--coral); text-decoration: none; }
+.data-ref-box a:hover { text-decoration: underline; }
+
+/* ── Data Legend (explorador) ────────────────────────────────── */
+.data-legend { background: var(--off-white); border-radius: 8px; padding: 0.9rem 1.25rem; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.dl-row { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; flex-wrap: wrap; }
+.dl-tab { font-weight: 600; color: var(--coal); min-width: 160px; }
+.dl-arrow { color: var(--text-secondary); }
+.dl-cases a { color: var(--coral); text-decoration: none; }
+.dl-cases a:hover { text-decoration: underline; }
+
+/* ── Column Filters (explorador) ────────────────────────────── */
+.filter-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; align-items: flex-end; }
+.filter-row label { font-size: 0.78rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.2rem; }
+.filter-row select, .filter-row input[type="number"], .filter-row input[type="date"] {
+  padding: 0.32rem 0.55rem; border: 1px solid var(--border-light); border-radius: 4px; font-size: 0.82rem; font-family: inherit; background: #fff;
+}
+.filter-row select:focus, .filter-row input:focus { outline: none; border-color: var(--coral); }
+.range-pair { display: flex; flex-direction: column; gap: 0.2rem; }
+.range-pair > span { font-size: 0.78rem; color: var(--text-secondary); }
+.range-pair-inputs { display: flex; gap: 0.35rem; align-items: center; }
+.range-pair-inputs input { width: 90px; }
+.filter-reset { background: none; border: 1px solid var(--border-light); border-radius: 4px; padding: 0.32rem 0.7rem; font-size: 0.8rem; cursor: pointer; color: var(--text-secondary); font-family: inherit; align-self: flex-end; }
+.filter-reset:hover { border-color: var(--coral); color: var(--coral); }

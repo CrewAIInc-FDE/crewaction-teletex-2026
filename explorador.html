@@ -52,21 +52,30 @@
   <li><a href="index.html">Início</a></li>
   <li><a href="comenzar.html">Começar</a></li>
   <li><a href="instalacion.html">Instalação</a></li>
+  <li><a href="explorador.html" class="active">Dados</a></li>
   <li><a href="caso-credito.html">Crédito</a></li>
   <li><a href="caso-bi.html">BI</a></li>
   <li><a href="caso-reclamos.html">Reclamações Caso</a></li>
   <li><a href="caso-reclamos-rag.html">Reclamações RAG</a></li>
   <li><a href="ir-mas-alla.html">Mais Além</a></li>
-  <li><a href="explorador.html" class="active">Dados</a></li>
 </ul></nav>
 
 <div class="explorer-wrap">
 
   <div class="page-header">
     <h1>Explorador de Dados</h1>
-    <p style="color:var(--text-secondary);margin-top:0.25rem;max-width:680px;">
+    <p style="color:var(--text-secondary);margin-top:0.25rem;">
       Todos os dados disponíveis no MongoDB, organizados por coleção. Explore os schemas, filtre registros e use como referência para criar seus próprios prompts e casos de teste.
     </p>
+  </div>
+
+  <div class="data-legend">
+    <div class="dl-row"><span class="dl-tab">📋 Reclamações</span><span class="dl-arrow">→</span><span class="dl-cases"><a href="caso-reclamos.html">Reclamações por Caso</a> · <a href="caso-reclamos-rag.html">Reclamações RAG</a></span></div>
+    <div class="dl-row"><span class="dl-tab">💳 Clientes</span><span class="dl-arrow">→</span><span class="dl-cases"><a href="caso-credito.html">Análise de Crédito</a></span></div>
+    <div class="dl-row"><span class="dl-tab">📊 Vendas</span><span class="dl-arrow">→</span><span class="dl-cases"><a href="caso-bi.html">BI Conversacional</a></span></div>
+    <div class="dl-row"><span class="dl-tab">🛍️ Produtos</span><span class="dl-arrow">→</span><span class="dl-cases"><a href="caso-bi.html">BI Conversacional</a></span></div>
+    <div class="dl-row"><span class="dl-tab">📚 Catálogos</span><span class="dl-arrow">→</span><span class="dl-cases"><a href="caso-bi.html">BI Conversacional</a> (RAG semântico)</span></div>
+    <div class="dl-row"><span class="dl-tab">📄 Políticas</span><span class="dl-arrow">→</span><span class="dl-cases"><a href="caso-reclamos.html">Reclamações por Caso</a> · <a href="caso-reclamos-rag.html">Reclamações RAG</a></span></div>
   </div>
 
   <div class="tab-bar">
@@ -82,6 +91,7 @@
   <div id="tab-reclamos" class="tab-panel active">
     <div class="stats-bar" id="stats-reclamos"></div>
     <div class="search-wrap"><input type="search" placeholder="Filtrar por qualquer campo..." id="search-reclamos"></div>
+    <div class="filter-row" id="filters-reclamos"></div>
     <div class="table-wrap" id="table-reclamos"><p class="loading">Carregando dados...</p></div>
     <div class="pagination" id="page-reclamos"></div>
   </div>
@@ -90,6 +100,7 @@
   <div id="tab-clientes" class="tab-panel">
     <div class="stats-bar" id="stats-clientes"></div>
     <div class="search-wrap"><input type="search" placeholder="Filtrar por qualquer campo..." id="search-clientes"></div>
+    <div class="filter-row" id="filters-clientes"></div>
     <div class="table-wrap" id="table-clientes"><p class="loading">Carregando dados...</p></div>
     <div class="pagination" id="page-clientes"></div>
   </div>
@@ -98,6 +109,7 @@
   <div id="tab-vendas" class="tab-panel">
     <div class="stats-bar" id="stats-vendas"></div>
     <div class="search-wrap"><input type="search" placeholder="Filtrar por qualquer campo..." id="search-vendas"></div>
+    <div class="filter-row" id="filters-vendas"></div>
     <div class="table-wrap" id="table-vendas"><p class="loading">Carregando dados...</p></div>
     <div class="pagination" id="page-vendas"></div>
   </div>
@@ -106,6 +118,7 @@
   <div id="tab-produtos" class="tab-panel">
     <div class="stats-bar" id="stats-produtos"></div>
     <div class="search-wrap"><input type="search" placeholder="Filtrar por qualquer campo..." id="search-produtos"></div>
+    <div class="filter-row" id="filters-produtos"></div>
     <div class="table-wrap" id="table-produtos"><p class="loading">Carregando dados...</p></div>
     <div class="pagination" id="page-produtos"></div>
   </div>
@@ -186,14 +199,21 @@ const TABS = {
   reclamos: {
     url: 'assets/data/claims_analysis/claims.json',
     cols: [
-      { key: 'caso_id',       label: 'ID' },
-      { key: 'cliente_nome',  label: 'Cliente' },
-      { key: 'categoria',     label: 'Categoria' },
-      { key: 'urgencia',      label: 'Urgência' },
-      { key: 'status',        label: 'Status' },
-      { key: 'estado',        label: 'Estado' },
+      { key: 'caso_id',         label: 'ID' },
+      { key: 'cliente_nome',    label: 'Cliente' },
+      { key: 'categoria',       label: 'Categoria' },
+      { key: 'urgencia',        label: 'Urgência' },
+      { key: 'status',          label: 'Status' },
+      { key: 'estado',          label: 'Estado' },
       { key: 'valor_reclamado', label: 'Valor (R$)' },
-      { key: 'reclamacao',    label: 'Reclamação', trunc: true },
+      { key: 'reclamacao',      label: 'Reclamação', trunc: true },
+    ],
+    filters: [
+      { key: 'categoria',       label: 'Categoria',  type: 'select' },
+      { key: 'urgencia',        label: 'Urgência',   type: 'select' },
+      { key: 'status',          label: 'Status',     type: 'select' },
+      { key: 'estado',          label: 'Estado',     type: 'select' },
+      { key: 'valor_reclamado', label: 'Valor (R$)', type: 'range' },
     ],
     stats(data) {
       const s = {};
@@ -208,13 +228,19 @@ const TABS = {
     url: 'assets/data/credit_analysis/clientes.json',
     cols: [
       { key: r => r.nome + ' ' + r.sobrenome, label: 'Nome' },
-      { key: 'cpf',            label: 'CPF' },
-      { key: 'score_credito',  label: 'Score' },
-      { key: 'nivel_risco',    label: 'Risco' },
-      { key: 'renda_mensal',   label: 'Renda (R$)' },
-      { key: 'dividas_atuais', label: 'Dívidas (R$)' },
-      { key: 'ocupacao',       label: 'Ocupação' },
-      { key: 'estado',         label: 'Estado' },
+      { key: 'cpf',             label: 'CPF' },
+      { key: 'score_credito',   label: 'Score' },
+      { key: 'nivel_risco',     label: 'Risco' },
+      { key: 'renda_mensal',    label: 'Renda (R$)' },
+      { key: 'dividas_atuais',  label: 'Dívidas (R$)' },
+      { key: 'ocupacao',        label: 'Ocupação' },
+      { key: 'estado',          label: 'Estado' },
+    ],
+    filters: [
+      { key: 'nivel_risco',   label: 'Risco',       type: 'select' },
+      { key: 'estado',        label: 'Estado',      type: 'select' },
+      { key: 'score_credito', label: 'Score',       type: 'range' },
+      { key: 'renda_mensal',  label: 'Renda (R$)',  type: 'range' },
     ],
     stats(data) {
       const avg = Math.round(data.reduce((s, r) => s + r.score_credito, 0) / data.length);
@@ -239,6 +265,13 @@ const TABS = {
       { key: 'quantidade',   label: 'Qtd' },
       { key: 'total',        label: 'Total (R$)' },
     ],
+    filters: [
+      { key: 'categoria',   label: 'Categoria',   type: 'select' },
+      { key: 'regiao',      label: 'Região',      type: 'select' },
+      { key: 'canal_venda', label: 'Canal',       type: 'select' },
+      { key: 'data',        label: 'Data',        type: 'date-range' },
+      { key: 'total',       label: 'Total (R$)',  type: 'range' },
+    ],
     stats(data) {
       const total = data.reduce((s, r) => s + r.total, 0);
       const dates = data.map(r => r.data).sort();
@@ -252,12 +285,16 @@ const TABS = {
   produtos: {
     url: 'assets/data/conversational_bi/produtos.json',
     cols: [
-      { key: 'produto_id',          label: 'ID' },
-      { key: 'nome',                label: 'Nome' },
-      { key: 'marca',               label: 'Marca' },
-      { key: 'categoria',           label: 'Categoria' },
-      { key: 'preco_base',          label: 'Preço (R$)' },
-      { key: 'estoque_disponivel',  label: 'Estoque' },
+      { key: 'produto_id',         label: 'ID' },
+      { key: 'nome',               label: 'Nome' },
+      { key: 'marca',              label: 'Marca' },
+      { key: 'categoria',          label: 'Categoria' },
+      { key: 'preco_base',         label: 'Preço (R$)' },
+      { key: 'estoque_disponivel', label: 'Estoque' },
+    ],
+    filters: [
+      { key: 'categoria',  label: 'Categoria',  type: 'select' },
+      { key: 'preco_base', label: 'Preço (R$)', type: 'range' },
     ],
     stats(data) {
       const cats = {};
@@ -296,7 +333,7 @@ document.querySelectorAll('.pdf-card').forEach(card => {
 
 function initTab(name) {
   const cfg = TABS[name];
-  state[name] = { page: 1, query: '', data: null, filtered: null };
+  state[name] = { page: 1, query: '', data: null, filtered: null, filterState: {} };
   const s = state[name];
 
   fetch(cfg.url)
@@ -305,6 +342,7 @@ function initTab(name) {
       s.data = data;
       s.filtered = data;
       renderStats(name, cfg.stats(data));
+      buildFilters(name, cfg.filters, data);
       renderTable(name, cfg.cols, s.filtered, s.page);
       renderPagination(name, cfg.cols, s.filtered);
     })
@@ -315,16 +353,118 @@ function initTab(name) {
 
   document.getElementById('search-' + name).addEventListener('input', e => {
     s.query = e.target.value.toLowerCase();
-    s.filtered = s.query
-      ? s.data.filter(row => cfg.cols.some(col => {
-          const v = typeof col.key === 'function' ? col.key(row) : row[col.key];
-          return String(v ?? '').toLowerCase().includes(s.query);
-        }))
-      : s.data;
-    s.page = 1;
-    renderTable(name, cfg.cols, s.filtered, s.page);
-    renderPagination(name, cfg.cols, s.filtered);
+    applyFilters(name, cfg);
   });
+}
+
+function buildFilters(name, filters, data) {
+  const container = document.getElementById('filters-' + name);
+  if (!container) return;
+  const s = state[name];
+  const cfg = TABS[name];
+  const parts = [];
+
+  filters.forEach(f => {
+    if (f.type === 'select') {
+      const vals = [...new Set(data.map(r => r[f.key]).filter(v => v != null))].sort();
+      s.filterState[f.key] = '';
+      parts.push(`<label>${f.label}<select id="f-${name}-${f.key}"><option value="">Todos</option>${vals.map(v => `<option>${v}</option>`).join('')}</select></label>`);
+    } else if (f.type === 'range') {
+      s.filterState[f.key + '_min'] = '';
+      s.filterState[f.key + '_max'] = '';
+      parts.push(`<div class="range-pair"><span>${f.label}</span><div class="range-pair-inputs"><input type="number" id="f-${name}-${f.key}-min" placeholder="Min"><input type="number" id="f-${name}-${f.key}-max" placeholder="Max"></div></div>`);
+    } else if (f.type === 'date-range') {
+      s.filterState[f.key + '_from'] = '';
+      s.filterState[f.key + '_to'] = '';
+      parts.push(`<div class="range-pair"><span>${f.label}</span><div class="range-pair-inputs"><input type="date" id="f-${name}-${f.key}-from"><input type="date" id="f-${name}-${f.key}-to"></div></div>`);
+    }
+  });
+  parts.push(`<button class="filter-reset" id="reset-${name}">Limpar filtros</button>`);
+  container.innerHTML = parts.join('');
+
+  filters.forEach(f => {
+    if (f.type === 'select') {
+      document.getElementById(`f-${name}-${f.key}`).addEventListener('change', e => {
+        s.filterState[f.key] = e.target.value;
+        applyFilters(name, cfg);
+      });
+    } else if (f.type === 'range') {
+      document.getElementById(`f-${name}-${f.key}-min`).addEventListener('input', e => {
+        s.filterState[f.key + '_min'] = e.target.value;
+        applyFilters(name, cfg);
+      });
+      document.getElementById(`f-${name}-${f.key}-max`).addEventListener('input', e => {
+        s.filterState[f.key + '_max'] = e.target.value;
+        applyFilters(name, cfg);
+      });
+    } else if (f.type === 'date-range') {
+      document.getElementById(`f-${name}-${f.key}-from`).addEventListener('change', e => {
+        s.filterState[f.key + '_from'] = e.target.value;
+        applyFilters(name, cfg);
+      });
+      document.getElementById(`f-${name}-${f.key}-to`).addEventListener('change', e => {
+        s.filterState[f.key + '_to'] = e.target.value;
+        applyFilters(name, cfg);
+      });
+    }
+  });
+
+  document.getElementById(`reset-${name}`).addEventListener('click', () => {
+    filters.forEach(f => {
+      if (f.type === 'select') {
+        document.getElementById(`f-${name}-${f.key}`).value = '';
+        s.filterState[f.key] = '';
+      } else if (f.type === 'range') {
+        document.getElementById(`f-${name}-${f.key}-min`).value = '';
+        document.getElementById(`f-${name}-${f.key}-max`).value = '';
+        s.filterState[f.key + '_min'] = '';
+        s.filterState[f.key + '_max'] = '';
+      } else if (f.type === 'date-range') {
+        document.getElementById(`f-${name}-${f.key}-from`).value = '';
+        document.getElementById(`f-${name}-${f.key}-to`).value = '';
+        s.filterState[f.key + '_from'] = '';
+        s.filterState[f.key + '_to'] = '';
+      }
+    });
+    document.getElementById('search-' + name).value = '';
+    s.query = '';
+    applyFilters(name, cfg);
+  });
+}
+
+function applyFilters(name, cfg) {
+  const s = state[name];
+  if (!s.data) return;
+  let result = s.data;
+
+  if (s.query) {
+    result = result.filter(row => cfg.cols.some(col => {
+      const v = typeof col.key === 'function' ? col.key(row) : row[col.key];
+      return String(v ?? '').toLowerCase().includes(s.query);
+    }));
+  }
+
+  cfg.filters.forEach(f => {
+    if (f.type === 'select') {
+      const val = s.filterState[f.key];
+      if (val) result = result.filter(r => String(r[f.key]) === val);
+    } else if (f.type === 'range') {
+      const min = s.filterState[f.key + '_min'];
+      const max = s.filterState[f.key + '_max'];
+      if (min !== '') result = result.filter(r => Number(r[f.key]) >= Number(min));
+      if (max !== '') result = result.filter(r => Number(r[f.key]) <= Number(max));
+    } else if (f.type === 'date-range') {
+      const from = s.filterState[f.key + '_from'];
+      const to   = s.filterState[f.key + '_to'];
+      if (from) result = result.filter(r => r[f.key] >= from);
+      if (to)   result = result.filter(r => r[f.key] <= to);
+    }
+  });
+
+  s.filtered = result;
+  s.page = 1;
+  renderTable(name, cfg.cols, s.filtered, s.page);
+  renderPagination(name, cfg.cols, s.filtered);
 }
 
 function renderStats(name, stats) {
