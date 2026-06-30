@@ -94,6 +94,7 @@ body {
 /* ── Top Navigation ────────────────────────────────────────── */
 .site-nav {
   background: #fff;
+  border-bottom: 1px solid var(--border-light);
   position: sticky;
   top: var(--header-height);
   z-index: 90;
@@ -106,11 +107,11 @@ body {
   max-width: var(--outer-width);
   margin: 0 auto;
   padding: 0 1.5rem;
-  border-bottom: 1px solid var(--border-light); /* separator on ul so li::after can cover it */
 }
 
 .site-nav ul li {
   position: relative;
+  margin: 0; /* override global li margin-bottom; it would push the indicator above the separator */
 }
 
 .site-nav ul li a {
@@ -134,7 +135,7 @@ body {
 .site-nav ul li:has(a.active)::after {
   content: '';
   position: absolute;
-  bottom: -1px; /* straddles the ul border: 1px inside li, 1px into the border */
+  bottom: -1px; /* li bottom sits on the nav border; 2px bar covers the 1px separator */
   left: 0;
   right: 0;
   height: 2px;
