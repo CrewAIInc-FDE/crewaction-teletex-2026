@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ir Más Allá — CrewAI × Teradata</title>
+  <title>Indo Além — CrewAI × Teletex</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* page-local */
@@ -40,39 +40,40 @@
 
 <header class="site-header">
   <div class="header-brand">
-    <img src="assets/teradata-logo.png" alt="Teradata" class="teradata-logo">
+    <img src="assets/teletex-logo.png" alt="Teletex" class="partner-logo">
     <div class="header-divider"></div>
     <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
   </div>
-  <span class="header-label">Taller Práctico · Buenos Aires</span>
+  <span class="header-label">Workshop Prático · Curitiba</span>
 </header>
 
 <nav class="site-nav"><ul>
-  <li><a href="index.html">Inicio</a></li>
-  <li><a href="comenzar.html">Comenzar</a></li>
-  <li><a href="instalacion.html">Instalación</a></li>
+  <li><a href="index.html">Início</a></li>
+  <li><a href="comenzar.html">Começar</a></li>
+  <li><a href="instalacion.html">Instalação</a></li>
   <li><a href="caso-credito.html">Crédito</a></li>
   <li><a href="caso-bi.html">BI</a></li>
-  <li><a href="caso-reclamos.html">Reclamos Caso</a></li>
-  <li><a href="caso-reclamos-rag.html">Reclamos RAG</a></li>
-  <li><a href="ir-mas-alla.html" class="active">Más Allá</a></li>
+  <li><a href="caso-reclamos.html">Reclamações Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamações RAG</a></li>
+  <li><a href="ir-mas-alla.html" class="active">Mais Além</a></li>
 </ul></nav>
 
 <div class="page-layout">
 
   <aside class="toc-sidebar">
     <details open>
-      <summary>En esta página</summary>
+      <summary>Nesta página</summary>
       <nav>
-        <p class="toc-title">Contenido</p>
-        <a href="#intro">Introducción</a>
-        <a href="#seccion-1">Sección 1 — Dos agentes</a>
-        <a href="#seccion-2">Sección 2 — Herramientas web</a>
-        <a href="#seccion-3">Sección 3 — Contrato de salida</a>
-        <a href="#seccion-4">Sección 4 — Tres fuentes en paralelo</a>
-        <a href="#seccion-5">Sección 5 — Lógica determinística</a>
+        <p class="toc-title">Conteúdo</p>
+        <a href="#intro">Introdução</a>
+        <a href="#seccion-1">Seção 1 — Dois agentes</a>
+        <a href="#seccion-2">Seção 2 — Ferramentas web</a>
+        <a href="#seccion-3">Seção 3 — Contrato de saída</a>
+        <a href="#seccion-4">Seção 4 — Três fontes em paralelo</a>
+        <a href="#seccion-5">Seção 5 — Lógica determinística</a>
         <a href="#amp-local">AMP → Local</a>
-        <a href="#troubleshooting">Solución de problemas</a>
+        <a href="#padros-flow">Padrões de Flow</a>
+        <a href="#troubleshooting">Solução de problemas</a>
       </nav>
     </details>
   </aside>
@@ -81,55 +82,55 @@
 
     <div class="page-header">
       <div class="page-breadcrumb">
-        <a href="index.html">Inicio</a> · Ir Más Allá
+        <a href="index.html">Início</a> · Indo Além
       </div>
-      <h1>Ir Más Allá: el Crew de Enriquecimiento</h1>
+      <h1>Indo Além: o Crew de Enriquecimento</h1>
       <p style="font-size:1.1rem; color:var(--text-secondary); margin-top:0.25rem;">
-        Un lab de producción completo: fan-out/fan-in, fuentes que fallan con gracia y un contrato de salida estructurado
+        Um lab de produção completo: fan-out/fan-in, fontes que falham com elegância e um contrato de saída estruturado
       </p>
     </div>
 
     <!-- ==================== INTRO ==================== -->
-    <h2 id="intro">¿Por qué enriquecer un reclamo?</h2>
+    <h2 id="intro">Por que enriquecer uma reclamação?</h2>
 
     <p>
-      Los recorridos principales del taller son flujos preconfigurados. Este lab es diferente:
-      te muestra cómo armar un <em>crew de producción desde cero</em>, con todas las piezas
-      que hacen que un crew escale: múltiples fuentes de información en paralelo, fuentes que
-      pueden fallar sin tirar abajo la ejecución, y un contrato de salida estructurado que
-      el siguiente sistema puede consumir directamente.
+      Os percursos principais do workshop são fluxos pré-configurados. Este lab é diferente:
+      mostra como montar um <em>crew de produção do zero</em>, com todas as peças
+      que fazem um crew escalar: múltiplas fontes de informação em paralelo, fontes que
+      podem falhar sem derrubar a execução, e um contrato de saída estruturado que
+      o próximo sistema pode consumir diretamente.
     </p>
 
     <p>
-      La tarea elegida es <strong>enriquecer un reclamo/defecto de producto</strong>:
-      recibir un <code>caso_id</code> y un <code>producto</code>, y producir un perfil
-      completo con contexto web (recalls, normativa, reseñas), datos internos (historial
-      del caso en Teradata) y un score determinístico de severidad/prioridad.
-      Es exactamente el tipo de pipeline que encontrás en producción: fan-out de investigación,
-      fan-in de análisis y una salida validada por Pydantic.
+      A tarefa escolhida é <strong>enriquecer uma reclamação/defeito de produto</strong>:
+      receber um <code>caso_id</code> e um <code>produto</code>, e produzir um perfil
+      completo com contexto web (recalls, normativa, avaliações), dados internos (histórico
+      do caso no MongoDB) e um score determinístico de severidade/prioridade.
+      É exatamente o tipo de pipeline que você encontra em produção: fan-out de pesquisa,
+      fan-in de análise e uma saída validada pelo Pydantic.
     </p>
 
     <div class="section-intro">
-      <strong>Lo que vas a construir:</strong>
+      <strong>O que você vai construir:</strong>
       <ul style="margin:0.5rem 0 0; padding-left:1.4rem;">
-        <li>Un crew de 3 agentes investigadores + 1 analista consolidador</li>
-        <li>Búsqueda web con <code>firecrawl</code> (citación de fuentes trazables)</li>
-        <li>Consulta interna con <code>teradata-store-search</code> en NL (sin SQL manual)</li>
-        <li>Una fuente de datos regulatorios pública como tercer brazo paralelo</li>
-        <li>Un esquema Pydantic <code>EnrichedDefectProfile</code> como contrato de salida</li>
-        <li>Una herramienta determinística de score de severidad (Python puro)</li>
+        <li>Um crew de 3 agentes pesquisadores + 1 analista consolidador</li>
+        <li>Busca web com <code>firecrawl</code> (citação de fontes rastreáveis)</li>
+        <li>Consulta interna com <code>mongodb-vector-search</code> em NL (sem SQL manual)</li>
+        <li>Uma fonte de dados regulatórios pública como terceiro braço paralelo</li>
+        <li>Um esquema Pydantic <code>EnrichedDefectProfile</code> como contrato de saída</li>
+        <li>Uma ferramenta determinística de score de severidade (Python puro)</li>
       </ul>
     </div>
 
     <!-- ==================== SECCIÓN 1 ==================== -->
-    <h2 id="seccion-1">Sección 1 — Dos agentes y un pipeline de tasks (~15 min)</h2>
+    <h2 id="seccion-1">Seção 1 — Dois agentes e um pipeline de tasks (~15 min)</h2>
 
     <p>
-      Empezamos con la versión más simple posible: dos agentes y dos tasks encadenadas.
-      El objetivo es correr algo y leer la salida con ojo crítico.
+      Começamos com a versão mais simples possível: dois agentes e duas tasks encadeadas.
+      O objetivo é executar algo e ler a saída com olho crítico.
     </p>
 
-    <h3>Scaffolding del proyecto</h3>
+    <h3>Scaffolding do projeto</h3>
 
     <div style="position:relative">
       <span class="code-lang">bash</span>
@@ -139,78 +140,78 @@ crewai install</code></pre>
     </div>
 
     <div class="checkpoint">
-      Punto de control: <code>crewai install</code> termina sin errores en rojo. Un error de resolución de dependencias acá significa que tu versión de CLI no coincide con el lab — revisá el paso de instalación.
+      Ponto de controle: <code>crewai install</code> termina sem erros em vermelho. Um erro de resolução de dependências aqui significa que a sua versão do CLI não coincide com o lab — revise o passo de instalação.
     </div>
 
-    <h3>Los dos agentes</h3>
+    <h3>Os dois agentes</h3>
 
     <p>
-      Reemplazá el contenido de <code>src/defect_enrichment/config/agents.yaml</code>:
+      Substitua o conteúdo de <code>src/defect_enrichment/config/agents.yaml</code>:
     </p>
 
     <div style="position:relative">
       <span class="code-lang">yaml</span>
       <pre><code>investigador_web:
   role: >
-    Especialista en Investigación Web de Defectos
+    Especialista em Pesquisa Web de Defeitos
   goal: >
-    Encontrá información actual y verificable sobre el defecto del producto
-    {producto} (caso {caso_id}): recalls, problemas conocidos reportados
-    por consumidores, alertas de seguridad, normativa vigente y cobertura
-    de prensa de los últimos 12 meses.
+    Encontre informações atuais e verificáveis sobre o defeito do produto
+    {produto} (caso {caso_id}): recalls, problemas conhecidos reportados
+    por consumidores, alertas de segurança, normativa vigente e cobertura
+    de imprensa dos últimos 12 meses.
   backstory: >
-    Sos un especialista en inteligencia de producto que vive en la web.
-    Preferís fuentes primarias, capturás la URL de cada dato y te enfocás
-    en lo que cambió recientemente y por qué importa al equipo de calidad.
+    Você é um especialista em inteligência de produto que vive na web.
+    Prefere fontes primárias, registra a URL de cada dado e se concentra
+    no que mudou recentemente e por que isso importa para a equipe de qualidade.
 
-analista_enriquecimiento:
+analista_enriquecimento:
   role: >
-    Analista de Enriquecimiento de Reclamos
+    Analista de Enriquecimento de Reclamações
   goal: >
-    Consolidá la investigación en un perfil completo y accionable del
-    defecto/reclamo {caso_id} sobre el producto {producto}: qué es el
-    defecto, señales recientes, impacto regulatorio, y recomendación
-    concreta para el equipo de resolución.
+    Consolide a pesquisa em um perfil completo e acionável do
+    defeito/reclamação {caso_id} sobre o produto {produto}: qual é o
+    defeito, sinais recentes, impacto regulatório e recomendação
+    concreta para a equipe de resolução.
   backstory: >
-    Sos un analista meticuloso que convierte investigación en un brief
-    claro y confiable. Nunca inventás datos — todo lo que la investigación
-    no establezca lo marcás como "desconocido".</code></pre>
+    Você é um analista meticuloso que converte pesquisa em um briefing
+    claro e confiável. Nunca inventa dados — tudo o que a pesquisa
+    não estabelecer é marcado como "desconhecido".</code></pre>
     </div>
 
-    <h3>Las dos tasks</h3>
+    <h3>As duas tasks</h3>
 
-    <p>Reemplazá <code>src/defect_enrichment/config/tasks.yaml</code>:</p>
+    <p>Substitua <code>src/defect_enrichment/config/tasks.yaml</code>:</p>
 
     <div style="position:relative">
       <span class="code-lang">yaml</span>
       <pre><code>investigar_web:
   description: >
-    Investigá el defecto del producto {producto} (caso {caso_id}) en la web.
-    Determiná qué es el defecto, cuándo se reportó y recopilá señales
-    recientes de los últimos ~12 meses: recalls oficiales, alertas de
-    seguridad, reportes de consumidores, cobertura de prensa, y
-    normativa vigente. Registrá una URL fuente por cada dato. Marcá
-    cualquier cosa no verificable como "desconocido".
+    Pesquise o defeito do produto {produto} (caso {caso_id}) na web.
+    Determine qual é o defeito, quando foi reportado e colete sinais
+    recentes dos últimos ~12 meses: recalls oficiais, alertas de
+    segurança, reportes de consumidores, cobertura de imprensa e
+    normativa vigente. Registre uma URL fonte para cada dado. Marque
+    qualquer coisa não verificável como "desconhecido".
   expected_output: >
-    Un brief de hallazgos con: descripción del defecto, señales recientes
-    agrupadas en recalls, seguridad, prensa y normativa — cada una con
-    URL fuente. Indicá explícitamente dónde no se encontró información.
+    Um briefing de achados com: descrição do defeito, sinais recentes
+    agrupados em recalls, segurança, imprensa e normativa — cada um com
+    URL fonte. Indique explicitamente onde não foi encontrada informação.
   agent: investigador_web
 
 compilar_perfil:
   description: >
-    Consolidá la investigación en un perfil completo y accionable del
-    caso {caso_id}. Unificá los datos, anotá conflictos y recomendá
-    una acción concreta para el equipo de resolución. No inventes datos
-    que no estén en la investigación; marcá los faltantes como "desconocido".
+    Consolide a pesquisa em um perfil completo e acionável do
+    caso {caso_id}. Unifique os dados, anote conflitos e recomende
+    uma ação concreta para a equipe de resolução. Não invente dados
+    que não estejam na pesquisa; marque os faltantes como "desconhecido".
   expected_output: >
-    Un informe Markdown: descripción del defecto, señales recientes,
-    impacto regulatorio, acción recomendada y una sección de Fuentes
-    con cada URL usada.
-  agent: analista_enriquecimiento</code></pre>
+    Um relatório Markdown: descrição do defeito, sinais recentes,
+    impacto regulatório, ação recomendada e uma seção de Fontes
+    com cada URL utilizada.
+  agent: analista_enriquecimento</code></pre>
     </div>
 
-    <h3>El crew.py inicial</h3>
+    <h3>O crew.py inicial</h3>
 
     <div style="position:relative">
       <span class="code-lang">python</span>
@@ -270,65 +271,65 @@ class DefectEnrichmentCrew():
 </code></pre>
     </div>
 
-    <h3>Corré y leé la salida</h3>
+    <h3>Execute e leia a saída</h3>
 
     <div style="position:relative">
       <span class="code-lang">bash</span>
       <pre><code>crewai run
-# O con un caso específico:
-uv run run_crew "REC-042" "Electrónica - Cargador USB-C"</code></pre>
+# Ou com um caso específico:
+uv run run_crew "REC-042" "Eletrônica - Carregador USB-C"</code></pre>
     </div>
 
     <div class="checkpoint">
-      Punto de control: la ejecución termina y <strong>imprime</strong> un informe Markdown en la terminal.
+      Ponto de controle: a execução termina e <strong>imprime</strong> um relatório Markdown no terminal.
     </div>
 
-    <h3>Ahora mirá más de cerca — te está mintiendo</h3>
+    <h3>Agora olhe mais de perto — ele está mentindo</h3>
 
     <p>
-      Abrí el informe y buscá los detalles: URLs de recalls, números de regulación,
-      fechas de alertas de seguridad. ¿Las URLs son reales? Hacé click en una.
-      Probablemente no llegue a ningún lado, o llegue a una página diferente a la citada.
+      Abra o relatório e procure os detalhes: URLs de recalls, números de regulação,
+      datas de alertas de segurança. As URLs são reais? Clique em uma.
+      Provavelmente não leva a lugar nenhum, ou leva a uma página diferente da citada.
     </p>
 
     <div class="info-box">
-      <strong>Lección clave:</strong> Un agente sin herramientas es un becario muy seguro de sí mismo, sin teléfono ni internet. Inventa datos con la misma confianza con que citaría datos reales. Todo lo que sigue en este lab es sobre <em>anclaje</em>: fuentes reales adentro, citas trazables afuera.
+      <strong>Lição-chave:</strong> Um agente sem ferramentas é um estagiário muito confiante, sem telefone nem internet. Inventa dados com a mesma confiança com que citaria dados reais. Tudo o que vem a seguir neste lab é sobre <em>ancoragem</em>: fontes reais por dentro, citações rastreáveis por fora.
     </div>
 
-    <p class="prompt-group-label">Prompt sugerido para probar tu crew con este caso</p>
+    <p class="prompt-group-label">Prompt sugerido para testar seu crew com este caso</p>
     <div class="prompt-example">
-      Investigá el defecto del producto "Cargador USB-C modelo CX-200" (caso REC-042): recalls, alertas de seguridad y normativa vigente de los últimos 12 meses.
+      Pesquise o defeito do produto "Carregador USB-C modelo CX-200" (caso REC-042): recalls, alertas de segurança e normativa vigente dos últimos 12 meses.
     </div>
 
     <!-- ==================== SECCIÓN 2 ==================== -->
-    <h2 id="seccion-2">Sección 2 — Darle herramientas reales al investigador (~20 min)</h2>
+    <h2 id="seccion-2">Seção 2 — Dar ferramentas reais ao pesquisador (~20 min)</h2>
 
     <p>
-      La solución es darle al <code>investigador_web</code> herramientas reales de búsqueda
-      y scraping. Usamos <strong>firecrawl</strong>: una herramienta que combina búsqueda
-      web y extracción de contenido de páginas, disponible en AMP.
+      A solução é dar ao <code>investigador_web</code> ferramentas reais de busca
+      e scraping. Usamos <strong>firecrawl</strong>: uma ferramenta que combina busca
+      web e extração de conteúdo de páginas, disponível no AMP.
     </p>
 
-    <h3>Instalá firecrawl</h3>
+    <h3>Instale o firecrawl</h3>
 
     <div style="position:relative">
       <span class="code-lang">bash</span>
-      <pre><code># Desde el directorio del proyecto
+      <pre><code># A partir do diretório do projeto
 crewai tool install firecrawl
 
-# O con pip:
+# Ou com pip:
 pip install crewai-tools[firecrawl]</code></pre>
     </div>
 
     <p>
-      Necesitás una <code>FIRECRAWL_API_KEY</code> en tu <code>.env</code>
-      (gratuita en <a href="https://firecrawl.dev" target="_blank">firecrawl.dev</a>).
+      Você precisa de uma <code>FIRECRAWL_API_KEY</code> no seu <code>.env</code>
+      (gratuita em <a href="https://firecrawl.dev" target="_blank">firecrawl.dev</a>).
     </p>
 
-    <h3>Cableá firecrawl al investigador</h3>
+    <h3>Conecte o firecrawl ao pesquisador</h3>
 
     <p>
-      En <code>crew.py</code>, importá y pasá las herramientas al agente:
+      Em <code>crew.py</code>, importe e passe as ferramentas ao agente:
     </p>
 
     <div style="position:relative">
@@ -340,8 +341,8 @@ def investigador_web(self) -> Agent:
     return Agent(
         config=self.agents_config['investigador_web'],
         tools=[
-            FirecrawlSearchTool(),       # buscar en la web
-            FirecrawlScrapeWebsiteTool(), # extraer contenido de URLs
+            FirecrawlSearchTool(),       # buscar na web
+            FirecrawlScrapeWebsiteTool(), # extrair conteúdo de URLs
         ],
         max_iter=8,
         max_rpm=10,
@@ -351,40 +352,40 @@ def investigador_web(self) -> Agent:
 </code></pre>
     </div>
 
-    <h3>Volvé a correr</h3>
+    <h3>Execute novamente</h3>
 
     <div style="position:relative">
       <span class="code-lang">bash</span>
-      <pre><code>uv run run_crew "REC-042" "Electrónica - Cargador USB-C"</code></pre>
+      <pre><code>uv run run_crew "REC-042" "Eletrônica - Carregador USB-C"</code></pre>
     </div>
 
     <div class="checkpoint">
-      Punto de control: el informe ahora contiene <strong>hechos reales con URLs que funcionan</strong>. El mismo prompt que antes inventó un número de recall inexistente ahora cita fuentes verificables. Hacé click en dos o tres URLs para comprobarlo: ese es el antes/después que importa.
+      Ponto de controle: o relatório agora contém <strong>fatos reais com URLs que funcionam</strong>. O mesmo prompt que antes inventou um número de recall inexistente agora cita fontes verificáveis. Clique em duas ou três URLs para confirmar: esse é o antes/depois que importa.
     </div>
 
     <p>
-      Desde acá, cada ejecución funciona para cualquier caso o producto que le pases.
-      Probá con uno de los casos del dataset del taller: <code>REC-001</code> a <code>REC-200</code>.
+      A partir daqui, cada execução funciona para qualquer caso ou produto que você passe.
+      Experimente com um dos casos do dataset do workshop: <code>REC-001</code> a <code>REC-200</code>.
     </p>
 
-    <p class="prompt-group-label">Prompt sugerido para probar tu crew con este caso</p>
+    <p class="prompt-group-label">Prompt sugerido para testar seu crew com este caso</p>
     <div class="prompt-example">
-      Investigá el defecto del caso REC-101 sobre el producto "Lavarropas TurboClean 9000": recalls vigentes, alertas de ANMAT y cobertura de prensa reciente.
+      Pesquise o defeito do caso REC-101 sobre o produto "Lavadora TurboClean 9000": recalls vigentes, alertas da ANVISA e cobertura de imprensa recente.
     </div>
 
     <!-- ==================== SECCIÓN 3 ==================== -->
-    <h2 id="seccion-3">Sección 3 — El contrato de salida (~15 min)</h2>
+    <h2 id="seccion-3">Seção 3 — O contrato de saída (~15 min)</h2>
 
     <p>
-      Por ahora el crew produce texto en Markdown. Está bien para leer, pero si querés
-      que otro sistema (una API, un dashboard, un crew downstream) consuma la salida,
-      necesitás un contrato estructurado. En CrewAI, ese contrato es un esquema Pydantic
-      en <code>output_pydantic</code>.
+      Por enquanto o crew produz texto em Markdown. Está bem para leitura, mas se você quiser
+      que outro sistema (uma API, um dashboard, um crew downstream) consuma a saída,
+      você precisa de um contrato estruturado. No CrewAI, esse contrato é um esquema Pydantic
+      em <code>output_pydantic</code>.
     </p>
 
-    <h3>El esquema EnrichedDefectProfile</h3>
+    <h3>O esquema EnrichedDefectProfile</h3>
 
-    <p>Creá <code>src/defect_enrichment/schemas.py</code>:</p>
+    <p>Crie <code>src/defect_enrichment/schemas.py</code>:</p>
 
     <div style="position:relative">
       <span class="code-lang">python</span>
@@ -396,13 +397,13 @@ class EnrichedDefectProfile(BaseModel):
     """The consolidated, decision-ready profile the crew produces."""
 
     caso_id: str = Field(description="Case ID, e.g. REC-042")
-    producto: str = Field(description="Product name or description")
+    produto: str = Field(description="Product name or description")
     descripcion_defecto: str = Field(
         description="One-paragraph description of the defect"
     )
-    categoria: str = Field(description="Defect category, e.g. Seguridad, Garantía")
+    categoria: str = Field(description="Defect category, e.g. Segurança, Garantia")
     urgencia: str = Field(
-        description="Urgency level: Alta, Media, Baja, or 'desconocida'"
+        description="Urgency level: Alta, Media, Baja, or 'desconhecida'"
     )
     recalls_activos: list[str] = Field(
         default_factory=list,
@@ -417,7 +418,7 @@ class EnrichedDefectProfile(BaseModel):
         description="Recent signals: press, forums, regulatory filings"
     )
     resumen_interno: str = Field(
-        default="Sin registros internos.",
+        default="Sem registros internos.",
         description="What internal systems returned (or why skipped)"
     )
     resumen_api_publica: str = Field(
@@ -445,9 +446,9 @@ class EnrichedDefectProfile(BaseModel):
 </code></pre>
     </div>
 
-    <h3>Activá el contrato en compilar_perfil</h3>
+    <h3>Ative o contrato em compilar_perfil</h3>
 
-    <p>En <code>crew.py</code>, importá el esquema y pasalo a la task:</p>
+    <p>Em <code>crew.py</code>, importe o esquema e passe-o à task:</p>
 
     <div style="position:relative">
       <span class="code-lang">python</span>
@@ -464,11 +465,11 @@ def compilar_perfil(self) -> Task:
     </div>
 
     <div class="info-box">
-      <strong>La trampa más común:</strong> <code>expected_output</code> es <em>siempre</em> una descripción en prosa. La clase Pydantic va en <code>output_pydantic</code>, nunca dentro de <code>expected_output</code>. Mezclarlos es la razón número uno por la que <code>result.pydantic</code> vuelve <code>None</code>.
+      <strong>A armadilha mais comum:</strong> <code>expected_output</code> é <em>sempre</em> uma descrição em prosa. A classe Pydantic vai em <code>output_pydantic</code>, nunca dentro de <code>expected_output</code>. Misturá-los é a razão número um pela qual <code>result.pydantic</code> retorna <code>None</code>.
     </div>
 
     <p>
-      También actualizá <code>main.py</code> para escribir los archivos de salida:
+      Atualize também o <code>main.py</code> para gravar os arquivos de saída:
     </p>
 
     <div style="position:relative">
@@ -482,17 +483,17 @@ from defect_enrichment.crew import DefectEnrichmentCrew
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 DEFAULT_CASO = "REC-001"
-DEFAULT_PRODUCTO = "Electrónica - Cargador USB-C"
+DEFAULT_PRODUTO = "Eletrônica - Carregador USB-C"
 
 def run():
     caso_id = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_CASO
-    producto = sys.argv[2] if len(sys.argv) > 2 else DEFAULT_PRODUCTO
+    produto = sys.argv[2] if len(sys.argv) > 2 else DEFAULT_PRODUTO
 
     out_dir = Path("output")
     out_dir.mkdir(exist_ok=True)
 
-    inputs = {"caso_id": caso_id, "producto": producto}
-    print(f"\nEnriqueciendo: {caso_id} — {producto}\n" + "-" * 50)
+    inputs = {"caso_id": caso_id, "produto": produto}
+    print(f"\nEnriquecendo: {caso_id} — {produto}\n" + "-" * 50)
 
     result = DefectEnrichmentCrew().crew().kickoff(inputs=inputs)
 
@@ -504,12 +505,12 @@ def run():
         (out_dir / "enriched_defect.json").write_text(
             profile.model_dump_json(indent=2), encoding="utf-8"
         )
-        print("\n=== RESUMEN ===")
-        print(f"Categoría:  {profile.categoria}")
-        print(f"Urgencia:   {profile.urgencia}")
-        print(f"Severidad:  {profile.severity_score}/100")
-        print(f"Acción:     {profile.accion_recomendada}")
-        print("\nEscribió output/defect_report.md y output/enriched_defect.json")
+        print("\n=== RESUMO ===")
+        print(f"Categoria:  {profile.categoria}")
+        print(f"Urgência:   {profile.urgencia}")
+        print(f"Severidade: {profile.severity_score}/100")
+        print(f"Ação:       {profile.accion_recomendada}")
+        print("\nGravou output/defect_report.md e output/enriched_defect.json")
     else:
         (out_dir / "defect_report.md").write_text(result.raw, encoding="utf-8")
         print("\n" + result.raw)
@@ -517,148 +518,147 @@ def run():
     </div>
 
     <div class="checkpoint">
-      Punto de control: la ejecución termina y aparece el resumen con Categoría, Urgencia y Acción en la terminal. Abrí <code>output/enriched_defect.json</code> — cada campo del esquema, validado y tipado. El mismo resultado es ahora <em>tanto</em> un informe legible como datos consumibles por máquina.
+      Ponto de controle: a execução termina e aparece o resumo com Categoria, Urgência e Ação no terminal. Abra <code>output/enriched_defect.json</code> — cada campo do esquema, validado e tipado. O mesmo resultado é agora <em>tanto</em> um relatório legível como dados consumíveis por máquina.
     </div>
 
     <!-- ==================== SECCIÓN 4 ==================== -->
-    <h2 id="seccion-4">Sección 4 — Tres fuentes en paralelo (~20 min)</h2>
+    <h2 id="seccion-4">Seção 4 — Três fontes em paralelo (~20 min)</h2>
 
     <p>
-      Un investigador solo es un cuello de botella. La potencia del patrón fan-out/fan-in
-      es que las tres fuentes trabajan <em>al mismo tiempo</em> y el analista consolida
-      cuando todas terminaron. Agregamos un tercer brazo: una fuente de datos públicos
-      sobre recalls y normativa regulatoria.
+      Um único pesquisador é um gargalo. A potência do padrão fan-out/fan-in
+      é que as três fontes trabalham <em>ao mesmo tempo</em> e o analista consolida
+      quando todas terminaram. Adicionamos um terceiro braço: uma fonte de dados públicos
+      sobre recalls e normativa regulatória.
     </p>
 
-    <h3>Los cuatro agentes (agents.yaml completo)</h3>
+    <h3>Os quatro agentes (agents.yaml completo)</h3>
 
     <div style="position:relative">
       <span class="code-lang">yaml</span>
       <pre><code>investigador_web:
   role: >
-    Especialista en Investigación Web de Defectos
+    Especialista em Pesquisa Web de Defeitos
   goal: >
-    Encontrá información actual y verificable sobre el defecto del producto
-    {producto} (caso {caso_id}) en la web abierta: recalls, alertas de
-    seguridad, reportes de consumidores, cobertura de prensa y normativa
-    vigente de los últimos ~12 meses.
+    Encontre informações atuais e verificáveis sobre o defeito do produto
+    {produto} (caso {caso_id}) na web aberta: recalls, alertas de
+    segurança, reportes de consumidores, cobertura de imprensa e normativa
+    vigente dos últimos ~12 meses.
   backstory: >
-    Sos un especialista en inteligencia de producto que vive en la web.
-    Preferís fuentes primarias, capturás la URL de cada dato y te enfocás
-    en lo que cambió recientemente y por qué importa al equipo de calidad.
+    Você é um especialista em inteligência de produto que vive na web.
+    Prefere fontes primárias, registra a URL de cada dado e se concentra
+    no que mudou recentemente e por que isso importa para a equipe de qualidade.
 
 investigador_regulatorio:
   role: >
-    Investigador de Datos Regulatorios Públicos
+    Pesquisador de Dados Regulatórios Públicos
   goal: >
-    Obtené información regulatoria pública y neutral sobre el defecto del
-    producto {producto}: clasificación del tipo de defecto, estándares
-    aplicables y un enlace fuente. Usalo para anclar y validar los
-    hallazgos web.
+    Obtenha informações regulatórias públicas e neutras sobre o defeito do
+    produto {produto}: classificação do tipo de defeito, padrões
+    aplicáveis e um link fonte. Use-os para ancorar e validar os
+    achados web.
   backstory: >
-    Sos un analista diligente que confía en fuentes estructuradas y
-    citables. Usás APIs públicas de datos regulatorios como línea de base
-    autorizada e indicás cuando un producto o categoría no tiene entrada
+    Você é um analista diligente que confia em fontes estruturadas e
+    citáveis. Usa APIs públicas de dados regulatórios como linha de base
+    autorizada e indica quando um produto ou categoria não tem entrada
     pública.
 
 investigador_interno:
   role: >
-    Investigador de Registros Internos
+    Pesquisador de Registros Internos
   goal: >
-    Recuperá todo lo que nuestros sistemas internos ya saben sobre el
-    caso {caso_id} y el producto {producto}: reclamos previos, historial
-    de resoluciones, patrones de defectos similares, y política de
-    garantía aplicable. Si la herramienta interna no está disponible,
-    anotalo y continuá.
+    Recupere tudo o que nossos sistemas internos já sabem sobre o
+    caso {caso_id} e o produto {produto}: reclamações anteriores, histórico
+    de resoluções, padrões de defeitos similares e política de
+    garantia aplicável. Se a ferramenta interna não estiver disponível,
+    registre e continue.
   backstory: >
-    Sos un analista de operaciones que siempre chequea lo que ya se sabe
-    internamente antes de salir afuera. Hacés preguntas precisas en
-    lenguaje natural y nunca fabricás registros — si no hay datos, lo
-    decís claramente.
+    Você é um analista de operações que sempre verifica o que já se sabe
+    internamente antes de buscar fora. Faz perguntas precisas em
+    linguagem natural e nunca fabrica registros — se não há dados, diz claramente.
 
-analista_enriquecimiento:
+analista_enriquecimento:
   role: >
-    Analista de Enriquecimiento de Reclamos
+    Analista de Enriquecimento de Reclamações
   goal: >
-    Consolidá los registros internos, los hallazgos web y los datos
-    regulatorios en un perfil completo y accionable del caso {caso_id}
-    sobre el producto {producto}: descripción del defecto, señales
-    recientes, impacto regulatorio y acción recomendada para el equipo
-    de resolución.
+    Consolide os registros internos, os achados web e os dados
+    regulatórios em um perfil completo e acionável do caso {caso_id}
+    sobre o produto {produto}: descrição do defeito, sinais
+    recentes, impacto regulatório e ação recomendada para a equipe
+    de resolução.
   backstory: >
-    Sos un analista meticuloso que convierte investigación en un brief
-    claro y confiable. Nunca inventás datos — todo lo que la investigación
-    no establezca lo marcás como "desconocido".</code></pre>
+    Você é um analista meticuloso que converte pesquisa em um briefing
+    claro e confiável. Nunca inventa dados — tudo o que a pesquisa
+    não estabelecer é marcado como "desconhecido".</code></pre>
     </div>
 
-    <h3>Las cuatro tasks con async_execution (tasks.yaml completo)</h3>
+    <h3>As quatro tasks com async_execution (tasks.yaml completo)</h3>
 
     <div style="position:relative">
       <span class="code-lang">yaml</span>
       <pre><code>investigar_web:
   description: >
-    Investigá el defecto del producto {producto} (caso {caso_id}) en la
-    web abierta. Determiná qué es el defecto y recopilá señales recientes
-    de los últimos ~12 meses: recalls, alertas de seguridad, reportes de
-    consumidores, cobertura de prensa y normativa aplicable. Registrá una
-    URL fuente por cada dato. Marcá lo no verificable como "desconocido".
+    Pesquise o defeito do produto {produto} (caso {caso_id}) na
+    web aberta. Determine qual é o defeito e colete sinais recentes
+    dos últimos ~12 meses: recalls, alertas de segurança, reportes de
+    consumidores, cobertura de imprensa e normativa aplicável. Registre uma
+    URL fonte para cada dado. Marque o não verificável como "desconhecido".
   expected_output: >
-    Un brief de hallazgos con: descripción del defecto, señales agrupadas
-    en recalls, seguridad, prensa y normativa — cada una con URL. Indicá
-    explícitamente dónde no se encontró información.
+    Um briefing de achados com: descrição do defeito, sinais agrupados
+    em recalls, segurança, imprensa e normativa — cada um com URL. Indique
+    explicitamente onde não foi encontrada informação.
   agent: investigador_web
   async_execution: true
 
 investigar_regulatorio:
   description: >
-    Usá la API pública de datos regulatorios para obtener información
-    neutral sobre el defecto de la categoría del producto {producto}:
-    clasificación del tipo de defecto, estándares aplicables y enlace
-    fuente. Esto provee una línea de base citable para validar los
-    hallazgos web.
+    Use a API pública de dados regulatórios para obter informações
+    neutras sobre o defeito da categoria do produto {produto}:
+    classificação do tipo de defeito, padrões aplicáveis e link
+    fonte. Isso fornece uma linha de base citável para validar os
+    achados web.
   expected_output: >
-    La clasificación del tipo de defecto y estándares aplicables con
-    enlace fuente, o una nota explícita de que no se encontró entrada
-    pública para esta categoría de producto.
+    A classificação do tipo de defeito e padrões aplicáveis com
+    link fonte, ou uma nota explícita de que não foi encontrada entrada
+    pública para esta categoria de produto.
   agent: investigador_regulatorio
   async_execution: true
 
 investigar_interno:
   description: >
-    Consultá la base de datos interna sobre lo que ya sabemos del caso
-    {caso_id} y el producto {producto}. Buscá reclamos previos similares,
-    historial de resoluciones, patrones de defectos y políticas de
-    garantía aplicables. Formulá preguntas claras en lenguaje natural.
-    Si la herramienta interna no está configurada, anotalo claramente
-    y continuá — no inventes registros.
+    Consulte a base de dados interna sobre o que já sabemos do caso
+    {caso_id} e do produto {produto}. Busque reclamações anteriores similares,
+    histórico de resoluções, padrões de defeitos e políticas de
+    garantia aplicáveis. Formule perguntas claras em linguagem natural.
+    Se a ferramenta interna não estiver configurada, registre claramente
+    e continue — não invente registros.
   expected_output: >
-    Un resumen de los registros internos encontrados para el caso
-    {caso_id}, o una nota explícita de que la herramienta no estaba
-    disponible o no encontró registros coincidentes.
+    Um resumo dos registros internos encontrados para o caso
+    {caso_id}, ou uma nota explícita de que a ferramenta não estava
+    disponível ou não encontrou registros coincidentes.
   agent: investigador_interno
   async_execution: true
 
 compilar_perfil:
   description: >
-    Consolidá las tres fuentes — registros internos, hallazgos web y
-    datos regulatorios públicos — en un perfil completo del caso
-    {caso_id}. Unificá los datos resolviendo superposiciones y anotando
-    conflictos. Recomendá una acción concreta para el equipo de resolución.
-    No inventes datos que no estén en la investigación; marcá los
-    faltantes como "desconocido".
+    Consolide as três fontes — registros internos, achados web e
+    dados regulatórios públicos — em um perfil completo do caso
+    {caso_id}. Unifique os dados resolvendo sobreposições e anotando
+    conflitos. Recomende uma ação concreta para a equipe de resolução.
+    Não invente dados que não estejam na pesquisa; marque os
+    faltantes como "desconhecido".
   expected_output: >
-    Un objeto JSON que cumple el esquema EnrichedDefectProfile, incluyendo
-    senales_recientes, accion_recomendada, sources y un string completo
-    de markdown_report con el informe consolidado del defecto.
-  agent: analista_enriquecimiento
-  # NOTA: context se cablea en crew.py usando los objetos Task reales.
+    Um objeto JSON que cumpre o esquema EnrichedDefectProfile, incluindo
+    senales_recientes, accion_recomendada, sources e uma string completa
+    de markdown_report com o relatório consolidado do defeito.
+  agent: analista_enriquecimento
+  # NOTA: context é conectado em crew.py usando os objetos Task reais.
 </code></pre>
     </div>
 
-    <h3>La herramienta de datos regulatorios públicos</h3>
+    <h3>A ferramenta de dados regulatórios públicos</h3>
 
     <p>
-      Creá <code>src/defect_enrichment/tools/regulatory_api_tool.py</code>:
+      Crie <code>src/defect_enrichment/tools/regulatory_api_tool.py</code>:
     </p>
 
     <div style="position:relative">
@@ -681,9 +681,9 @@ _SEARCH_URL = (
 _HEADERS = {"User-Agent": "CrewAI-Workshop/1.0 (defect enrichment lab)"}
 
 class RegulatoryInput(BaseModel):
-    producto: str = Field(
+    produto: str = Field(
         description="Product name or category to look up in regulatory data, "
-        "e.g. 'USB charger' or 'cargador USB'"
+        "e.g. 'USB charger' or 'carregador USB'"
     )
 
 class RegulatoryAPITool(BaseTool):
@@ -695,9 +695,9 @@ class RegulatoryAPITool(BaseTool):
     )
     args_schema: type[BaseModel] = RegulatoryInput
 
-    def _run(self, producto: str) -> str:
+    def _run(self, produto: str) -> str:
         try:
-            q = urllib.parse.quote(producto[:60])
+            q = urllib.parse.quote(produto[:60])
             url = _SEARCH_URL.format(q=q)
             request = urllib.request.Request(url, headers=_HEADERS)
             with urllib.request.urlopen(request, timeout=15) as resp:
@@ -705,7 +705,7 @@ class RegulatoryAPITool(BaseTool):
             results = data.get("results", [])
             if not results:
                 return (
-                    f"No public recall entries found for '{producto}' in OpenFDA. "
+                    f"No public recall entries found for '{produto}' in OpenFDA. "
                     "Proceeding without public regulatory data."
                 )
             lines = []
@@ -725,12 +725,12 @@ class RegulatoryAPITool(BaseTool):
 </code></pre>
     </div>
 
-    <h3>El swap de la herramienta interna: ANTES → DESPUÉS</h3>
+    <h3>A troca da ferramenta interna: ANTES → DEPOIS</h3>
 
     <p>
-      Este es el cambio clave respecto al lab original. En el lab de la guía,
-      <code>internal_data_researcher</code> usa una función fábrica que decide en tiempo
-      de construcción qué herramienta retornar:
+      Esta é a mudança-chave em relação ao lab original. No lab do guia,
+      <code>internal_data_researcher</code> usa uma função fábrica que decide em tempo
+      de construção qual ferramenta retornar:
     </p>
 
     <div class="before-after-grid">
@@ -738,8 +738,8 @@ class RegulatoryAPITool(BaseTool):
         <p class="ba-label before">ANTES — lab original (db_tool.py)</p>
         <div style="position:relative">
           <span class="code-lang">python</span>
-          <pre><code>"""NL2SQL con fallback graceful.
-Sin DATABASE_URL → retorna NoDatabaseTool.
+          <pre><code>"""NL2SQL com fallback elegante.
+Sem DATABASE_URL → retorna NoDatabaseTool.
 """
 import os
 from crewai.tools import BaseTool
@@ -769,39 +769,39 @@ def build_internal_db_tool() -> BaseTool:
         return NL2SQLTool(db_uri=db_uri)
     return NoDatabaseTool()
 
-# En crew.py:
+# Em crew.py:
 tools=[build_internal_db_tool()]
 </code></pre>
         </div>
       </div>
       <div>
-        <p class="ba-label after">DESPUÉS — con teradata-store-search</p>
+        <p class="ba-label after">DEPOIS — com mongodb-vector-search</p>
         <div style="position:relative">
           <span class="code-lang">python</span>
-          <pre><code>"""Consulta interna con TeradataStoreSearch.
-Soporta NL en modos factual / semantic /
-hybrid / auto. No requiere DATABASE_URL
-ni SQL manual. Si la herramienta no está
-disponible, retorna un mensaje descriptivo
-en lugar de lanzar una excepción.
+          <pre><code>"""Consulta interna com MongoDBVectorSearch.
+Suporta NL nos modos factual / semantic /
+hybrid / auto. Não requer DATABASE_URL
+nem SQL manual. Se a ferramenta não estiver
+disponível, retorna uma mensagem descritiva
+em vez de lançar uma exceção.
 """
-from teradata_store_search import (
-    TeradataStoreSearch,
+from mongodb_vector_search import (
+    MongoDBVectorSearch,
 )
 
-# En crew.py:
-tools=[TeradataStoreSearch()]
+# Em crew.py:
+tools=[MongoDBVectorSearch()]
 </code></pre>
         </div>
       </div>
     </div>
 
     <div class="info-box">
-      <strong>¿Por qué este swap?</strong>
-      El lab original necesita una función fábrica porque la herramienta de base de datos puede o no existir en el entorno del participante — si no hay <code>DATABASE_URL</code>, retorna <code>NoDatabaseTool</code>, una herramienta vacía que dice "no hay base de datos" en lugar de romper. En este taller, <code>teradata-store-search</code> reemplaza ese par completo: es la herramienta real que ya instalaste, maneja NL en cuatro modos (factual, semantic, hybrid, auto) y si no encuentra registros lo dice en su respuesta — devuelve, nunca lanza. Ya no necesitás la función fábrica ni el fallback manual.
+      <strong>Por que esta troca?</strong>
+      O lab original precisa de uma função fábrica porque a ferramenta de banco de dados pode ou não existir no ambiente do participante — se não há <code>DATABASE_URL</code>, retorna <code>NoDatabaseTool</code>, uma ferramenta vazia que diz "não há banco de dados" em vez de quebrar. Neste workshop, <code>mongodb-vector-search</code> substitui esse par inteiro: é a ferramenta real que você já instalou, lida com NL em quatro modos (factual, semantic, hybrid, auto) e se não encontra registros diz na sua resposta — retorna, nunca lança. Você não precisa mais da função fábrica nem do fallback manual.
     </div>
 
-    <h3>El crew.py completo (Sección 4)</h3>
+    <h3>O crew.py completo (Seção 4)</h3>
 
     <div style="position:relative">
       <span class="code-lang">python</span>
@@ -811,7 +811,7 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai_tools import FirecrawlSearchTool, FirecrawlScrapeWebsiteTool
-from teradata_store_search import TeradataStoreSearch
+from mongodb_vector_search import MongoDBVectorSearch
 
 from defect_enrichment.schemas import EnrichedDefectProfile
 from defect_enrichment.tools.regulatory_api_tool import RegulatoryAPITool
@@ -851,7 +851,7 @@ class DefectEnrichmentCrew():
     def investigador_interno(self) -> Agent:
         return Agent(
             config=self.agents_config['investigador_interno'],
-            tools=[TeradataStoreSearch()],
+            tools=[MongoDBVectorSearch()],
             max_iter=5,
             allow_delegation=False,
             verbose=True,
@@ -901,41 +901,41 @@ class DefectEnrichmentCrew():
 </code></pre>
     </div>
 
-    <h3>Cómo funciona el fan-out / fan-in</h3>
+    <h3>Como funciona o fan-out / fan-in</h3>
 
     <ul class="step-list">
-      <li>Las tres tasks de investigación llevan <code>async_execution: true</code>, por eso se ejecutan <strong>en paralelo</strong> aunque el proceso sea secuencial.</li>
-      <li><code>compilar_perfil</code> <em>no</em> es async: lista las tres tasks en <code>context=[…]</code>, lo que lo convierte en el <strong>punto de sincronización</strong> — espera a que terminen las tres y sus salidas son los únicos datos que ve.</li>
-      <li>La última task de un crew nunca puede ser async — el crew necesita un resultado final para retornar.</li>
+      <li>As três tasks de pesquisa levam <code>async_execution: true</code>, por isso são executadas <strong>em paralelo</strong> mesmo que o processo seja sequencial.</li>
+      <li><code>compilar_perfil</code> <em>não</em> é async: lista as três tasks em <code>context=[…]</code>, o que o torna o <strong>ponto de sincronização</strong> — aguarda as três terminarem e suas saídas são os únicos dados que ele vê.</li>
+      <li>A última task de um crew nunca pode ser async — o crew precisa de um resultado final para retornar.</li>
     </ul>
 
     <div class="callout-warn">
-      <strong>Degradación elegante — una herramienta retorna, nunca lanza.</strong>
-      Si la API regulatoria no responde, <code>RegulatoryAPITool._run()</code> captura la excepción y retorna un string descriptivo. El investigador interno hace lo mismo si no hay registros. El analista recibe todos los outputs igual — algunos más vacíos — y los consolida sin crashear. Así es como un crew de producción trata las fuentes opcionales: las ausencias se reportan, nunca se crashea.
+      <strong>Degradação elegante — uma ferramenta retorna, nunca lança.</strong>
+      Se a API regulatória não responder, <code>RegulatoryAPITool._run()</code> captura a exceção e retorna uma string descritiva. O pesquisador interno faz o mesmo se não há registros. O analista recebe todas as saídas igual — algumas mais vazias — e as consolida sem travar. É assim que um crew de produção trata as fontes opcionais: as ausências são reportadas, nunca há crash.
     </div>
 
     <div class="checkpoint">
-      Punto de control: en los logs vas a ver los tres investigadores intercalados (están corriendo al mismo tiempo). <code>compilar_perfil</code> espera a que los tres terminen y consolida todo en el mismo JSON validado de antes, ahora con las tres fuentes.
+      Ponto de controle: nos logs você verá os três pesquisadores intercalados (estão rodando ao mesmo tempo). <code>compilar_perfil</code> aguarda os três terminarem e consolida tudo no mesmo JSON validado de antes, agora com as três fontes.
     </div>
 
-    <p class="prompt-group-label">Prompt sugerido para probar tu crew con este caso</p>
+    <p class="prompt-group-label">Prompt sugerido para testar seu crew com este caso</p>
     <div class="prompt-example">
-      Investigá en paralelo el caso REC-077 sobre "Aspiradora RoboClean Pro": búsqueda web, datos regulatorios de OpenFDA y registros internos de Teradata. Consolidá todo en un perfil de defecto estructurado.
+      Pesquise em paralelo o caso REC-077 sobre "Aspirador RoboClean Pro": busca web, dados regulatórios do OpenFDA e registros internos do MongoDB. Consolide tudo em um perfil de defeito estruturado.
     </div>
 
     <!-- ==================== SECCIÓN 5 ==================== -->
-    <h2 id="seccion-5">Sección 5 — Trabajo determinístico → herramienta, no prompt (~10 min)</h2>
+    <h2 id="seccion-5">Seção 5 — Trabalho determinístico → ferramenta, não prompt (~10 min)</h2>
 
     <p>
-      El analista puede calcular un score de severidad con un prompt, pero obtendrías
-      resultados distintos en cada ejecución. Cuando la lógica es determinística
-      — un conjunto de reglas que produce siempre el mismo número dado los mismos inputs —
-      pertenece a una <strong>herramienta Python</strong>, no a un prompt.
+      O analista pode calcular um score de severidade com um prompt, mas você obteria
+      resultados diferentes a cada execução. Quando a lógica é determinística
+      — um conjunto de regras que produz sempre o mesmo número dado os mesmos inputs —
+      ela pertence a uma <strong>ferramenta Python</strong>, não a um prompt.
     </p>
 
-    <h3>La herramienta de severidad (severity_tool.py)</h3>
+    <h3>A ferramenta de severidade (severity_tool.py)</h3>
 
-    <p>Creá <code>src/defect_enrichment/tools/severity_tool.py</code>:</p>
+    <p>Crie <code>src/defect_enrichment/tools/severity_tool.py</code>:</p>
 
     <div style="position:relative">
       <span class="code-lang">python</span>
@@ -946,24 +946,24 @@ from pydantic import BaseModel, Field
 
 # Categories that automatically raise severity
 HIGH_IMPACT_CATEGORIES = {
-    "seguridad", "safety", "incendio", "fire", "electrocucion",
-    "electrocution", "lesion", "injury", "muerte", "death",
-    "recall", "retiro", "toxicidad", "toxicity",
+    "segurança", "safety", "incêndio", "fire", "eletrocução",
+    "electrocution", "lesão", "injury", "morte", "death",
+    "recall", "retirada", "toxicidade", "toxicity",
 }
 
 # Signals that indicate systemic or widespread issues
 SYSTEMIC_KEYWORDS = {
-    "masivo", "widespread", "multiple", "varios", "numerosas",
-    "patrón", "pattern", "sistémico", "systemic", "lote", "batch",
-    "serie", "series", "alerta", "alert", "emergencia", "emergency",
+    "massivo", "widespread", "multiple", "vários", "numerosas",
+    "padrão", "pattern", "sistêmico", "systemic", "lote", "batch",
+    "série", "series", "alerta", "alert", "emergência", "emergency",
 }
 
 class SeverityInput(BaseModel):
     categoria: str = Field(
-        description="Defect category, e.g. 'Seguridad', 'Garantía', 'Facturación'"
+        description="Defect category, e.g. 'Segurança', 'Garantia', 'Faturamento'"
     )
     urgencia: str = Field(
-        description="Urgency level: 'Alta', 'Media', 'Baja', or 'desconocida'"
+        description="Urgency level: 'Alta', 'Media', 'Baja', or 'desconhecida'"
     )
     senales_recientes: str = Field(
         description="Recent signals as free text (recalls, press, regulatory)"
@@ -989,25 +989,25 @@ class SeverityScoreTool(BaseTool):
         cat_l = (categoria or "").lower()
         if any(k in cat_l for k in HIGH_IMPACT_CATEGORIES):
             score += 40
-            reasons.append(f"Categoría de alto impacto ({categoria}): +40")
+            reasons.append(f"Categoria de alto impacto ({categoria}): +40")
         else:
             score += 15
-            reasons.append(f"Categoría estándar ({categoria}): +15")
+            reasons.append(f"Categoria padrão ({categoria}): +15")
 
         # Urgency (0-35)
         urg_l = (urgencia or "").lower()
         if "alta" in urg_l or "high" in urg_l:
             score += 35
-            reasons.append("Urgencia Alta: +35")
+            reasons.append("Urgência Alta: +35")
         elif "media" in urg_l or "medium" in urg_l:
             score += 20
-            reasons.append("Urgencia Media: +20")
+            reasons.append("Urgência Média: +20")
         elif "baja" in urg_l or "low" in urg_l:
             score += 5
-            reasons.append("Urgencia Baja: +5")
+            reasons.append("Urgência Baixa: +5")
         else:
             score += 10
-            reasons.append("Urgencia desconocida: +10")
+            reasons.append("Urgência desconhecida: +10")
 
         # Systemic signals (0-25)
         signals_l = (senales_recientes or "").lower()
@@ -1015,18 +1015,18 @@ class SeverityScoreTool(BaseTool):
         if hits:
             bonus = min(25, 8 + 4 * len(hits))
             score += bonus
-            reasons.append(f"Señales sistémicas {hits}: +{bonus}")
+            reasons.append(f"Sinais sistêmicos {hits}: +{bonus}")
         else:
-            reasons.append("Sin señales sistémicas detectadas: +0")
+            reasons.append("Sem sinais sistêmicos detectados: +0")
 
         score = max(0, min(100, score))
         return f"SEVERITY_SCORE={score} | RATIONALE: " + "; ".join(reasons)
 </code></pre>
     </div>
 
-    <h3>Tres cambios pequeños para activarla</h3>
+    <h3>Três pequenas mudanças para ativá-la</h3>
 
-    <p><strong>1.</strong> Agregá la herramienta al analista en <code>crew.py</code>:</p>
+    <p><strong>1.</strong> Adicione a ferramenta ao analista em <code>crew.py</code>:</p>
 
     <div style="position:relative">
       <span class="code-lang">python</span>
@@ -1044,169 +1044,189 @@ def analista_enriquecimiento(self) -> Agent:
 </code></pre>
     </div>
 
-    <p><strong>2.</strong> Actualizá la descripción de <code>compilar_perfil</code> en <code>tasks.yaml</code>:</p>
+    <p><strong>2.</strong> Atualize a descrição de <code>compilar_perfil</code> em <code>tasks.yaml</code>:</p>
 
     <div style="position:relative">
       <span class="code-lang">yaml</span>
       <pre><code>compilar_perfil:
   description: >
-    Consolidá las tres fuentes en un perfil completo del caso {caso_id}.
-    Pasos:
-      1. Unificá los datos resolviendo superposiciones y anotando conflictos.
-      2. Usá la herramienta Severity Score para producir un score de 0-100.
-         Nuestra escala: categorías de seguridad/recall elevan el score,
-         urgencia Alta suma más, señales sistémicas (patrón, masivo, alerta)
-         también suman.
-      3. Recomendá una acción concreta para el equipo de resolución.
-      4. Escribí un informe Markdown completo con todas las fuentes.
-    No inventes datos que no estén en la investigación; marcá los faltantes
-    como "desconocido".
+    Consolide as três fontes em um perfil completo do caso {caso_id}.
+    Passos:
+      1. Unifique os dados resolvendo sobreposições e anotando conflitos.
+      2. Use a ferramenta Severity Score para produzir um score de 0-100.
+         Nossa escala: categorias de segurança/recall elevam o score,
+         urgência Alta soma mais, sinais sistêmicos (padrão, massivo, alerta)
+         também somam.
+      3. Recomende uma ação concreta para a equipe de resolução.
+      4. Escreva um relatório Markdown completo com todas as fontes.
+    Não invente dados que não estejam na pesquisa; marque os faltantes
+    como "desconhecido".
   expected_output: >
-    Un objeto JSON que cumple el esquema EnrichedDefectProfile, incluyendo
-    todos los campos por fuente, severity_score, severity_rationale,
-    accion_recomendada, sources, y un string completo de markdown_report.
-  agent: analista_enriquecimiento
+    Um objeto JSON que cumpre o esquema EnrichedDefectProfile, incluindo
+    todos os campos por fonte, severity_score, severity_rationale,
+    accion_recomendada, sources e uma string completa de markdown_report.
+  agent: analista_enriquecimento
 </code></pre>
     </div>
 
-    <p><strong>3.</strong> En <code>main.py</code>, agregá el score al resumen:</p>
+    <p><strong>3.</strong> Em <code>main.py</code>, adicione o score ao resumo:</p>
 
     <div style="position:relative">
       <span class="code-lang">python</span>
-      <pre><code>print(f"Severidad: {profile.severity_score}/100 — {profile.severity_rationale}")</code></pre>
+      <pre><code>print(f"Severidade: {profile.severity_score}/100 — {profile.severity_rationale}")</code></pre>
     </div>
 
     <div class="checkpoint">
-      Punto de control: el resumen ahora incluye un veredicto con score. Probá con casos de distinta urgencia y categoría — el score cambia determinísticamente. Ajustá <code>HIGH_IMPACT_CATEGORIES</code> en <code>severity_tool.py</code> para que refleje tu criterio real y observá cómo el score cambia de forma predecible.
+      Ponto de controle: o resumo agora inclui um veredicto com score. Experimente com casos de urgência e categoria diferentes — o score muda deterministicamente. Ajuste <code>HIGH_IMPACT_CATEGORIES</code> em <code>severity_tool.py</code> para que reflita seu critério real e observe como o score muda de forma previsível.
     </div>
 
-    <p class="prompt-group-label">Prompt sugerido para probar tu crew con este caso</p>
+    <p class="prompt-group-label">Prompt sugerido para testar seu crew com este caso</p>
     <div class="prompt-example">
-      Enriquecé el caso REC-015 sobre "Silla de auto infantil modelo SafeKid": investigá las tres fuentes en paralelo y calculá el score de severidad con la herramienta determinística.
+      Enriqueça o caso REC-015 sobre "Cadeirinha infantil para carro modelo SafeKid": pesquise as três fontes em paralelo e calcule o score de severidade com a ferramenta determinística.
     </div>
 
     <!-- ==================== AMP → LOCAL ==================== -->
-    <h2 id="amp-local">Copiar una herramienta de AMP a local</h2>
+    <h2 id="amp-local">Copiar uma ferramenta do AMP para o local</h2>
 
     <p>
-      Durante el taller usaste <code>teradata-store-search</code> y <code>firecrawl</code>
-      directamente desde AMP a través de Studio. Cuando trabajás en un proyecto de código
-      local, esas mismas herramientas se instalan con el CLI de CrewAI.
+      Durante o workshop você usou <code>mongodb-vector-search</code> e <code>firecrawl</code>
+      diretamente do AMP através do Studio. Quando trabalha em um projeto de código
+      local, essas mesmas ferramentas são instaladas com o CLI do CrewAI.
     </p>
 
     <p>
-      El flujo completo — desde autenticarte hasta instalar una herramienta publicada — son cuatro comandos:
+      O fluxo completo — desde autenticar-se até instalar uma ferramenta publicada — são quatro comandos:
     </p>
 
     <ul class="amp-cmd-list">
       <li>
         <code>crewai login</code>
-        <span>Autenticarte en tu cuenta de AMP. Requerido antes de cualquier operación con herramientas.</span>
+        <span>Autenticar-se na sua conta do AMP. Obrigatório antes de qualquer operação com ferramentas.</span>
       </li>
       <li>
         <code>crewai tool create your-tool</code>
-        <span>Crear una nueva herramienta localmente desde un template. Genera la estructura de archivos en el directorio actual.</span>
+        <span>Criar uma nova ferramenta localmente a partir de um template. Gera a estrutura de arquivos no diretório atual.</span>
       </li>
       <li>
         <code>crewai tool publish</code>
-        <span>Publicar la herramienta local al repositorio de AMP. Una vez publicada, podés compartirla con tu equipo o hacerla pública.</span>
+        <span>Publicar a ferramenta local no repositório do AMP. Uma vez publicada, você pode compartilhá-la com sua equipe ou torná-la pública.</span>
       </li>
       <li>
         <code>crewai tool install your-tool</code>
-        <span>Instalar una herramienta desde AMP al proyecto local. Esto es lo que usás para traer <code>teradata-store-search</code> a un proyecto de código propio.</span>
+        <span>Instalar uma ferramenta do AMP no projeto local. Isso é o que você usa para trazer <code>mongodb-vector-search</code> a um projeto de código próprio.</span>
       </li>
     </ul>
 
     <div style="position:relative">
       <span class="code-lang">bash</span>
-      <pre><code># 1. Autenticarse (una sola vez por sesión)
+      <pre><code># 1. Autenticar-se (uma única vez por sessão)
 crewai login
 
-# 2. Instalar teradata-store-search desde AMP al proyecto local
-crewai tool install teradata-store-search
+# 2. Instalar mongodb-vector-search do AMP no projeto local
+crewai tool install mongodb-vector-search
 
-# 3. O instalar firecrawl
+# 3. Ou instalar firecrawl
 crewai tool install firecrawl</code></pre>
     </div>
 
     <div class="info-box">
-      <strong>¿Qué gestiona AMP por herramienta?</strong>
-      Cuando publicás una herramienta en AMP, podés configurar: nombre y descripción visible para otros usuarios, visibilidad (privada para tu equipo o pública), variables de entorno requeridas (como <code>FIRECRAWL_API_KEY</code>), historial de versiones y descargas, y acceso por equipo y roles. Esto significa que podés publicar una herramienta interna, restringirla a tu organización, declarar las credenciales que necesita, y el instalador lo obtiene todo automáticamente.
+      <strong>O que o AMP gerencia por ferramenta?</strong>
+      Quando você publica uma ferramenta no AMP, pode configurar: nome e descrição visível para outros usuários, visibilidade (privada para sua equipe ou pública), variáveis de ambiente obrigatórias (como <code>FIRECRAWL_API_KEY</code>), histórico de versões e downloads, e acesso por equipe e papéis. Isso significa que você pode publicar uma ferramenta interna, restringi-la à sua organização, declarar as credenciais que ela precisa, e o instalador obtém tudo automaticamente.
     </div>
 
     <p>
-      Una vez instalada, importás la herramienta igual que cualquier otro paquete Python:
+      Uma vez instalada, você importa a ferramenta como qualquer outro pacote Python:
     </p>
 
     <div style="position:relative">
       <span class="code-lang">python</span>
-      <pre><code>from teradata_store_search import TeradataStoreSearch
+      <pre><code>from mongodb_vector_search import MongoDBVectorSearch
 from crewai_tools import FirecrawlSearchTool
 
-# Usala igual que en este lab
-tools=[TeradataStoreSearch(), FirecrawlSearchTool()]
+# Use igual ao deste lab
+tools=[MongoDBVectorSearch(), FirecrawlSearchTool()]
 </code></pre>
     </div>
 
     <blockquote>
       <p>
-        <strong>Studio vs. código:</strong> En Studio instalás las herramientas desde el panel
-        <em>Browse AMP</em> con un click. En código local, <code>crewai tool install</code>
-        hace lo mismo desde la terminal — el mismo catálogo, la misma herramienta.
+        <strong>Studio vs. código:</strong> No Studio você instala as ferramentas pelo painel
+        <em>Browse AMP</em> com um clique. Em código local, <code>crewai tool install</code>
+        faz o mesmo a partir do terminal — o mesmo catálogo, a mesma ferramenta.
+      </p>
+    </blockquote>
+
+    <!-- ==================== PADRÕES DE FLOW ==================== -->
+    <h2 id="padros-flow">Padrões de Flow</h2>
+
+    <p>
+      Quando a ordem dos passos importa, um Flow orquestra o trabalho com estado tipado e ramificações. Os decoradores <code>@start</code>, <code>@listen</code> e <code>@router</code> encadeiam e roteiam os passos. Quatro padrões cobrem a maioria dos casos:
+    </p>
+
+    <ul class="step-list">
+      <li><strong>Router (agência seletiva)</strong> — um classificador roteia cada pedido, de uma simples chamada de LLM a um crew completo. Ex.: triagem de tickets de suporte.</li>
+      <li><strong>Loop de Revisão</strong> — o agente refina a saída até atingir um critério de qualidade. Ex.: migração de código, auditoria.</li>
+      <li><strong>Processamento em Lote</strong> — muitos itens processados em paralelo (async) para alta vazão. Ex.: triagem de 100 reclamações de uma vez.</li>
+      <li><strong>Conversacional (<code>@persist()</code>)</strong> — mantém o estado entre sessões, para chatbots com memória.</li>
+    </ul>
+
+    <blockquote>
+      <p>
+        <strong>Regra geral:</strong> comece com um Crew; suba para um Flow quando precisar de ordem fixa, ramificação ou estado persistente.
       </p>
     </blockquote>
 
     <!-- ==================== TROUBLESHOOTING ==================== -->
-    <h2 id="troubleshooting">Solución de problemas</h2>
+    <h2 id="troubleshooting">Solução de problemas</h2>
 
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Síntoma</th>
-            <th>Solución</th>
+            <th>Sintoma</th>
+            <th>Solução</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><code>No solution found when resolving dependencies</code></td>
-            <td>Versión de CLI no coincide — <code>uv tool install --force crewai==1.14.7</code> y volvé a hacer el scaffolding.</td>
+            <td>Versão do CLI não coincide — <code>uv tool install --force crewai==1.14.7</code> e refaça o scaffolding.</td>
           </tr>
           <tr>
             <td><code>OPENAI_API_KEY is required</code></td>
-            <td>La clave no está en <code>.env</code> del directorio donde corrés el comando. Verificá con <code>cat .env</code>.</td>
+            <td>A chave não está no <code>.env</code> do diretório onde você executa o comando. Verifique com <code>cat .env</code>.</td>
           </tr>
           <tr>
-            <td><code>result.pydantic</code> es <code>None</code> / rama fallback ejecutada</td>
-            <td>Verificá que <code>output_pydantic=EnrichedDefectProfile</code> esté en <code>compilar_perfil</code> en <code>crew.py</code>, y que no hayas puesto la clase dentro de <code>expected_output</code>.</td>
+            <td><code>result.pydantic</code> é <code>None</code> / branch fallback executado</td>
+            <td>Verifique que <code>output_pydantic=EnrichedDefectProfile</code> esteja em <code>compilar_perfil</code> em <code>crew.py</code>, e que você não tenha colocado a classe dentro de <code>expected_output</code>.</td>
           </tr>
           <tr>
-            <td><code>FIRECRAWL_API_KEY</code> no encontrada / error de autenticación en firecrawl</td>
-            <td>Firecrawl necesita una API key gratuita de <a href="https://firecrawl.dev" target="_blank">firecrawl.dev</a>. Agregala a tu <code>.env</code> como <code>FIRECRAWL_API_KEY=fc-...</code>.</td>
+            <td><code>FIRECRAWL_API_KEY</code> não encontrada / erro de autenticação no firecrawl</td>
+            <td>O Firecrawl precisa de uma API key gratuita de <a href="https://firecrawl.dev" target="_blank">firecrawl.dev</a>. Adicione ao seu <code>.env</code> como <code>FIRECRAWL_API_KEY=fc-...</code>.</td>
           </tr>
           <tr>
-            <td>firecrawl retorna resultados vacíos o timeout</td>
-            <td>La herramienta degrada con gracia — el investigador lo anota y la ejecución continúa. Si persiste, verificá tu API key y la conectividad de red.</td>
+            <td>firecrawl retorna resultados vazios ou timeout</td>
+            <td>A ferramenta degrada com elegância — o pesquisador registra e a execução continua. Se persistir, verifique sua API key e a conectividade de rede.</td>
           </tr>
           <tr>
-            <td><code>ModuleNotFoundError: teradata_store_search</code></td>
-            <td>Ejecutá <code>crewai tool install teradata-store-search</code> dentro del directorio del proyecto, o <code>pip install teradata-store-search==0.1.0</code>.</td>
+            <td><code>ModuleNotFoundError: mongodb_vector_search</code></td>
+            <td>Execute <code>crewai tool install mongodb-vector-search</code> dentro do diretório do projeto, ou <code>pip install mongodb-vector-search==0.1.0</code>.</td>
           </tr>
           <tr>
-            <td>TeradataStoreSearch retorna "no results" o resultados vacíos</td>
-            <td><strong>No es un error.</strong> La herramienta consulta la base de datos del taller — si el caso o producto no tiene registros coincidentes, lo dice claramente en su respuesta. El analista lo consolida igual.</td>
+            <td>MongoDBVectorSearch retorna "no results" ou resultados vazios</td>
+            <td><strong>Não é um erro.</strong> A ferramenta consulta a base de dados do workshop — se o caso ou produto não tem registros coincidentes, diz claramente na sua resposta. O analista consolida da mesma forma.</td>
           </tr>
           <tr>
-            <td>La API regulatoria (OpenFDA) devuelve 404 o no encuentra el producto</td>
-            <td><strong>No es un error.</strong> Es la degradación elegante en acción: <code>RegulatoryAPITool._run()</code> captura la excepción y retorna un texto descriptivo. Probá con términos en inglés: "USB charger" en lugar de "cargador USB".</td>
+            <td>A API regulatória (OpenFDA) retorna 404 ou não encontra o produto</td>
+            <td><strong>Não é um erro.</strong> É a degradação elegante em ação: <code>RegulatoryAPITool._run()</code> captura a exceção e retorna um texto descritivo. Experimente com termos em inglês: "USB charger" em vez de "carregador USB".</td>
           </tr>
           <tr>
-            <td>Los tres investigadores no corren en paralelo — corren secuencialmente</td>
-            <td>Verificá que <code>async_execution: true</code> esté en las tres tasks en <code>tasks.yaml</code>. <code>compilar_perfil</code> no debe tenerlo.</td>
+            <td>Os três pesquisadores não rodam em paralelo — rodam sequencialmente</td>
+            <td>Verifique que <code>async_execution: true</code> esteja nas três tasks em <code>tasks.yaml</code>. <code>compilar_perfil</code> não deve tê-lo.</td>
           </tr>
           <tr>
-            <td><code>context</code> en <code>compilar_perfil</code> no recibe datos de las tres fuentes</td>
-            <td>El <code>context</code> debe cablearse en <code>crew.py</code> con los objetos Task reales: <code>context=[self.investigar_web(), self.investigar_regulatorio(), self.investigar_interno()]</code>. No uses strings en <code>tasks.yaml</code> para el context.</td>
+            <td><code>context</code> em <code>compilar_perfil</code> não recebe dados das três fontes</td>
+            <td>O <code>context</code> deve ser conectado em <code>crew.py</code> com os objetos Task reais: <code>context=[self.investigar_web(), self.investigar_regulatorio(), self.investigar_interno()]</code>. Não use strings em <code>tasks.yaml</code> para o context.</td>
           </tr>
         </tbody>
       </table>
@@ -1216,11 +1236,11 @@ tools=[TeradataStoreSearch(), FirecrawlSearchTool()]
     <div class="page-nav">
       <a href="caso-reclamos-rag.html" class="page-nav-card">
         <span class="nav-direction">← Anterior</span>
-        <span class="nav-title">Reclamos RAG</span>
+        <span class="nav-title">Reclamações RAG</span>
       </a>
       <a href="index.html" class="page-nav-card" style="text-align:right;">
-        <span class="nav-direction">Volver al inicio</span>
-        <span class="nav-title">Portada →</span>
+        <span class="nav-direction">Voltar ao início</span>
+        <span class="nav-title">Capa →</span>
       </a>
     </div>
 
@@ -1228,10 +1248,10 @@ tools=[TeradataStoreSearch(), FirecrawlSearchTool()]
 </div>
 
 <footer class="site-footer">
-  <p>Guía preparada para el evento CrewAI × Teradata · Buenos Aires · Junio 2026</p>
+  <p>Guia preparado para o evento CrewAI × Teletex · Curitiba · 30/06/2026</p>
 </footer>
 
-<button id="back-to-top" title="Volver arriba">↑</button>
+<button id="back-to-top" title="Voltar ao topo">↑</button>
 
 <script>
   const btn = document.getElementById('back-to-top');

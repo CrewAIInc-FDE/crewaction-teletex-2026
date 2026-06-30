@@ -1,50 +1,50 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instalación — CrewAI × Teradata</title>
+  <title>Instalação — CrewAI × Teletex</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="header-brand">
-    <img src="assets/teradata-logo.png" alt="Teradata" class="teradata-logo">
+    <img src="assets/teletex-logo.png" alt="Teletex" class="partner-logo">
     <div class="header-divider"></div>
     <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
   </div>
-  <span class="header-label">Taller Práctico · Buenos Aires</span>
+  <span class="header-label">Workshop Prático · Curitiba</span>
 </header>
 
 <nav class="site-nav"><ul>
-  <li><a href="index.html">Inicio</a></li>
-  <li><a href="comenzar.html">Comenzar</a></li>
-  <li><a href="instalacion.html" class="active">Instalación</a></li>
+  <li><a href="index.html">Início</a></li>
+  <li><a href="comenzar.html">Começar</a></li>
+  <li><a href="instalacion.html" class="active">Instalação</a></li>
   <li><a href="caso-credito.html">Crédito</a></li>
   <li><a href="caso-bi.html">BI</a></li>
-  <li><a href="caso-reclamos.html">Reclamos Caso</a></li>
-  <li><a href="caso-reclamos-rag.html">Reclamos RAG</a></li>
-  <li><a href="ir-mas-alla.html">Más Allá</a></li>
+  <li><a href="caso-reclamos.html">Reclamações Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamações RAG</a></li>
+  <li><a href="ir-mas-alla.html">Mais Além</a></li>
 </ul></nav>
 
 <div class="page-layout">
   <aside class="toc-sidebar">
     <details open>
-      <summary>En esta página</summary>
+      <summary>Nesta página</summary>
       <nav>
-        <p class="toc-title">Contenido</p>
-        <a href="#que-vas-a-aprender">Qué vas a aprender</a>
-        <a href="#antes-de-empezar">Antes de empezar</a>
-        <a href="#paso-1-uv">Paso 1 — Instalar uv</a>
-        <a href="#paso-2-cli">Paso 2 — CLI de CrewAI</a>
-        <a href="#paso-3-proyecto">Paso 3 — Crear el proyecto</a>
-        <a href="#paso-4-deps">Paso 4 — Instalar dependencias</a>
-        <a href="#paso-5-env">Paso 5 — Configurar .env</a>
-        <a href="#paso-6-run">Paso 6 — Correr el crew</a>
+        <p class="toc-title">Conteúdo</p>
+        <a href="#que-vas-a-aprender">O que você vai aprender</a>
+        <a href="#antes-de-empezar">Antes de começar</a>
+        <a href="#paso-1-uv">Passo 1 — Instalar uv</a>
+        <a href="#paso-2-cli">Passo 2 — CLI do CrewAI</a>
+        <a href="#paso-3-proyecto">Passo 3 — Criar o projeto</a>
+        <a href="#paso-4-deps">Passo 4 — Instalar dependências</a>
+        <a href="#paso-5-env">Passo 5 — Configurar .env</a>
+        <a href="#paso-6-run">Passo 6 — Executar o crew</a>
         <a href="#flows">Flows</a>
-        <a href="#herramientas-teradata">Herramientas de Teradata</a>
-        <a href="#linea-de-llegada">Línea de llegada</a>
+        <a href="#ferramentas">Ferramentas do MongoDB</a>
+        <a href="#linea-de-llegada">Linha de chegada</a>
       </nav>
     </details>
   </aside>
@@ -52,56 +52,56 @@
   <main class="main-content">
 
     <div class="page-header">
-      <div class="page-breadcrumb"><a href="index.html">Inicio</a> · Instalación</div>
-      <h1>Instalación (código)</h1>
+      <div class="page-breadcrumb"><a href="index.html">Início</a> · Instalação</div>
+      <h1>Instalação (código)</h1>
       <div class="page-meta">
         <span class="meta-pill">Código · Python</span>
       </div>
     </div>
 
-    <!-- ── Qué vas a aprender ───────────────────────────── -->
-    <h2 id="que-vas-a-aprender">Qué vas a aprender</h2>
-    <p>Esta es la guía del <strong>camino de código</strong>. Si preferís trabajar sin instalar nada, el camino alternativo es Studio — cubierto en <a href="comenzar.html">Comenzar</a>.</p>
-    <p>Al terminar esta guía vas a tener:</p>
+    <!-- ── O que você vai aprender ───────────────────────────── -->
+    <h2 id="que-vas-a-aprender">O que você vai aprender</h2>
+    <p>Este é o guia do <strong>caminho de código</strong>. Se preferir trabalhar sem instalar nada, o caminho alternativo é o Studio — coberto em <a href="comenzar.html">Começar</a>.</p>
+    <p>Ao terminar este guia você terá:</p>
     <ul>
-      <li><code>uv</code> instalado como gestor de entornos y paquetes</li>
-      <li>El CLI de CrewAI instalado y verificado</li>
-      <li>Un proyecto CrewAI corriendo localmente</li>
-      <li>Las herramientas de Teradata disponibles en tu entorno</li>
+      <li><code>uv</code> instalado como gerenciador de ambientes e pacotes</li>
+      <li>O CLI do CrewAI instalado e verificado</li>
+      <li>Um projeto CrewAI rodando localmente</li>
+      <li>As ferramentas do MongoDB disponíveis no seu ambiente</li>
     </ul>
 
-    <!-- ── Antes de empezar ──────────────────────────────── -->
-    <h2 id="antes-de-empezar">Antes de empezar</h2>
-    <p>Necesitás tener instalados:</p>
+    <!-- ── Antes de começar ──────────────────────────────── -->
+    <h2 id="antes-de-empezar">Antes de começar</h2>
+    <p>Você precisa ter instalados:</p>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Requisito</th><th>Detalle</th></tr>
+          <tr><th>Requisito</th><th>Detalhe</th></tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Python 3.10–3.13</strong></td>
-            <td>Versiones anteriores no son compatibles con CrewAI. Verificá con <code>python3 --version</code>.</td>
+            <td>Versões anteriores não são compatíveis com o CrewAI. Verifique com <code>python3 --version</code>.</td>
           </tr>
           <tr>
             <td><strong>Editor de código</strong></td>
-            <td>VS Code (recomendado) o cualquier editor que uses habitualmente.</td>
+            <td>VS Code (recomendado) ou qualquer editor que você use habitualmente.</td>
           </tr>
           <tr>
             <td><strong>Terminal</strong></td>
-            <td>Bash / Zsh (macOS o Linux) o PowerShell (Windows).</td>
+            <td>Bash / Zsh (macOS ou Linux) ou PowerShell (Windows).</td>
           </tr>
           <tr>
-            <td><strong>API key de OpenAI</strong></td>
-            <td>Tu clave personal. La vas a necesitar en el Paso 5.</td>
+            <td><strong>API key do OpenAI</strong></td>
+            <td>Sua chave pessoal. Você vai precisar dela no Passo 5.</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- ── Paso 1: uv ────────────────────────────────────── -->
-    <h2 id="paso-1-uv">Paso 1 — Instalar uv</h2>
-    <p><code>uv</code> es el gestor de entornos y paquetes que usa CrewAI. Instalalo según tu sistema operativo:</p>
+    <!-- ── Passo 1: uv ────────────────────────────────────── -->
+    <h2 id="paso-1-uv">Passo 1 — Instalar uv</h2>
+    <p><code>uv</code> é o gerenciador de ambientes e pacotes que o CrewAI utiliza. Instale conforme o seu sistema operacional:</p>
 
     <h4>macOS / Linux</h4>
     <div style="position:relative">
@@ -115,145 +115,145 @@
       <pre><code>powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</code></pre>
     </div>
 
-    <h4>Alternativa con Homebrew (macOS)</h4>
+    <h4>Alternativa com Homebrew (macOS)</h4>
     <div style="position:relative">
       <span class="code-lang">bash</span>
       <pre><code>brew install uv</code></pre>
     </div>
 
-    <p>Una vez instalado, verificá que funcione:</p>
+    <p>Após a instalação, verifique se está funcionando:</p>
     <div style="position:relative">
       <span class="code-lang">bash</span>
       <pre><code>uv --version</code></pre>
     </div>
 
     <div class="checkpoint">
-      <strong>Punto de control:</strong> el comando anterior debe mostrar una versión (ej. <code>uv 0.x.x</code>). Si no lo encontrás, reiniciá tu terminal para que el PATH se actualice.
+      <strong>Ponto de controle:</strong> o comando acima deve exibir uma versão (ex. <code>uv 0.x.x</code>). Se não for encontrado, reinicie o terminal para que o PATH seja atualizado.
     </div>
 
-    <!-- ── Paso 2: CLI de CrewAI ─────────────────────────── -->
-    <h2 id="paso-2-cli">Paso 2 — Instalar el CLI de CrewAI</h2>
-    <p>Instalá el CLI de CrewAI como herramienta global con <code>uv tool</code>:</p>
+    <!-- ── Passo 2: CLI do CrewAI ─────────────────────────── -->
+    <h2 id="paso-2-cli">Passo 2 — Instalar o CLI do CrewAI</h2>
+    <p>Instale o CLI do CrewAI como ferramenta global com <code>uv tool</code>:</p>
     <div style="position:relative">
       <span class="code-lang">bash</span>
       <pre><code>uv tool install crewai==1.14.7</code></pre>
     </div>
-    <p>Verificá la instalación:</p>
+    <p>Verifique a instalação:</p>
     <div style="position:relative">
       <span class="code-lang">bash</span>
       <pre><code>crewai version</code></pre>
     </div>
 
     <div class="checkpoint">
-      <strong>Punto de control:</strong> deberías ver <code>crewai, version 1.14.7</code>. Si el comando no se encuentra, cerrá y volvé a abrir la terminal.
+      <strong>Ponto de controle:</strong> você deve ver <code>crewai, version 1.14.7</code>. Se o comando não for encontrado, feche e reabra o terminal.
     </div>
 
-    <!-- ── Paso 3: Crear el proyecto ─────────────────────── -->
-    <h2 id="paso-3-proyecto">Paso 3 — Crear el proyecto</h2>
-    <p>Usá el CLI para generar la estructura del proyecto:</p>
+    <!-- ── Passo 3: Criar o projeto ─────────────────────── -->
+    <h2 id="paso-3-proyecto">Passo 3 — Criar o projeto</h2>
+    <p>Use o CLI para gerar a estrutura do projeto:</p>
     <div style="position:relative">
       <span class="code-lang">bash</span>
-      <pre><code>crewai create crew mi_proyecto</code></pre>
+      <pre><code>crewai create crew mi_projeto</code></pre>
     </div>
-    <p>El CLI va a preguntarte el proveedor y modelo de LLM. Respondé así:</p>
+    <p>O CLI vai perguntar o provedor e o modelo de LLM. Responda assim:</p>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Pregunta del CLI</th><th>Respuesta recomendada</th></tr>
+          <tr><th>Pergunta do CLI</th><th>Resposta recomendada</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td>Seleccioná el proveedor de LLM</td>
-            <td><strong>openai</strong> (opción por defecto)</td>
+            <td>Selecione o provedor de LLM</td>
+            <td><strong>openai</strong> (opção padrão)</td>
           </tr>
           <tr>
-            <td>Seleccioná el modelo</td>
+            <td>Selecione o modelo</td>
             <td><strong>gpt-5.4-mini</strong></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p>Esto genera una carpeta <code>mi_proyecto/</code> con la siguiente estructura:</p>
+    <p>Isso gera uma pasta <code>mi_projeto/</code> com a seguinte estrutura:</p>
     <div style="position:relative">
       <span class="code-lang">bash</span>
-      <pre><code>mi_proyecto/
-├── src/mi_proyecto/
+      <pre><code>mi_projeto/
+├── src/mi_projeto/
 │   ├── config/
-│   │   ├── agents.yaml     # Definición de agentes
-│   │   └── tasks.yaml      # Definición de tareas
-│   ├── crew.py             # Clase del crew
-│   └── main.py             # Punto de entrada
+│   │   ├── agents.yaml     # Definição de agentes
+│   │   └── tasks.yaml      # Definição de tarefas
+│   ├── crew.py             # Classe do crew
+│   └── main.py             # Ponto de entrada
 ├── pyproject.toml
-└── .env                    # Variables de entorno (a completar)</code></pre>
+└── .env                    # Variáveis de ambiente (a preencher)</code></pre>
     </div>
 
     <div class="checkpoint">
-      <strong>Punto de control:</strong> la carpeta <code>mi_proyecto/</code> existe y contiene los archivos listados arriba.
+      <strong>Ponto de controle:</strong> a pasta <code>mi_projeto/</code> existe e contém os arquivos listados acima.
     </div>
 
-    <!-- ── Paso 4: Instalar dependencias ─────────────────── -->
-    <h2 id="paso-4-deps">Paso 4 — Instalar dependencias</h2>
-    <p>Entrá al directorio del proyecto e instalá las dependencias:</p>
+    <!-- ── Passo 4: Instalar dependências ─────────────────── -->
+    <h2 id="paso-4-deps">Passo 4 — Instalar dependências</h2>
+    <p>Entre no diretório do projeto e instale as dependências:</p>
     <div style="position:relative">
       <span class="code-lang">bash</span>
-      <pre><code>cd mi_proyecto
+      <pre><code>cd mi_projeto
 crewai install</code></pre>
     </div>
-    <p>Este comando crea un entorno virtual aislado y descarga todos los paquetes declarados en <code>pyproject.toml</code>. Puede tardar un par de minutos la primera vez.</p>
+    <p>Este comando cria um ambiente virtual isolado e baixa todos os pacotes declarados em <code>pyproject.toml</code>. Pode levar alguns minutos na primeira vez.</p>
 
     <div class="checkpoint">
-      <strong>Punto de control:</strong> la instalación finaliza sin errores. Vas a ver un resumen de paquetes instalados en la terminal.
+      <strong>Ponto de controle:</strong> a instalação finaliza sem erros. Você verá um resumo dos pacotes instalados no terminal.
     </div>
 
-    <!-- ── Paso 5: Configurar .env ───────────────────────── -->
-    <h2 id="paso-5-env">Paso 5 — Configurar el archivo .env</h2>
-    <p>Abrí el archivo <code>.env</code> en la raíz de tu proyecto y agregá tus credenciales:</p>
+    <!-- ── Passo 5: Configurar .env ───────────────────────── -->
+    <h2 id="paso-5-env">Passo 5 — Configurar o arquivo .env</h2>
+    <p>Abra o arquivo <code>.env</code> na raiz do seu projeto e adicione suas credenciais:</p>
     <div style="position:relative">
       <span class="code-lang">env</span>
       <pre><code>OPENAI_API_KEY=sk-...
-TERADATA_STORE_CONNECTION_STRING=mongodb+srv://...</code></pre>
+MONGODB_CONNECTION_STRING=mongodb+srv://...</code></pre>
     </div>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Variable</th><th>Valor</th></tr>
+          <tr><th>Variável</th><th>Valor</th></tr>
         </thead>
         <tbody>
           <tr>
             <td><code>OPENAI_API_KEY</code></td>
-            <td>Tu clave personal de OpenAI</td>
+            <td>Sua chave pessoal do OpenAI</td>
           </tr>
           <tr>
-            <td><code>TERADATA_STORE_CONNECTION_STRING</code></td>
-            <td>Se proporciona en el evento (necesaria para las herramientas de Teradata)</td>
+            <td><code>MONGODB_CONNECTION_STRING</code></td>
+            <td>Fornecida no evento (necessária para as ferramentas do MongoDB)</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="callout-warn">
-      <strong>Importante:</strong> nunca subas el archivo <code>.env</code> a un repositorio público. Verificá que <code>.gitignore</code> lo incluya.
+      <strong>Importante:</strong> nunca envie o arquivo <code>.env</code> para um repositório público. Verifique se o <code>.gitignore</code> o inclui.
     </div>
 
-    <!-- ── Paso 6: Correr el crew ────────────────────────── -->
-    <h2 id="paso-6-run">Paso 6 — Correr el crew</h2>
-    <p>Ejecutá el crew de ejemplo que generó el CLI:</p>
+    <!-- ── Passo 6: Executar o crew ────────────────────────── -->
+    <h2 id="paso-6-run">Passo 6 — Executar o crew</h2>
+    <p>Execute o crew de exemplo gerado pelo CLI:</p>
     <div style="position:relative">
       <span class="code-lang">bash</span>
       <pre><code>crewai run</code></pre>
     </div>
-    <p>Vas a ver a los agentes pensando, usando herramientas y pasando resultados en tu terminal. Esto puede tardar unos minutos — es normal, los agentes están consultando el LLM en cada paso.</p>
+    <p>Você verá os agentes pensando, usando ferramentas e passando resultados no seu terminal. Isso pode levar alguns minutos — é normal, os agentes estão consultando o LLM a cada passo.</p>
 
     <div class="checkpoint">
-      <strong>Punto de control:</strong> el crew finaliza y muestra un resultado en la terminal. A partir de acá podés modificar <code>agents.yaml</code>, <code>tasks.yaml</code> y <code>crew.py</code> para construir tus propios crews.
+      <strong>Ponto de controle:</strong> o crew finaliza e exibe um resultado no terminal. A partir daqui você pode modificar <code>agents.yaml</code>, <code>tasks.yaml</code> e <code>crew.py</code> para construir seus próprios crews.
     </div>
 
     <!-- ── Flows ─────────────────────────────────────────── -->
     <h2 id="flows">Flows — Pipelines deterministas</h2>
-    <p>Los Flows son para cuando querés que los pasos se ejecuten en un orden garantizado con estado tipado compartido. Usá un Flow cuando de otro modo encadenarías scripts manualmente o necesitás pasar datos tipados entre etapas.</p>
+    <p>Os Flows são para quando você quer que os passos sejam executados em uma ordem garantida com estado tipado compartilhado. Use um Flow quando do contrário encadearia scripts manualmente ou precisar passar dados tipados entre etapas.</p>
     <blockquote>
-      <p><strong>Crew vs Flow:</strong> la comparación conceptual está en <a href="comenzar.html#crew-vs-flow">Comenzar → Crew vs Flow</a>. Los recorridos principales del taller usan Crews; los Flows son una opción avanzada para pipelines personalizados.</p>
+      <p><strong>Crew vs Flow:</strong> a comparação conceitual está em <a href="comenzar.html#crew-vs-flow">Começar → Crew vs Flow</a>. Os percursos principais do workshop usam Crews; os Flows são uma opção avançada para pipelines personalizados.</p>
     </blockquote>
-    <p>Estructura mínima de un Flow:</p>
+    <p>Estrutura mínima de um Flow:</p>
     <div style="position:relative">
       <span class="code-lang">python</span>
       <pre><code>from crewai.flow.flow import Flow, start, listen
@@ -267,12 +267,12 @@ class ClaimsState(BaseModel):
 class ClaimsAnalysisFlow(Flow[ClaimsState]):
     @start()
     def classify_claim(self):
-        # Lógica de clasificación (agente o llamada directa a herramienta)
-        self.state.classification = "..."   # guardar en estado tipado
+        # Lógica de classificação (agente ou chamada direta à ferramenta)
+        self.state.classification = "..."   # salvar no estado tipado
 
     @listen(classify_claim)
     def draft_resolution(self):
-        # Recibe el output de classify_claim; usa self.state.classification
+        # Recebe o output de classify_claim; usa self.state.classification
         self.state.resolution = "..."
 
 flow = ClaimsAnalysisFlow()
@@ -280,72 +280,72 @@ result = flow.kickoff()
 print(result)</code></pre>
     </div>
     <ul>
-      <li><code>@start()</code> marca el punto de entrada del Flow</li>
-      <li><code>@listen(step_name)</code> se ejecuta después de que ese paso completa</li>
-      <li>Todos los pasos comparten <code>self.state</code> — un modelo Pydantic tipado que vos definís</li>
-      <li>Podés embeber un Crew completo como un paso dentro de un Flow</li>
-      <li>Los Flows son solo código — no hay soporte en Studio</li>
+      <li><code>@start()</code> marca o ponto de entrada do Flow</li>
+      <li><code>@listen(step_name)</code> é executado após aquele passo ser concluído</li>
+      <li>Todos os passos compartilham <code>self.state</code> — um modelo Pydantic tipado que você define</li>
+      <li>Você pode incorporar um Crew completo como um passo dentro de um Flow</li>
+      <li>Os Flows são apenas código — não há suporte no Studio</li>
     </ul>
 
-    <!-- ── Herramientas de Teradata ───────────────────────── -->
-    <h2 id="herramientas-teradata">Instalar las herramientas de Teradata</h2>
-    <p>Una vez que tu proyecto local corre, sumás las herramientas de Teradata para conectarte con los datasets del evento. Instalá los paquetes que necesites con <code>pip</code>:</p>
+    <!-- ── Ferramentas do MongoDB ───────────────────────── -->
+    <h2 id="ferramentas">Instalar as ferramentas do MongoDB</h2>
+    <p>Uma vez que seu projeto local esteja rodando, você adiciona as ferramentas do MongoDB para se conectar com os datasets do evento. Instale os pacotes necessários com <code>pip</code>:</p>
     <div style="position:relative">
       <span class="code-lang">bash</span>
-      <pre><code>pip install teradata-credit-analysis==0.1.3
-pip install teradata-conversational-bi==0.1.4
-pip install teradata-claims-analysis==0.1.3
-pip install teradata-store-search==0.1.0</code></pre>
+      <pre><code>pip install mongodb-credit-analysis==0.1.3
+pip install mongodb-conversational-bi==0.1.4
+pip install mongodb-claims-analysis==0.1.3
+pip install mongodb-vector-search==0.1.0</code></pre>
     </div>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Paquete</th><th>Caso de uso</th></tr>
+          <tr><th>Pacote</th><th>Caso de uso</th></tr>
         </thead>
         <tbody>
           <tr>
-            <td><code>teradata-credit-analysis==0.1.3</code></td>
-            <td>Análisis de Crédito — recupera perfiles crediticios por DNI</td>
+            <td><code>mongodb-credit-analysis==0.1.3</code></td>
+            <td>Análise de Crédito — recupera perfis de crédito por CPF</td>
           </tr>
           <tr>
-            <td><code>teradata-conversational-bi==0.1.4</code></td>
-            <td>BI Conversacional — consultas NLP sobre productos y ventas</td>
+            <td><code>mongodb-conversational-bi==0.1.4</code></td>
+            <td>BI Conversacional — consultas NLP sobre produtos e vendas</td>
           </tr>
           <tr>
-            <td><code>teradata-claims-analysis==0.1.3</code></td>
-            <td>Reclamos por Caso y Reclamos RAG — recupera y busca reclamos semánticamente</td>
+            <td><code>mongodb-claims-analysis==0.1.3</code></td>
+            <td>Reclamações por Caso e Reclamações RAG — recupera e busca reclamações semanticamente</td>
           </tr>
           <tr>
-            <td><code>teradata-store-search==0.1.0</code></td>
-            <td>Herramienta genérica — acceso libre a todos los datasets en modos factual, semántico, híbrido o auto</td>
+            <td><code>mongodb-vector-search==0.1.0</code></td>
+            <td>Ferramenta genérica — acesso livre a todos os datasets nos modos factual, semântico, híbrido ou auto</td>
           </tr>
         </tbody>
       </table>
     </div>
     <blockquote>
-      <p><strong>Tip:</strong> Estas mismas herramientas están disponibles en AMP/Studio para el camino sin código. En Studio las buscás desde <strong>Browse AMP</strong> en el panel de herramientas de tu agente, sin necesidad de instalar nada.</p>
+      <p><strong>Dica:</strong> Essas mesmas ferramentas estão disponíveis no AMP/Studio para o caminho sem código. No Studio você as busca em <strong>Browse AMP</strong> no painel de ferramentas do seu agente, sem precisar instalar nada.</p>
     </blockquote>
-    <p>Importalas en tu código así:</p>
+    <p>Importe-as no seu código assim:</p>
     <div style="position:relative">
       <span class="code-lang">python</span>
-      <pre><code>from teradata_credit_analysis import TeradataCreditAnalysis
-from teradata_conversational_bi import TeradataConversationalBI
-from teradata_claims_analysis import TeradataClaimsAnalysis
-from teradata_store_search import TeradataStoreSearch</code></pre>
+      <pre><code>from mongodb_credit_analysis import MongoDBCreditAnalysis
+from mongodb_conversational_bi import MongoDBConversationalBI
+from mongodb_claims_analysis import MongoDBClaimsAnalysis
+from mongodb_vector_search import MongoDBVectorSearch</code></pre>
     </div>
 
-    <!-- ── Línea de llegada ──────────────────────────────── -->
-    <h2 id="linea-de-llegada">Línea de llegada</h2>
-    <p>Si llegaste hasta acá, tu entorno está listo. Verificá que todo esté en orden antes de pasar al primer caso de uso:</p>
+    <!-- ── Linha de chegada ──────────────────────────────── -->
+    <h2 id="linea-de-llegada">Linha de chegada</h2>
+    <p>Se você chegou até aqui, seu ambiente está pronto. Verifique se tudo está em ordem antes de passar ao primeiro caso de uso:</p>
     <div class="checklist">
       <ul>
-        <li><code>uv</code> instalado y <code>uv --version</code> responde correctamente</li>
-        <li>CLI de CrewAI instalado — <code>crewai version</code> muestra <code>1.14.7</code></li>
-        <li>Proyecto creado con <code>crewai create crew mi_proyecto</code></li>
-        <li>Dependencias instaladas con <code>crewai install</code> sin errores</li>
-        <li>Archivo <code>.env</code> configurado con <code>OPENAI_API_KEY</code> y <code>TERADATA_STORE_CONNECTION_STRING</code></li>
-        <li><code>crewai run</code> finaliza exitosamente y muestra un resultado</li>
-        <li>Herramientas de Teradata instaladas con <code>pip install</code></li>
+        <li><code>uv</code> instalado e <code>uv --version</code> responde corretamente</li>
+        <li>CLI do CrewAI instalado — <code>crewai version</code> exibe <code>1.14.7</code></li>
+        <li>Projeto criado com <code>crewai create crew mi_projeto</code></li>
+        <li>Dependências instaladas com <code>crewai install</code> sem erros</li>
+        <li>Arquivo <code>.env</code> configurado com <code>OPENAI_API_KEY</code> e <code>MONGODB_CONNECTION_STRING</code></li>
+        <li><code>crewai run</code> finaliza com êxito e exibe um resultado</li>
+        <li>Ferramentas do MongoDB instaladas com <code>pip install</code></li>
       </ul>
     </div>
 
@@ -353,11 +353,11 @@ from teradata_store_search import TeradataStoreSearch</code></pre>
     <div class="page-nav">
       <a href="comenzar.html" class="page-nav-card">
         <span class="nav-direction">← Anterior</span>
-        <span class="nav-title">Comenzar</span>
+        <span class="nav-title">Começar</span>
       </a>
       <a href="caso-credito.html" class="page-nav-card next">
-        <span class="nav-direction">Siguiente →</span>
-        <span class="nav-title">Caso 1: Análisis de Crédito</span>
+        <span class="nav-direction">Próximo →</span>
+        <span class="nav-title">Caso 1: Análise de Crédito</span>
       </a>
     </div>
 
@@ -365,10 +365,10 @@ from teradata_store_search import TeradataStoreSearch</code></pre>
 </div>
 
 <footer class="site-footer">
-  <p>Guía preparada para el evento CrewAI × Teradata · Buenos Aires · Junio 2026</p>
+  <p>Guia preparado para o evento CrewAI × Teletex · Curitiba · 30/06/2026</p>
 </footer>
 
-<button id="back-to-top" title="Volver arriba">↑</button>
+<button id="back-to-top" title="Voltar ao topo">↑</button>
 
 <script>
   const btn = document.getElementById('back-to-top');
