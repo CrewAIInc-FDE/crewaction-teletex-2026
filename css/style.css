@@ -94,7 +94,6 @@ body {
 /* ── Top Navigation ────────────────────────────────────────── */
 .site-nav {
   background: #fff;
-  border-bottom: 1px solid var(--border-light);
   position: sticky;
   top: var(--header-height);
   z-index: 90;
@@ -107,6 +106,7 @@ body {
   max-width: var(--outer-width);
   margin: 0 auto;
   padding: 0 1.5rem;
+  border-bottom: 1px solid var(--border-light); /* separator on ul so li::after can cover it */
 }
 
 .site-nav ul li {
@@ -122,13 +122,23 @@ body {
   text-transform: uppercase;
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.15s, box-shadow 0.15s;
+  transition: color 0.15s;
 }
 
 .site-nav ul li a:hover,
 .site-nav ul li a.active {
   color: var(--coral);
-  box-shadow: 0 2px 0 var(--coral);
+}
+
+.site-nav ul li:has(a:hover)::after,
+.site-nav ul li:has(a.active)::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; /* straddles the ul border: 1px inside li, 1px into the border */
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--coral);
 }
 
 /* ── Page Layout ───────────────────────────────────────────── */
