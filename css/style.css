@@ -123,22 +123,15 @@ body {
   color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.15s;
+  border-bottom: 2px solid transparent;
+  position: relative;
+  bottom: -1px; /* overlap nav border-bottom so indicator covers it */
 }
 
 .site-nav ul li a:hover,
 .site-nav ul li a.active {
   color: var(--coral);
-}
-
-.site-nav ul li:has(a:hover)::after,
-.site-nav ul li:has(a.active)::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--coral);
+  border-bottom-color: var(--coral);
 }
 
 /* ── Page Layout ───────────────────────────────────────────── */
