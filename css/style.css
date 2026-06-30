@@ -1,5 +1,5 @@
 /* ============================================================
-   CrewAI × Teradata Workshop — Shared Stylesheet
+   CrewAI × Teletex Workshop — Shared Stylesheet
    Field-labs inspired design with joint co-branding
    ============================================================ */
 
@@ -8,7 +8,7 @@
 /* ── Custom Properties ─────────────────────────────────────── */
 :root {
   --coral:            #FF5A50;
-  --teradata-orange:  #F26522;
+  --accent-2:  #F26522;
   --black:            #000000;
   --coal:             #161616;
   --off-white:        #F5F3F0;
@@ -57,7 +57,7 @@ body {
   gap: 1.25rem;
 }
 
-.header-brand img.teradata-logo {
+.header-brand img.partner-logo {
   height: 20px;
   width: auto;
   display: block;
@@ -421,7 +421,7 @@ summary.version-summary:hover { background: var(--off-white); }
 }
 
 .version-badge.v1 { background: var(--coral); }
-.version-badge.v2 { background: var(--teradata-orange); }
+.version-badge.v2 { background: var(--accent-2); }
 .version-badge.v3 { background: var(--coal); }
 
 .version-meta {
@@ -615,7 +615,7 @@ details.version-details[open] .version-arrow { transform: rotate(90deg); }
   margin-bottom: 1.5rem;
 }
 
-.hero-logos img.teradata-logo {
+.hero-logos img.partner-logo {
   height: 22px;
   width: auto;
   display: block;
@@ -751,7 +751,7 @@ details.version-details[open] .version-arrow { transform: rotate(90deg); }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #fff;
-  background: var(--teradata-orange);
+  background: var(--accent-2);
   padding: 0.1rem 0.4rem;
   border-radius: 4px;
 }
@@ -882,7 +882,7 @@ details.version-details[open] .version-arrow { transform: rotate(90deg); }
   font-family: 'Geist Mono', monospace;
   font-size: 0.83rem;
   color: #EDEDED;
-  border-left: 3px solid var(--teradata-orange);
+  border-left: 3px solid var(--accent-2);
 }
 
 /* Label that marks a block of prompts as suggested test prompts */
@@ -895,7 +895,7 @@ details.version-details[open] .version-arrow { transform: rotate(90deg); }
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--teradata-orange);
+  color: var(--accent-2);
   margin: 1.6rem 0 0.5rem;
 }
 .prompt-group-label::before {
@@ -933,7 +933,7 @@ details.version-details[open] .version-arrow { transform: rotate(90deg); }
 /* ── Warning callout (amber) — caveats / graceful degradation ── */
 .callout-warn {
   background: #FFF7E6;
-  border-left: 3px solid var(--teradata-orange);
+  border-left: 3px solid var(--accent-2);
   border-radius: 0 6px 6px 0;
   padding: 0.75rem 1.1rem;
   margin: 1rem 0 1.5rem;

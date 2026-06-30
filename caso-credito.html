@@ -1,31 +1,31 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Análisis de Crédito — CrewAI × Teradata</title>
+  <title>Análise de Crédito — CrewAI × Teletex</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="header-brand">
-    <img src="assets/teradata-logo.png" alt="Teradata" class="teradata-logo">
+    <img src="assets/teletex-logo.png" alt="Teletex" class="partner-logo">
     <div class="header-divider"></div>
     <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
   </div>
-  <span class="header-label">Taller Práctico · Buenos Aires</span>
+  <span class="header-label">Workshop Prático · Curitiba</span>
 </header>
 
 <nav class="site-nav"><ul>
-  <li><a href="index.html">Inicio</a></li>
-  <li><a href="comenzar.html">Comenzar</a></li>
-  <li><a href="instalacion.html">Instalación</a></li>
+  <li><a href="index.html">Início</a></li>
+  <li><a href="comenzar.html">Começar</a></li>
+  <li><a href="instalacion.html">Instalação</a></li>
   <li><a href="caso-credito.html" class="active">Crédito</a></li>
   <li><a href="caso-bi.html">BI</a></li>
-  <li><a href="caso-reclamos.html">Reclamos Caso</a></li>
-  <li><a href="caso-reclamos-rag.html">Reclamos RAG</a></li>
-  <li><a href="ir-mas-alla.html">Más Allá</a></li>
+  <li><a href="caso-reclamos.html">Reclamações Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamações RAG</a></li>
+  <li><a href="ir-mas-alla.html">Mais Além</a></li>
 </ul></nav>
 
 <div class="page-layout">
@@ -33,10 +33,10 @@
   <!-- Sidebar TOC -->
   <aside class="toc-sidebar">
     <details open>
-      <summary>En esta página</summary>
+      <summary>Nesta página</summary>
       <nav>
-        <p class="toc-title">Contenido</p>
-        <a href="#introduccion">Introducción</a>
+        <p class="toc-title">Conteúdo</p>
+        <a href="#introduccion">Introdução</a>
         <a href="#studio">Studio</a>
         <a href="#studio-v1" class="toc-h3">V1 — Básico</a>
         <a href="#studio-v2" class="toc-h3">V2 — Explorador</a>
@@ -50,22 +50,22 @@
 
     <!-- Page Header -->
     <div class="page-header">
-      <p class="page-breadcrumb"><a href="index.html">← Inicio</a></p>
-      <h1 id="introduccion">Análisis de Crédito</h1>
+      <p class="page-breadcrumb"><a href="index.html">← Início</a></p>
+      <h1 id="introduccion">Análise de Crédito</h1>
     </div>
 
     <!-- Section Intro -->
     <div class="section-intro">
       <p>
-        En la banca minorista, decidir si aprobar un crédito rápido y de forma consistente es crítico:
-        un análisis lento pierde clientes; uno inconsistente genera riesgos innecesarios. Este caso de uso
-        muestra cómo un crew de agentes puede recuperar el perfil crediticio de un cliente por DNI,
-        interpretar su score y factores de riesgo, enriquecer el análisis con contexto de mercado en tiempo
-        real, generar una visualización del score y compilar un informe completo listo para el comité de crédito.
+        No varejo bancário, decidir se um crédito é aprovado de forma rápida e consistente é crítico:
+        uma análise lenta perde clientes; uma inconsistente gera riscos desnecessários. Este caso de uso
+        mostra como um crew de agentes pode recuperar o perfil de crédito de um cliente por CPF,
+        interpretar seu score e fatores de risco, enriquecer a análise com contexto de mercado em tempo
+        real, gerar uma visualização do score e compilar um relatório completo pronto para o comitê de crédito.
       </p>
       <p>
-        Vas a construir el crew en tres versiones: empezás con un único agente que ya resuelve el caso
-        de negocio básico, y en cada iteración sumás capacidades hasta tener un crew de cinco agentes.
+        Você vai construir o crew em três versões: começa com um único agente que já resolve o caso
+        de negócio básico e, a cada iteração, adiciona capacidades até ter um crew de cinco agentes.
       </p>
     </div>
 
@@ -78,40 +78,40 @@
       <details class="version-details" open id="studio-v1">
         <summary class="version-summary">
           <span class="version-badge v1">V1 — Básico</span>
-          <span class="version-meta">1 agente · Decisión crediticia</span>
+          <span class="version-meta">1 agente · Decisão de crédito</span>
           <span class="version-arrow">▶</span>
         </summary>
         <div class="version-body">
 
           <div class="info-box">
             <p>
-              Con un único agente ya podés resolver el problema de negocio central: dado un DNI, el agente
-              consulta la base de datos de perfiles crediticios, interpreta el score, identifica los factores
-              de riesgo y emite una recomendación de aprobación o rechazo. El secreto está en el backstory:
-              sin él, el LLM trataría los datos que devuelve la herramienta como texto crudo. Con él, los
-              interpreta con la voz y el criterio de un analista bancario experimentado.
+              Com um único agente você já resolve o problema de negócio central: dado um CPF, o agente
+              consulta a base de dados de perfis de crédito, interpreta o score, identifica os fatores
+              de risco e emite uma recomendação de aprovação ou recusa. O segredo está no backstory:
+              sem ele, o LLM trataria os dados que a ferramenta retorna como texto cru. Com ele, os
+              interpreta com a voz e o critério de um analista bancário experiente.
             </p>
           </div>
 
           <!-- Agent -->
           <div class="agent-header">
             <span class="agent-label">Agente</span>
-            <h3>Analista de Riesgo Crediticio</h3>
+            <h3>Analista de Risco de Crédito</h3>
           </div>
           <div class="table-wrap">
             <table class="field-table">
               <tbody>
                 <tr>
                   <td>Role</td>
-                  <td>Analista Senior de Riesgo Crediticio</td>
+                  <td>Analista Sênior de Risco de Crédito</td>
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Evaluar la solvencia del cliente con DNI {dni} para la solicitud {credit_request}, identificar los principales factores de riesgo y emitir una recomendación clara de otorgamiento de crédito</td>
+                  <td>Avaliar a capacidade de pagamento do cliente com CPF {cpf} para a solicitação {credit_request}, identificar os principais fatores de risco e emitir uma recomendação clara de concessão de crédito</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
-                  <td>Sos un analista de crédito experimentado, especializado en banca minorista. Interpretás scores crediticios basados en modelos de machine learning, identificás señales de riesgo a partir del historial de pagos y la relación deuda-ingreso, y explicás decisiones financieras complejas de manera clara tanto para equipos de riesgo como para clientes.</td>
+                  <td>Você é um analista de crédito experiente, especializado em varejo bancário. Interpreta scores de crédito baseados em modelos de machine learning, identifica sinais de risco a partir do histórico de pagamentos e da relação dívida-renda, e explica decisões financeiras complexas de forma clara tanto para equipes de risco quanto para clientes.</td>
                 </tr>
                 <tr>
                   <td>Model</td>
@@ -119,70 +119,70 @@
                 </tr>
                 <tr>
                   <td>Tool</td>
-                  <td><code>teradata-credit-analysis</code></td>
+                  <td><code>mongodb-credit-analysis</code></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <blockquote>
-            <p><strong>¿Por qué este Backstory?</strong> Ancla al LLM en la experiencia del dominio financiero y asegura que interprete lo que devuelve la herramienta —contexto del score, factores de riesgo, perfiles similares— con la voz correcta, no como datos crudos.</p>
+            <p><strong>Por que este Backstory?</strong> Ancora o LLM na experiência do domínio financeiro e garante que ele interprete o que a ferramenta retorna —contexto do score, fatores de risco, perfis similares— com a voz correta, e não como dados crus.</p>
           </blockquote>
 
           <!-- Task -->
           <div class="task-header">
-            <span class="task-label">Tarea</span>
-            <h3>Informe de Decisión Crediticia</h3>
+            <span class="task-label">Tarefa</span>
+            <h3>Relatório de Decisão de Crédito</h3>
           </div>
           <div class="table-wrap">
             <table class="field-table">
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Recuperá el perfil crediticio del DNI {dni}. Analizá el score, el nivel de riesgo y los principales factores de riesgo frente a esta solicitud: {credit_request}. Indicá si aprobarías el crédito y por qué.</td>
+                  <td>Recupere o perfil de crédito do CPF {cpf}. Analise o score, o nível de risco e os principais fatores de risco diante desta solicitação: {credit_request}. Indique se aprovaria o crédito e por quê.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
-                  <td>Un informe de decisión crediticia con: el score y la banda de riesgo, los 3 principales factores de riesgo, una recomendación de aprobación sí/no con justificación, y 2 a 3 perfiles de clientes comparables.</td>
+                  <td>Um relatório de decisão de crédito com: o score e a faixa de risco, os 3 principais fatores de risco, uma recomendação de aprovação sim/não com justificativa, e 2 a 3 perfis de clientes comparáveis.</td>
                 </tr>
                 <tr>
                   <td>Agent</td>
-                  <td>Analista de Riesgo Crediticio</td>
+                  <td>Analista de Risco de Crédito</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <blockquote>
-            <p><strong>Tip:</strong> Elegí un DNI del listado de abajo para probar perfiles de riesgo distintos. Cambiá también el monto, el plazo y el tipo de crédito en <code>{credit_request}</code> para ver cómo cambia la recomendación.</p>
+            <p><strong>Dica:</strong> Escolha um CPF da lista abaixo para testar perfis de risco diferentes. Mude também o valor, o prazo e o tipo de crédito em <code>{credit_request}</code> para ver como a recomendação muda.</p>
           </blockquote>
 
-          <p class="prompt-group-label">DNIs sugeridos para probar perfiles distintos</p>
+          <p class="prompt-group-label">CPFs sugeridos para testar perfis diferentes</p>
           <div class="table-wrap">
             <table class="field-table">
               <thead>
-                <tr><th>Riesgo</th><th>DNI</th><th>Score</th><th>Perfil</th></tr>
+                <tr><th>Risco</th><th>CPF</th><th>Score</th><th>Perfil</th></tr>
               </thead>
               <tbody>
-                <tr><td>Bajo</td><td><code>40425269</code></td><td>720</td><td>Historial impecable</td></tr>
-                <tr><td>Bajo</td><td><code>15494223</code></td><td>830</td><td>Ingresos elevados</td></tr>
-                <tr><td>Bajo</td><td><code>43335079</code></td><td>850</td><td>Riesgo mínimo</td></tr>
-                <tr><td>Medio</td><td><code>21786268</code></td><td>628</td><td>Deuda/ingreso moderada</td></tr>
-                <tr><td>Medio</td><td><code>14326645</code></td><td>672</td><td>Retraso puntual</td></tr>
-                <tr><td>Medio</td><td><code>33375940</code></td><td>719</td><td>Límite superior de Medio</td></tr>
-                <tr><td>Alto</td><td><code>44327104</code></td><td>522</td><td>Deudas acumuladas</td></tr>
-                <tr><td>Alto</td><td><code>17648178</code></td><td>580</td><td>Pagos atrasados</td></tr>
-                <tr><td>Alto</td><td><code>31941638</code></td><td>618</td><td>Límite superior de Alto</td></tr>
-                <tr><td>Muy Alto</td><td><code>18717928</code></td><td>356</td><td>Incumplimientos múltiples</td></tr>
-                <tr><td>Muy Alto</td><td><code>10038379</code></td><td>462</td><td>Deuda alta</td></tr>
-                <tr><td>Muy Alto</td><td><code>17620787</code></td><td>515</td><td>Límite superior de Muy Alto</td></tr>
+                <tr><td>Baixo</td><td><code>404.252.694-26</code></td><td>720</td><td>Histórico impecável</td></tr>
+                <tr><td>Baixo</td><td><code>154.942.231-67</code></td><td>830</td><td>Renda elevada</td></tr>
+                <tr><td>Baixo</td><td><code>433.350.794-42</code></td><td>850</td><td>Risco mínimo</td></tr>
+                <tr><td>Médio</td><td><code>217.862.682-30</code></td><td>628</td><td>Dívida/renda moderada</td></tr>
+                <tr><td>Médio</td><td><code>143.266.451-48</code></td><td>672</td><td>Atraso pontual</td></tr>
+                <tr><td>Médio</td><td><code>333.759.403-43</code></td><td>719</td><td>Limite superior de Médio</td></tr>
+                <tr><td>Alto</td><td><code>443.271.044-69</code></td><td>522</td><td>Dívidas acumuladas</td></tr>
+                <tr><td>Alto</td><td><code>176.481.781-84</code></td><td>580</td><td>Pagamentos atrasados</td></tr>
+                <tr><td>Alto</td><td><code>319.416.383-33</code></td><td>618</td><td>Limite superior de Alto</td></tr>
+                <tr><td>Muito Alto</td><td><code>187.179.281-92</code></td><td>356</td><td>Inadimplências múltiplas</td></tr>
+                <tr><td>Muito Alto</td><td><code>100.383.791-39</code></td><td>462</td><td>Dívida alta</td></tr>
+                <tr><td>Muito Alto</td><td><code>176.207.871-60</code></td><td>515</td><td>Limite superior de Muito Alto</td></tr>
               </tbody>
             </table>
           </div>
 
-          <p class="prompt-group-label">Ideas para probar — elegí un DNI y ajustá la solicitud</p>
-          <div class="prompt-example">Evaluá un préstamo personal, hipotecario o prendario indicando monto, plazo, destino del crédito y tolerancia al riesgo.</div>
-          <div class="prompt-example">Compará cómo cambia la recomendación entre un perfil Bajo, Medio, Alto y Muy Alto para una solicitud similar.</div>
+          <p class="prompt-group-label">Ideias para testar — escolha um CPF e ajuste a solicitação</p>
+          <div class="prompt-example">Avalie um empréstimo pessoal, financiamento imobiliário ou financiamento de veículo indicando valor, prazo, finalidade do crédito e tolerância ao risco.</div>
+          <div class="prompt-example">Compare como a recomendação muda entre um perfil Baixo, Médio, Alto e Muito Alto para uma solicitação similar.</div>
 
         </div>
       </details>
@@ -191,48 +191,48 @@
       <details class="version-details" id="studio-v2">
         <summary class="version-summary">
           <span class="version-badge v2">V2 — Explorador</span>
-          <span class="version-meta">3 agentes · Investigación web en vivo</span>
+          <span class="version-meta">3 agentes · Pesquisa web ao vivo</span>
           <span class="version-arrow">▶</span>
         </summary>
         <div class="version-body">
 
           <div class="info-box">
             <p>
-              Un score alto suena excelente —pero ¿excelente en qué contexto? Si las tasas de
-              crédito al consumo en Argentina están muy altas, incluso un perfil de bajo riesgo puede
-              encontrar condiciones de mercado que compliquen el otorgamiento. En V2 sumás dos agentes nuevos:
-              uno que va a buscar contexto de mercado en tiempo real usando Firecrawl, y otro que sintetiza
-              los datos internos del cliente con esa inteligencia externa para producir una recomendación más
-              robusta y fundamentada.
+              Um score alto soa excelente —mas excelente em que contexto? Se as taxas de
+              crédito ao consumo no Brasil estiverem muito altas, mesmo um perfil de baixo risco pode
+              encontrar condições de mercado que dificultem a concessão. Na V2 você adiciona dois agentes novos:
+              um que vai buscar contexto de mercado em tempo real usando o Firecrawl, e outro que sintetiza
+              os dados internos do cliente com essa inteligência externa para produzir uma recomendação mais
+              robusta e fundamentada.
             </p>
             <p>
-              Esto también te muestra el primer handoff real entre agentes: el Analista de Riesgo le pasa
-              su análisis al Investigador de Mercado, que lo usa como contexto para saber qué buscar, y
-              ambos outputs llegan al Analista de Síntesis para el informe final.
+              Isso também mostra o primeiro handoff real entre agentes: o Analista de Risco passa
+              sua análise ao Pesquisador de Mercado, que a usa como contexto para saber o que buscar, e
+              os dois resultados chegam ao Analista de Síntese para o relatório final.
             </p>
           </div>
 
-          <p>Agregá estos dos agentes y tareas al crew de V1.</p>
+          <p>Adicione estes dois agentes e tarefas ao crew da V1.</p>
 
           <!-- Agent: Market Intelligence -->
           <div class="agent-header">
             <span class="agent-label">Agente</span>
-            <h3>Investigador de Inteligencia de Mercado</h3>
+            <h3>Pesquisador de Inteligência de Mercado</h3>
           </div>
           <div class="table-wrap">
             <table class="field-table">
               <tbody>
                 <tr>
                   <td>Role</td>
-                  <td>Analista de Inteligencia de Mercado Financiero</td>
+                  <td>Analista de Inteligência de Mercado Financeiro</td>
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Investigar las condiciones actuales del mercado de crédito minorista en Argentina e identificar 2 a 3 tendencias relevantes para la solicitud {credit_request}</td>
+                  <td>Pesquisar as condições atuais do mercado de crédito de varejo no Brasil e identificar 2 a 3 tendências relevantes para a solicitação {credit_request}</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
-                  <td>Sos un investigador financiero que monitorea el mercado de crédito minorista argentino. Seguís tendencias de tasas de interés, cambios regulatorios y datos de referencia para dar contexto a las decisiones crediticias individuales.</td>
+                  <td>Você é um pesquisador financeiro que monitora o mercado de crédito de varejo brasileiro. Acompanha tendências de taxas de juros, mudanças regulatórias e dados de referência para dar contexto às decisões de crédito individuais.</td>
                 </tr>
                 <tr>
                   <td>Model</td>
@@ -247,12 +247,12 @@
           </div>
 
           <blockquote>
-            <p><strong>¿Por qué Firecrawl acá?</strong> Los datos internos te dan el score del cliente, pero no el contexto de mercado. El mismo perfil se ve diferente cuando las tasas, la inflación o la disponibilidad de crédito cambian. Firecrawl permite que un agente obtenga datos de mercado en tiempo real para enmarcar la decisión.</p>
+            <p><strong>Por que o Firecrawl aqui?</strong> Os dados internos dão o score do cliente, mas não o contexto de mercado. O mesmo perfil parece diferente quando as taxas, a inflação ou a disponibilidade de crédito mudam. O Firecrawl permite que um agente obtenha dados de mercado em tempo real para enquadrar a decisão.</p>
           </blockquote>
 
           <!-- Task: Market Context -->
           <div class="task-header">
-            <span class="task-label">Tarea</span>
+            <span class="task-label">Tarefa</span>
             <h3>Contexto de Mercado</h3>
           </div>
           <div class="table-wrap">
@@ -260,15 +260,15 @@
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Buscá las tasas de interés actuales del crédito minorista y las condiciones de disponibilidad de crédito en Argentina. Identificá 2 a 3 tendencias clave del mercado relevantes para esta solicitud: {credit_request}.</td>
+                  <td>Busque as taxas de juros atuais do crédito de varejo e as condições de disponibilidade de crédito no Brasil. Identifique 2 a 3 tendências-chave do mercado relevantes para esta solicitação: {credit_request}.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
-                  <td>Un briefing de mercado en 3 puntos: rango actual de tasas de referencia, tendencia clave que afecta el acceso al crédito, y un factor de riesgo en el entorno macroeconómico.</td>
+                  <td>Um briefing de mercado em 3 pontos: faixa atual das taxas de referência, tendência-chave que afeta o acesso ao crédito, e um fator de risco no ambiente macroeconômico.</td>
                 </tr>
                 <tr>
                   <td>Agent</td>
-                  <td>Investigador de Inteligencia de Mercado</td>
+                  <td>Pesquisador de Inteligência de Mercado</td>
                 </tr>
               </tbody>
             </table>
@@ -277,15 +277,15 @@
           <!-- Agent: Credit Synthesis -->
           <div class="agent-header">
             <span class="agent-label">Agente</span>
-            <h3>Analista de Síntesis Crediticia</h3>
+            <h3>Analista de Síntese de Crédito</h3>
           </div>
 
           <div class="info-box">
             <p>
-              Este tercer agente no usa ninguna herramienta —su valor es el razonamiento. Recibe el análisis
-              del cliente y el contexto de mercado como inputs, y su trabajo es integrarlos en una recomendación
-              única y bien fundamentada. Así funciona un comité de crédito real: una persona analiza el perfil,
-              otra aporta contexto externo, y una tercera sintetiza y decide.
+              Este terceiro agente não usa nenhuma ferramenta —seu valor é o raciocínio. Recebe a análise
+              do cliente e o contexto de mercado como inputs, e seu trabalho é integrá-los em uma recomendação
+              única e bem fundamentada. É assim que funciona um comitê de crédito real: uma pessoa analisa o perfil,
+              outra traz o contexto externo, e uma terceira sintetiza e decide.
             </p>
           </div>
 
@@ -294,15 +294,15 @@
               <tbody>
                 <tr>
                   <td>Role</td>
-                  <td>Analista de Síntesis de Decisiones Crediticias</td>
+                  <td>Analista de Síntese de Decisões de Crédito</td>
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Combinar el análisis crediticio del cliente con DNI {dni} y el contexto de mercado actual para producir una recomendación completa sobre {credit_request}</td>
+                  <td>Combinar a análise de crédito do cliente com CPF {cpf} e o contexto de mercado atual para produzir uma recomendação completa sobre {credit_request}</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
-                  <td>Sos un analista de crédito senior que combina datos de riesgo internos con inteligencia de mercado para redactar recomendaciones crediticias equilibradas. Siempre contextualizás los scores individuales frente a las condiciones del mercado y comparaciones con perfiles similares.</td>
+                  <td>Você é um analista de crédito sênior que combina dados de risco internos com inteligência de mercado para redigir recomendações de crédito equilibradas. Sempre contextualiza os scores individuais diante das condições do mercado e de comparações com perfis similares.</td>
                 </tr>
                 <tr>
                   <td>Model</td>
@@ -310,7 +310,7 @@
                 </tr>
                 <tr>
                   <td>Tool</td>
-                  <td><em>ninguna — trabaja con el contexto de los dos agentes anteriores</em></td>
+                  <td><em>nenhuma — trabalha com o contexto dos dois agentes anteriores</em></td>
                 </tr>
               </tbody>
             </table>
@@ -318,31 +318,31 @@
 
           <!-- Task: Comprehensive Credit Brief -->
           <div class="task-header">
-            <span class="task-label">Tarea</span>
-            <h3>Informe Crediticio Integral</h3>
+            <span class="task-label">Tarefa</span>
+            <h3>Relatório de Crédito Integral</h3>
           </div>
           <div class="table-wrap">
             <table class="field-table">
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Combiná el análisis crediticio del cliente con DNI {dni} y el contexto de mercado anterior en un informe crediticio completo para {credit_request}. Incluí la decisión, el resumen de riesgo, la comparación con el mercado y la recomendación final.</td>
+                  <td>Combine a análise de crédito do cliente com CPF {cpf} e o contexto de mercado anterior em um relatório de crédito completo para {credit_request}. Inclua a decisão, o resumo de risco, a comparação com o mercado e a recomendação final.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
-                  <td>Un informe crediticio de una página: resumen del cliente, contexto del score, benchmarks de mercado, evaluación de riesgo y una recomendación final de aprobación o rechazo con justificación.</td>
+                  <td>Um relatório de crédito de uma página: resumo do cliente, contexto do score, benchmarks de mercado, avaliação de risco e uma recomendação final de aprovação ou recusa com justificativa.</td>
                 </tr>
                 <tr>
                   <td>Agent</td>
-                  <td>Analista de Síntesis Crediticia</td>
+                  <td>Analista de Síntese de Crédito</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <p class="prompt-group-label">Ideas para probar — elegí un DNI y ajustá la solicitud</p>
-          <div class="prompt-example">Pedí que contraste una solicitud de crédito con el contexto actual de tasas, inflación o disponibilidad de financiamiento.</div>
-          <div class="prompt-example">Probá una solicitud conservadora y otra agresiva para el mismo DNI y pedí que explique cómo cambia la recomendación.</div>
+          <p class="prompt-group-label">Ideias para testar — escolha um CPF e ajuste a solicitação</p>
+          <div class="prompt-example">Peça que contraste uma solicitação de crédito com o contexto atual de taxas, inflação ou disponibilidade de financiamento.</div>
+          <div class="prompt-example">Teste uma solicitação conservadora e outra agressiva para o mesmo CPF e peça que explique como a recomendação muda.</div>
 
         </div>
       </details>
@@ -351,34 +351,34 @@
       <details class="version-details" id="studio-v3">
         <summary class="version-summary">
           <span class="version-badge v3">V3 — Crew Completo</span>
-          <span class="version-meta">5 agentes · Gráfico e informe</span>
+          <span class="version-meta">5 agentes · Gráfico e relatório</span>
           <span class="version-arrow">▶</span>
         </summary>
         <div class="version-body">
 
           <div class="info-box">
             <p>
-              En V3 el crew pasa de análisis a producción: dos agentes adicionales convierten los resultados
-              en artefactos que podés llevar a una reunión de comité. El Visualizador genera un gráfico de
-              barras en markdown que muestra dónde cae el score del cliente dentro de las cuatro bandas de riesgo —
-              un gráfico claro vale más que un número suelto. El Redactor de Informes toma todos los outputs anteriores
-              y los compila en un documento formal con resumen ejecutivo, listo para que cualquier decisor
-              lo lea en 90 segundos.
+              Na V3 o crew passa de análise para produção: dois agentes adicionais convertem os resultados
+              em artefatos que você pode levar a uma reunião de comitê. O Visualizador gera um gráfico de
+              barras em markdown que mostra onde o score do cliente cai dentro das quatro faixas de risco —
+              um gráfico claro vale mais que um número solto. O Redator de Relatórios pega todos os resultados anteriores
+              e os compila em um documento formal com resumo executivo, pronto para que qualquer decisor
+              o leia em 90 segundos.
             </p>
             <p>
-              Notá el cambio de modelo en el Visualizador: usamos <code>gpt-5.4-nano</code> porque generar
-              un gráfico markdown es una tarea liviana (formatear datos en una visualización legible). Reservamos
-              <code>gpt-5.4-mini</code> para los agentes que necesitan razonar. Esa asignación inteligente
-              de modelos es parte del diseño de un crew eficiente.
+              Note a mudança de modelo no Visualizador: usamos <code>gpt-5.4-nano</code> porque gerar
+              um gráfico em markdown é uma tarefa leve (formatar dados em uma visualização legível). Reservamos
+              <code>gpt-5.4-mini</code> para os agentes que precisam raciocinar. Essa atribuição inteligente
+              de modelos é parte do design de um crew eficiente.
             </p>
           </div>
 
-          <p>Agregá estos dos agentes y tareas sobre V2.</p>
+          <p>Adicione estes dois agentes e tarefas sobre a V2.</p>
 
           <!-- Agent: Credit Data Visualizer -->
           <div class="agent-header">
             <span class="agent-label">Agente</span>
-            <h3>Visualizador de Datos Crediticios</h3>
+            <h3>Visualizador de Dados de Crédito</h3>
           </div>
 
           <div class="table-wrap">
@@ -386,15 +386,15 @@
               <tbody>
                 <tr>
                   <td>Role</td>
-                  <td>Visualizador de Datos Crediticios</td>
+                  <td>Visualizador de Dados de Crédito</td>
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Crear una visualización en markdown que muestre la posición del score del cliente con DNI {dni} dentro de las cuatro bandas de riesgo para apoyar la decisión sobre {credit_request}, usando una tabla con barras horizontales (█) — no ejes cartesianos ni gráficos con coordenadas X/Y</td>
+                  <td>Criar uma visualização em markdown que mostre a posição do score do cliente com CPF {cpf} dentro das quatro faixas de risco para apoiar a decisão sobre {credit_request}, usando uma tabela com barras horizontais (█) — não eixos cartesianos nem gráficos com coordenadas X/Y</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
-                  <td>Sos un especialista en visualización de datos que traduce métricas financieras en gráficos claros en markdown. Siempre usás tablas con columnas Banda, Rango, Score del cliente (si aplica) y Visual (barras █). Marcás la banda del cliente con una flecha o etiqueta en la columna Visual. Nunca dibujes ejes X/Y, cuadrículas cartesianas ni diagramas de coordenadas.</td>
+                  <td>Você é um especialista em visualização de dados que traduz métricas financeiras em gráficos claros em markdown. Sempre usa tabelas com colunas Faixa, Intervalo, Score do cliente (se aplicável) e Visual (barras █). Marca a faixa do cliente com uma seta ou rótulo na coluna Visual. Nunca desenha eixos X/Y, grades cartesianas nem diagramas de coordenadas.</td>
                 </tr>
                 <tr>
                   <td>Model</td>
@@ -402,35 +402,35 @@
                 </tr>
                 <tr>
                   <td>Tool</td>
-                  <td><em>ninguna — genera gráficos en markdown</em></td>
+                  <td><em>nenhuma — gera gráficos em markdown</em></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <blockquote>
-            <p><strong>¿Por qué nano acá?</strong> La generación de gráficos es una tarea liviana — formatear datos en un gráfico markdown legible. No se necesita razonamiento pesado. <code>gpt-5.4-nano</code> es más rápido y económico para este paso.</p>
+            <p><strong>Por que o nano aqui?</strong> A geração de gráficos é uma tarefa leve — formatar dados em um gráfico markdown legível. Não exige raciocínio pesado. O <code>gpt-5.4-nano</code> é mais rápido e econômico para este passo.</p>
           </blockquote>
 
           <!-- Task: Score Visualization -->
           <div class="task-header">
-            <span class="task-label">Tarea</span>
-            <h3>Visualización del Score</h3>
+            <span class="task-label">Tarefa</span>
+            <h3>Visualização do Score</h3>
           </div>
           <div class="table-wrap">
             <table class="field-table">
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Generá un gráfico de barras en markdown que muestre el score crediticio del DNI {dni} en relación con las 4 bandas de riesgo: Muy Alto (menos de 520), Alto (520–619), Medio (620–719), Bajo (720 en adelante). Usá una tabla con columnas Banda, Rango, Visual (barras █) y marcá claramente la banda del cliente. Conectá la visualización con {credit_request}. No uses ejes X/Y, cuadrículas cartesianas ni diagramas de coordenadas.</td>
+                  <td>Gere um gráfico de barras em markdown que mostre o score de crédito do CPF {cpf} em relação às 4 faixas de risco: Muito Alto (menos de 520), Alto (520–619), Médio (620–719), Baixo (720 em diante). Use uma tabela com colunas Faixa, Intervalo, Visual (barras █) e marque claramente a faixa do cliente. Conecte a visualização com {credit_request}. Não use eixos X/Y, grades cartesianas nem diagramas de coordenadas.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
-                  <td>Una sección markdown con título, breve descripción y una tabla como: <code>| Banda | Rango | Visual |</code> con barras █ proporcionales y la banda del cliente marcada (ej. <code>████████ ← DNI {dni}: 745</code>).</td>
+                  <td>Uma seção markdown com título, breve descrição e uma tabela como: <code>| Faixa | Intervalo | Visual |</code> com barras █ proporcionais e a faixa do cliente marcada (ex. <code>████████ ← CPF {cpf}: 745</code>).</td>
                 </tr>
                 <tr>
                   <td>Agent</td>
-                  <td>Visualizador de Datos Crediticios</td>
+                  <td>Visualizador de Dados de Crédito</td>
                 </tr>
               </tbody>
             </table>
@@ -439,22 +439,22 @@
           <!-- Agent: Credit Report Writer -->
           <div class="agent-header">
             <span class="agent-label">Agente</span>
-            <h3>Redactor de Informes de Crédito</h3>
+            <h3>Redator de Relatórios de Crédito</h3>
           </div>
           <div class="table-wrap">
             <table class="field-table">
               <tbody>
                 <tr>
                   <td>Role</td>
-                  <td>Redactor Senior de Informes de Crédito</td>
+                  <td>Redator Sênior de Relatórios de Crédito</td>
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td>Compilar todos los hallazgos en un informe crediticio formal para {report_audience}, usando el DNI {dni} y la solicitud {credit_request}</td>
+                  <td>Compilar todos os achados em um relatório de crédito formal para {report_audience}, usando o CPF {cpf} e a solicitação {credit_request}</td>
                 </tr>
                 <tr>
                   <td>Backstory</td>
-                  <td>Sos un oficial de crédito senior que produce informes formales para comités de crédito. Tus documentos son concisos, bien estructurados y orientados a la toma de decisiones. Combinás el scoring cuantitativo con el juicio cualitativo y siempre abrís con un resumen ejecutivo de 3 oraciones.</td>
+                  <td>Você é um oficial de crédito sênior que produz relatórios formais para comitês de crédito. Seus documentos são concisos, bem estruturados e orientados à tomada de decisão. Combina o scoring quantitativo com o julgamento qualitativo e sempre abre com um resumo executivo de 3 frases.</td>
                 </tr>
                 <tr>
                   <td>Model</td>
@@ -462,7 +462,7 @@
                 </tr>
                 <tr>
                   <td>Tool</td>
-                  <td><em>ninguna — compila el output de todos los agentes anteriores</em></td>
+                  <td><em>nenhuma — compila o resultado de todos os agentes anteriores</em></td>
                 </tr>
               </tbody>
             </table>
@@ -470,31 +470,31 @@
 
           <!-- Task: Full Credit Report -->
           <div class="task-header">
-            <span class="task-label">Tarea</span>
-            <h3>Informe Crediticio Completo</h3>
+            <span class="task-label">Tarefa</span>
+            <h3>Relatório de Crédito Completo</h3>
           </div>
           <div class="table-wrap">
             <table class="field-table">
               <tbody>
                 <tr>
                   <td>Description</td>
-                  <td>Redactá un informe completo para {report_audience} sobre el DNI {dni} y la solicitud {credit_request}. Incorporá el análisis crediticio, el contexto de mercado, la descripción de la visualización del score y un resumen ejecutivo de 3 oraciones al inicio. Formatealo como un documento formal con secciones.</td>
+                  <td>Redija um relatório completo para {report_audience} sobre o CPF {cpf} e a solicitação {credit_request}. Incorpore a análise de crédito, o contexto de mercado, a descrição da visualização do score e um resumo executivo de 3 frases no início. Formate-o como um documento formal com seções.</td>
                 </tr>
                 <tr>
                   <td>Expected Output</td>
-                  <td>Un informe crediticio completo: resumen ejecutivo, perfil del cliente, análisis del score, contexto de mercado, evaluación de riesgo y decisión de aprobación o rechazo con fundamento.</td>
+                  <td>Um relatório de crédito completo: resumo executivo, perfil do cliente, análise do score, contexto de mercado, avaliação de risco e decisão de aprovação ou recusa com fundamento.</td>
                 </tr>
                 <tr>
                   <td>Agent</td>
-                  <td>Redactor de Informes de Crédito</td>
+                  <td>Redator de Relatórios de Crédito</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <p class="prompt-group-label">Ideas para probar — elegí un DNI, solicitud y audiencia</p>
-          <div class="prompt-example">Pedí un informe para comité de crédito que combine score, contexto de mercado, gráfico y recomendación final.</div>
-          <div class="prompt-example">Pedí una versión para directorio, sucursal o equipo comercial y observá cómo cambia el tono del informe.</div>
+          <p class="prompt-group-label">Ideias para testar — escolha um CPF, solicitação e público</p>
+          <div class="prompt-example">Peça um relatório para comitê de crédito que combine score, contexto de mercado, gráfico e recomendação final.</div>
+          <div class="prompt-example">Peça uma versão para a diretoria, agência ou equipe comercial e observe como o tom do relatório muda.</div>
 
         </div>
       </details>
@@ -505,10 +505,10 @@
     <div class="page-nav">
       <a href="comenzar.html" class="page-nav-card prev">
         <span class="nav-direction">← Anterior</span>
-        <span class="nav-title">Comenzar</span>
+        <span class="nav-title">Começar</span>
       </a>
       <a href="caso-bi.html" class="page-nav-card next">
-        <span class="nav-direction">Siguiente →</span>
+        <span class="nav-direction">Seguinte →</span>
         <span class="nav-title">BI Conversacional</span>
       </a>
     </div>
@@ -517,10 +517,10 @@
 </div>
 
 <footer class="site-footer">
-  <p>Guía preparada para el evento CrewAI × Teradata · Buenos Aires · Junio 2026</p>
+  <p>Guia preparado para o evento CrewAI × Teletex · Curitiba · 30/06/2026</p>
 </footer>
 
-<button id="back-to-top" title="Volver arriba">↑</button>
+<button id="back-to-top" title="Voltar ao topo">↑</button>
 
 <script>
   const btn = document.getElementById('back-to-top');
