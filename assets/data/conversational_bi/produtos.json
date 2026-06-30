@@ -1,0 +1,362 @@
+[
+  {
+    "produto_id": "P001",
+    "nome": "Smart TV 55\" 4K",
+    "marca": "Philco",
+    "categoria": "Eletrônicos",
+    "descricao": "Televisor inteligente com resolução 4K Ultra HD, Android TV 11, Wi-Fi e Bluetooth 5.0. Compatível com Dolby Vision e HDR10+. Suporte para Globoplay, Telecine e Pluto TV. Tela IPS com ângulos de visão de 178°. Controle remoto com acesso direto ao streaming.",
+    "preco_base": 3200,
+    "estoque_disponivel": 168
+  },
+  {
+    "produto_id": "P002",
+    "nome": "Notebook 15.6\"",
+    "marca": "Positivo",
+    "categoria": "Eletrônicos",
+    "descricao": "Computador portátil Intel Core i5 12ª geração, 16 GB RAM DDR4, SSD 512 GB. Tela Full HD antirreflexo. Bateria de 8 horas. Windows 11 Home em português. Ideal para estudantes e profissionais. Garantia oficial de 12 meses.",
+    "preco_base": 5200,
+    "estoque_disponivel": 33
+  },
+  {
+    "produto_id": "P003",
+    "nome": "Celular Smartphone 128GB",
+    "marca": "Motorola",
+    "categoria": "Eletrônicos",
+    "descricao": "Tela AMOLED 6.5\", câmera de 50 MP com IA, bateria de 5000 mAh com carregamento rápido de 33W. Android 14 com atualizações por 3 anos. Resistência IP52. Compatível com Vivo, Claro, TIM e Oi.",
+    "preco_base": 2800,
+    "estoque_disponivel": 11
+  },
+  {
+    "produto_id": "P004",
+    "nome": "Fones de Ouvido Bluetooth",
+    "marca": "Philips",
+    "categoria": "Eletrônicos",
+    "descricao": "Cancelamento ativo de ruído de 30 dB, autonomia de 30 horas, carregamento rápido USB-C. Drivers de 40mm, resposta de 20Hz a 20kHz. Design dobrável com estojo de transporte.",
+    "preco_base": 950,
+    "estoque_disponivel": 194
+  },
+  {
+    "produto_id": "P005",
+    "nome": "Tablet 10.4\"",
+    "marca": "Samsung",
+    "categoria": "Eletrônicos",
+    "descricao": "Tela TFT de 10.4\", Octa-Core, 4 GB de RAM, 64 GB expansível via microSD de 1TB. Bateria de 7040 mAh. Acompanha S Pen. Ideal para educação e entretenimento. Garantia de 12 meses.",
+    "preco_base": 2100,
+    "estoque_disponivel": 75
+  },
+  {
+    "produto_id": "P006",
+    "nome": "Console de Videogame",
+    "marca": "PlayStation",
+    "categoria": "Eletrônicos",
+    "descricao": "Última geração, unidade Blu-Ray 4K, SSD de 1TB, processador AMD. Controle DualSense com retorno háptico. Catálogo em português. Assinatura PlayStation Plus de 1 mês inclusa.",
+    "preco_base": 9500,
+    "estoque_disponivel": 67
+  },
+  {
+    "produto_id": "P007",
+    "nome": "Caixa de Som Portátil",
+    "marca": "JBL",
+    "categoria": "Eletrônicos",
+    "descricao": "Bluetooth resistente à água IPX7, 20 horas de autonomia. Som 360° com radiadores de graves passivos. JBL PartyBoost para até 2 dispositivos. Carregamento USB-C com função power bank. 6 cores disponíveis.",
+    "preco_base": 750,
+    "estoque_disponivel": 62
+  },
+  {
+    "produto_id": "P008",
+    "nome": "Ar Condicionado Quente/Frio 12.000 BTU",
+    "marca": "Springer",
+    "categoria": "Eletrônicos",
+    "descricao": "Split inverter de 12.000 BTU. Tecnologia Inverter reduz o consumo em 40%. Filtro antibactéria. Controle remoto e app Wi-Fi. Instalação oficial em todo o país.",
+    "preco_base": 4500,
+    "estoque_disponivel": 40
+  },
+  {
+    "produto_id": "P009",
+    "nome": "Lava-Roupas Automática 7kg",
+    "marca": "Consul",
+    "categoria": "Eletrônicos",
+    "descricao": "Carga frontal de 7 kg, motor de alta eficiência, 15 programas. Função vapor, display LED touch, EcoBubble. Garantia de 2 anos. Assistência técnica nacional.",
+    "preco_base": 3800,
+    "estoque_disponivel": 193
+  },
+  {
+    "produto_id": "P010",
+    "nome": "Câmera Digital 20MP Zoom 30x",
+    "marca": "Sony",
+    "categoria": "Eletrônicos",
+    "descricao": "20.1 MP, zoom óptico de 30x, estabilizador óptico. Vídeo Full HD 60fps. Wi-Fi e NFC para transferência ao celular. Tela LCD de 3\" articulada.",
+    "preco_base": 1800,
+    "estoque_disponivel": 31
+  },
+  {
+    "produto_id": "P011",
+    "nome": "Jaqueta de Pluma Masculina",
+    "marca": "Columbia",
+    "categoria": "Vestuário",
+    "descricao": "Enchimento de pluma de pato 80/20, nylon ripstop resistente ao vento. Dobrável no próprio bolso. Tamanhos P-GG. Ideal para regiões frias do Sul. Cores: azul marinho, preto e verde floresta.",
+    "preco_base": 850,
+    "estoque_disponivel": 178
+  },
+  {
+    "produto_id": "P012",
+    "nome": "Tênis de Corrida",
+    "marca": "Olympikus",
+    "categoria": "Vestuário",
+    "descricao": "Solado de borracha vulcanizada, palmilha EVA de alta absorção. Cabedal em malha respirável com reforços nas zonas de desgaste. Tamanhos 36-46. Peso de 280 gramas por unidade. Desenvolvido para as condições climáticas brasileiras.",
+    "preco_base": 550,
+    "estoque_disponivel": 194
+  },
+  {
+    "produto_id": "P013",
+    "nome": "Vestido Casual Feminino",
+    "marca": "Hering",
+    "categoria": "Vestuário",
+    "descricao": "Tecido de viscose, estampa floral exclusiva. Decote V, manga 3/4. Lavável à máquina a 30°C. Tamanhos PP-GG. Design urbano. 4 estampas de temporada.",
+    "preco_base": 420,
+    "estoque_disponivel": 144
+  },
+  {
+    "produto_id": "P014",
+    "nome": "Calça Jeans Slim Fit Masculina",
+    "marca": "Levi's",
+    "categoria": "Vestuário",
+    "descricao": "99% algodão e 1% elastano. Tingimento índigo clássico, costura reforçada. Tamanhos 36-52, comprimentos 30 e 32. Certificado de algodão sustentável BCI.",
+    "preco_base": 480,
+    "estoque_disponivel": 27
+  },
+  {
+    "produto_id": "P015",
+    "nome": "Camisa Polo de Algodão",
+    "marca": "Lacoste",
+    "categoria": "Vestuário",
+    "descricao": "Algodão piquê, bordado icônico do crocodilo. Gola ribana, botões de madrepérola. Pré-lavada. Tamanhos PP-GG, 12 cores da temporada. Fabricada no Brasil.",
+    "preco_base": 620,
+    "estoque_disponivel": 156
+  },
+  {
+    "produto_id": "P016",
+    "nome": "Terno Formal 2 Peças",
+    "marca": "Cacharel",
+    "categoria": "Vestuário",
+    "descricao": "Gabardine de lã com poliéster. Lapela em pico, bolsos chanfrados, forro completo. Azul marinho, cinza Oxford e preto. Tamanhos 44-56. Acompanha capa e cabide de madeira.",
+    "preco_base": 1950,
+    "estoque_disponivel": 113
+  },
+  {
+    "produto_id": "P017",
+    "nome": "Bolsa de Couro Feminina",
+    "marca": "Arezzo",
+    "categoria": "Vestuário",
+    "descricao": "Couro genuíno bovino curtido no Brasil. Compartimento com zíper, bolsos internos e externos, alça transversal removível. Preto, camel, bordô e verde garrafa. Garantia de 6 meses.",
+    "preco_base": 1250,
+    "estoque_disponivel": 13
+  },
+  {
+    "produto_id": "P018",
+    "nome": "Bermuda Esportiva",
+    "marca": "Nike",
+    "categoria": "Vestuário",
+    "descricao": "Tecnologia Dri-FIT. Cós elástico com cordão, bolsos com zíper. 100% poliéster reciclado. Tamanhos P-GG. Unissex para academia, praia e atividades ao ar livre.",
+    "preco_base": 380,
+    "estoque_disponivel": 12
+  },
+  {
+    "produto_id": "P019",
+    "nome": "Meias Térmicas Pack x3",
+    "marca": "Trifil",
+    "categoria": "Vestuário",
+    "descricao": "Lã merino com elastano. Para o inverno rigoroso do Sul. Tamanho único de alta elasticidade. Sem costuras. Antibacteriana, com regulação natural de temperatura. Lavável a 30°C.",
+    "preco_base": 280,
+    "estoque_disponivel": 28
+  },
+  {
+    "produto_id": "P020",
+    "nome": "Pijama de Inverno Soft",
+    "marca": "Lupo",
+    "categoria": "Vestuário",
+    "descricao": "Soft macio, estampas exclusivas da temporada de inverno. Calça com cós elástico e bolsos. Tecidos antipilling. Tamanhos P-GG. Fabricado no Brasil, livre de substâncias nocivas.",
+    "preco_base": 350,
+    "estoque_disponivel": 60
+  },
+  {
+    "produto_id": "P021",
+    "nome": "Jogo de Lençóis Casal",
+    "marca": "Santista",
+    "categoria": "Casa",
+    "descricao": "Percal de 300 fios, 100% algodão penteado. Lençol com elástico reforçado, lençol de cima e 2 fronhas. Lavável a 60°C. 20 cores disponíveis. Estabilidade de cor garantida por 50 lavagens.",
+    "preco_base": 420,
+    "estoque_disponivel": 64
+  },
+  {
+    "produto_id": "P022",
+    "nome": "Aparelho de Jantar Porcelana 12 Pessoas",
+    "marca": "Oxford",
+    "categoria": "Casa",
+    "descricao": "60 peças para 12 pessoas: pratos fundos, rasos, de sobremesa, xícaras, travessas. Adequado para micro-ondas, forno e lava-louças. Borda dourada. Embalado em caixa de presente.",
+    "preco_base": 980,
+    "estoque_disponivel": 134
+  },
+  {
+    "produto_id": "P023",
+    "nome": "Cadeira de Escritório Ergonômica",
+    "marca": "Flexform",
+    "categoria": "Casa",
+    "descricao": "Encosto em tela respirável, apoio lombar ajustável. Assento em espuma de alta densidade. Apoios de braço reguláveis. Mecanismo de inclinação. Altura regulável, base giratória 360°. Suporta até 120 kg.",
+    "preco_base": 1850,
+    "estoque_disponivel": 159
+  },
+  {
+    "produto_id": "P024",
+    "nome": "Colchão de Casal Ortopédico",
+    "marca": "Ortobom",
+    "categoria": "Casa",
+    "descricao": "Sistema de molas ensacadas individualmente, espuma HR de conforto. Tratamento antiácaro e antifungo. Altura de 24 cm. Garantia de 5 anos. Entrega com instalação inclusa na Grande São Paulo.",
+    "preco_base": 4200,
+    "estoque_disponivel": 11
+  },
+  {
+    "produto_id": "P025",
+    "nome": "Jogo de Panelas Aço Inox x5",
+    "marca": "Tramontina",
+    "categoria": "Casa",
+    "descricao": "5 peças em aço inox 18/10: 16, 18, 20, 22 e 24 cm com tampas. Fundo difusor de tripla camada para fogões a gás, elétrico e indução. Adequadas para lava-louças. Garantia vitalícia.",
+    "preco_base": 950,
+    "estoque_disponivel": 148
+  },
+  {
+    "produto_id": "P026",
+    "nome": "Aspirador Robô WiFi",
+    "marca": "Xiaomi",
+    "categoria": "Casa",
+    "descricao": "Navegação a laser LiDAR, mapeamento inteligente, sucção de 2700 Pa. Controle por app e compatível com Alexa/Google Home. Bateria de 5200 mAh, autonomia de 150 minutos. Recarga automática.",
+    "preco_base": 2100,
+    "estoque_disponivel": 55
+  },
+  {
+    "produto_id": "P027",
+    "nome": "Cafeteira Automática",
+    "marca": "Philips",
+    "categoria": "Casa",
+    "descricao": "Moedor integrado com 12 ajustes de espessura. Reservatório de 1.8 litros, bandeja regulável, vaporizador de leite manual. Preparo em 1 toque: espresso, café longo, cappuccino.",
+    "preco_base": 3150,
+    "estoque_disponivel": 188
+  },
+  {
+    "produto_id": "P028",
+    "nome": "Geladeira Frost Free 400L",
+    "marca": "Whirlpool",
+    "categoria": "Casa",
+    "descricao": "Capacidade total de 400 litros, freezer de 100L. Frost Free em ambos os compartimentos. Display LED interno, controle eletrônico de temperatura. Classe de eficiência A. Garantia do compressor de 10 anos.",
+    "preco_base": 5800,
+    "estoque_disponivel": 171
+  },
+  {
+    "produto_id": "P029",
+    "nome": "Micro-ondas 28L Digital",
+    "marca": "Daewoo",
+    "categoria": "Casa",
+    "descricao": "28 litros de capacidade, potência máxima de 900W. 10 níveis de potência, timer digital. Função de descongelamento por peso e por tempo. Prato giratório de cerâmica.",
+    "preco_base": 780,
+    "estoque_disponivel": 184
+  },
+  {
+    "produto_id": "P030",
+    "nome": "Ferro de Passar a Vapor Vertical",
+    "marca": "Tefal",
+    "categoria": "Casa",
+    "descricao": "2600W, sistema antical autolimpante. Base de inox com 400 furos. Reservatório de 300ml, autonomia de 45 minutos. Função de vapor vertical para roupas penduradas.",
+    "preco_base": 650,
+    "estoque_disponivel": 144
+  },
+  {
+    "produto_id": "P031",
+    "nome": "Azeite de Oliva Extra Virgem 1L",
+    "marca": "Colavita",
+    "categoria": "Alimentos",
+    "descricao": "Primeira prensagem a frio, acidez máxima de 0.5%. Colheita de azeitonas arbequina, manzanilla e frantoio da Serra Gaúcha. Perfil aromático frutado com notas herbáceas. Garrafa de vidro.",
+    "preco_base": 180,
+    "estoque_disponivel": 112
+  },
+  {
+    "produto_id": "P032",
+    "nome": "Erva-Mate Premium 1kg",
+    "marca": "Mate Leão Especial",
+    "categoria": "Alimentos",
+    "descricao": "Erva com palito selecionada, maturação de 24 meses em câmara. Moagem tradicional. Sabor intenso, amargor equilibrado. Cultivada no Sul sob normas de produção sustentável.",
+    "preco_base": 120,
+    "estoque_disponivel": 61
+  },
+  {
+    "produto_id": "P033",
+    "nome": "Chocolate Amargo 70% Cacau",
+    "marca": "Garoto",
+    "categoria": "Alimentos",
+    "descricao": "Barra de 200g, cacau de origem equatoriana e colombiana. Sem açúcar adicionado, sem glúten. Notas de frutas vermelhas e especiarias. Processo bean-to-bar artesanal supervisionado por mestres chocolateiros brasileiros.",
+    "preco_base": 85,
+    "estoque_disponivel": 119
+  },
+  {
+    "produto_id": "P034",
+    "nome": "Mel Orgânico de Flores 500g",
+    "marca": "Mel Ouro",
+    "categoria": "Alimentos",
+    "descricao": "Mel multifloral com certificação orgânica de Minas Gerais. Sem pasteurização para preservar enzimas e antioxidantes. Adequado para celíacos. Pote de vidro reciclável com tampa hermética.",
+    "preco_base": 110,
+    "estoque_disponivel": 155
+  },
+  {
+    "produto_id": "P035",
+    "nome": "Vinho Malbec Reserva 750ml",
+    "marca": "Miolo",
+    "categoria": "Alimentos",
+    "descricao": "Malbec 100% de vinhedos de altitude da Serra Gaúcha. Safra 2022, 12 meses em carvalho francês. Notas de ameixa, chocolate amargo e tabaco. 14% vol. alc. Ideal para churrascos.",
+    "preco_base": 98,
+    "estoque_disponivel": 76
+  },
+  {
+    "produto_id": "P036",
+    "nome": "Granola Artesanal Sem Glúten 400g",
+    "marca": "Mãe Terra",
+    "categoria": "Alimentos",
+    "descricao": "Aveia sem glúten, quinoa, amaranto, sementes de chia, amêndoas e uvas-passas. Sem açúcar refinado, adoçada com mel de abelha. Assada em forno convencional. Rica em fibras, proteínas e ômega-3.",
+    "preco_base": 72,
+    "estoque_disponivel": 6
+  },
+  {
+    "produto_id": "P037",
+    "nome": "Molho de Tomate Caseiro 700g",
+    "marca": "Quero",
+    "categoria": "Alimentos",
+    "descricao": "Tomates pera selecionados do interior de São Paulo. Cozimento lento com azeite de oliva, manjericão e alho. Sem conservantes nem corantes. Frasco de vidro retornável.",
+    "preco_base": 45,
+    "estoque_disponivel": 199
+  },
+  {
+    "produto_id": "P038",
+    "nome": "Queijo Parmesão Inteiro 1kg",
+    "marca": "Itambé",
+    "categoria": "Alimentos",
+    "descricao": "Queijo duro de massa cozida, maturação mínima de 6 meses. Sabor intenso e inconfundível, ideal ralado sobre massas e risotos. Com denominação de origem, leite pasteurizado.",
+    "preco_base": 145,
+    "estoque_disponivel": 45
+  },
+  {
+    "produto_id": "P039",
+    "nome": "Doce de Leite Tradicional 400g",
+    "marca": "Piracanjuba",
+    "categoria": "Alimentos",
+    "descricao": "Elaborado com leite integral de primeira qualidade e açúcar. Consistência cremosa, ideal para torradas, pães e doces. Sem corantes nem conservantes. Receita de família desde 1952.",
+    "preco_base": 68,
+    "estoque_disponivel": 183
+  },
+  {
+    "produto_id": "P040",
+    "nome": "Massa Seca Orgânica x4 Variedades",
+    "marca": "Bauducco Orgânico",
+    "categoria": "Alimentos",
+    "descricao": "Pack 4x500g: fettuccine, penne, espaguete e farfalle. Elaboradas com farinha de trigo orgânica integral sem pesticidas. Ricas em fibras e proteínas vegetais. Certificação orgânica IBD.",
+    "preco_base": 220,
+    "estoque_disponivel": 113
+  }
+]

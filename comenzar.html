@@ -26,6 +26,7 @@
   <li><a href="caso-reclamos.html">Reclamações Caso</a></li>
   <li><a href="caso-reclamos-rag.html">Reclamações RAG</a></li>
   <li><a href="ir-mas-alla.html">Mais Além</a></li>
+  <li><a href="explorador.html">Dados</a></li>
 </ul></nav>
 
 <div class="page-layout">
@@ -67,26 +68,38 @@
 
     <!-- ── Modelos recomendados ──────────────────────────── -->
     <h2 id="modelos">Modelos recomendados</h2>
-    <p>Hoje temos disponíveis dois modelos:</p>
+    <p>Hoje temos disponíveis quatro modelos — experimente cada um e observe as diferenças de velocidade, custo e qualidade de resposta:</p>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Modelo</th><th>Ideal para</th></tr>
+          <tr><th>Modelo</th><th>Provedor</th><th>Ideal para</th></tr>
         </thead>
         <tbody>
           <tr>
             <td><code>gpt-5.4-mini</code></td>
+            <td>OpenAI</td>
             <td>A maioria dos agentes — recuperação, explicação, análise, síntese, geração de relatórios</td>
           </tr>
           <tr>
             <td><code>gpt-5.4-nano</code></td>
+            <td>OpenAI</td>
             <td>Agentes leves — classificação simples, resumos breves, gráficos em markdown</td>
+          </tr>
+          <tr>
+            <td><code>claude-haiku-4-5</code></td>
+            <td>Anthropic</td>
+            <td>Respostas rápidas e concisas, tarefas estruturadas, baixo custo</td>
+          </tr>
+          <tr>
+            <td><code>claude-sonnet-4-6</code></td>
+            <td>Anthropic</td>
+            <td>Raciocínio complexo, escrita elaborada, análise detalhada</td>
           </tr>
         </tbody>
       </table>
     </div>
     <blockquote>
-      <p><strong>Por padrão:</strong> use <code>gpt-5.4-mini</code> para todos os agentes, a menos que a tarefa seja explicitamente simples. Os percursos com script funcionam bem com <code>gpt-5.4-mini</code>. Só mude para <code>gpt-5.4-nano</code> em agentes que realizam uma única ação pequena (como gerar um gráfico ou formatar um resumo curto).</p>
+      <p><strong>Por onde começar:</strong> use <code>gpt-5.4-mini</code> como ponto de partida para a maioria dos agentes. Para tarefas simples de ação única, prefira <code>gpt-5.4-nano</code> ou <code>claude-haiku-4-5</code>. Quando precisar de raciocínio mais profundo ou respostas mais elaboradas, experimente <code>claude-sonnet-4-6</code>. Teste os quatro e compare — velocidade, custo e qualidade variam bastante.</p>
     </blockquote>
 
     <!-- ── MongoDB ────────────────────────────────── -->
@@ -106,6 +119,7 @@
           <tr>
             <td><code>bi_produtos</code></td>
             <td>40 produtos em 4 categorias (Eletrônicos, Vestuário, Casa, Alimentação) — preço, estoque, marca</td>
+            <td>BI Conversacional</td>
           </tr>
           <tr>
             <td><code>bi_vendas</code></td>

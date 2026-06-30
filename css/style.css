@@ -58,7 +58,7 @@ body {
 }
 
 .header-brand img.partner-logo {
-  height: 20px;
+  height: 24px;
   width: auto;
   display: block;
   filter: brightness(0) invert(1);
@@ -616,7 +616,7 @@ details.version-details[open] .version-arrow { transform: rotate(90deg); }
 }
 
 .hero-logos img.partner-logo {
-  height: 22px;
+  height: 26px;
   width: auto;
   display: block;
   filter: brightness(0) invert(1);

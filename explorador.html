@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorador de Dados — CrewAction Teletex</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .explorer-wrap { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .tab-bar { display: flex; gap: 0; border-bottom: 2px solid var(--border-light); margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab-btn { background: none; border: none; padding: 0.65rem 1.1rem; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; color: var(--text-secondary); border-bottom: 2px solid transparent; margin-bottom: -2px; font-family: inherit; }
+    .tab-btn.active { color: var(--coral); border-bottom-color: var(--coral); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .stats-bar { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .stat-chip { background: var(--card-grey); border-radius: 6px; padding: 0.5rem 0.85rem; font-size: 0.82rem; color: var(--text-secondary); }
+    .stat-chip strong { display: block; font-size: 1.05rem; color: var(--coal); margin-bottom: 0.1rem; }
+    .search-wrap { margin-bottom: 1rem; }
+    .search-wrap input { width: 100%; max-width: 380px; padding: 0.5rem 0.75rem; border: 1px solid var(--border-light); border-radius: 6px; font-size: 0.9rem; font-family: inherit; }
+    .search-wrap input:focus { outline: none; border-color: var(--coral); }
+    .pagination { display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem; font-size: 0.85rem; color: var(--text-secondary); }
+    .pagination button { padding: 0.35rem 0.8rem; border: 1px solid var(--border-light); background: #fff; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-family: inherit; }
+    .pagination button:hover:not(:disabled) { border-color: var(--coral); color: var(--coral); }
+    .pagination button:disabled { opacity: 0.35; cursor: not-allowed; }
+    .pdf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .pdf-card { border: 1.5px solid var(--border-light); border-radius: 8px; padding: 1rem 1.1rem; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+    .pdf-card:hover { border-color: var(--coral); box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .pdf-card.selected { border-color: var(--coral); background: #fff7f5; }
+    .pdf-card .pdf-icon { font-size: 1.6rem; margin-bottom: 0.4rem; }
+    .pdf-card .pdf-name { font-weight: 600; font-size: 0.9rem; color: var(--coal); margin-bottom: 0.3rem; }
+    .pdf-card .pdf-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
+    .pdf-viewer { display: none; width: 100%; height: 800px; border: 1px solid var(--border-light); border-radius: 6px; }
+    .loading { color: var(--text-secondary); font-style: italic; padding: 2rem 0; }
+    td.trunc { max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: default; }
+    @media (max-width: 680px) {
+      .tab-btn { padding: 0.5rem 0.7rem; font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-brand">
+    <img src="assets/teletex-logo.png" alt="Teletex" class="partner-logo">
+    <div class="header-divider"></div>
+    <a href="index.html" class="crewai-logo-link"><img src="assets/crewai-logo.png" alt="CrewAI" class="crewai-logo-img"></a>
+  </div>
+  <span class="header-label">Workshop Prático · Curitiba</span>
+</header>
+
+<nav class="site-nav"><ul>
+  <li><a href="index.html">Início</a></li>
+  <li><a href="comenzar.html">Começar</a></li>
+  <li><a href="instalacion.html">Instalação</a></li>
+  <li><a href="caso-credito.html">Crédito</a></li>
+  <li><a href="caso-bi.html">BI</a></li>
+  <li><a href="caso-reclamos.html">Reclamações Caso</a></li>
+  <li><a href="caso-reclamos-rag.html">Reclamações RAG</a></li>
+  <li><a href="ir-mas-alla.html">Mais Além</a></li>
+  <li><a href="explorador.html" class="active">Dados</a></li>
+</ul></nav>
+
+<div class="explorer-wrap">
+
+  <div class="page-header">
+    <h1>Explorador de Dados</h1>
+    <p style="color:var(--text-secondary);margin-top:0.25rem;max-width:680px;">
+      Todos os dados disponíveis no MongoDB, organizados por coleção. Explore os schemas, filtre registros e use como referência para criar seus próprios prompts e casos de teste.
+    </p>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="reclamos">📋 Reclamações</button>
+    <button class="tab-btn" data-tab="clientes">💳 Clientes</button>
+    <button class="tab-btn" data-tab="vendas">📊 Vendas</button>
+    <button class="tab-btn" data-tab="produtos">🛍️ Produtos</button>
+    <button class="tab-btn" data-tab="catalogos">📚 Catálogos</button>
+    <button class="tab-btn" data-tab="politicas">📄 Políticas</button>
+  </div>
+
+  <!-- Reclamações -->
+  <div id="tab-reclamos" class="tab-panel active">
+    <div class="stats-bar" id="stats-reclamos"></div>
+    <div class="search-wrap"><input type="search" placeholder="Filtrar por qualquer campo..." id="search-reclamos"></div>
+    <div class="table-wrap" id="table-reclamos"><p class="loading">Carregando dados...</p></div>
+    <div class="pagination" id="page-reclamos"></div>
+  </div>
+
+  <!-- Clientes -->
+  <div id="tab-clientes" class="tab-panel">
+    <div class="stats-bar" id="stats-clientes"></div>
+    <div class="search-wrap"><input type="search" placeholder="Filtrar por qualquer campo..." id="search-clientes"></div>
+    <div class="table-wrap" id="table-clientes"><p class="loading">Carregando dados...</p></div>
+    <div class="pagination" id="page-clientes"></div>
+  </div>
+
+  <!-- Vendas -->
+  <div id="tab-vendas" class="tab-panel">
+    <div class="stats-bar" id="stats-vendas"></div>
+    <div class="search-wrap"><input type="search" placeholder="Filtrar por qualquer campo..." id="search-vendas"></div>
+    <div class="table-wrap" id="table-vendas"><p class="loading">Carregando dados...</p></div>
+    <div class="pagination" id="page-vendas"></div>
+  </div>
+
+  <!-- Produtos -->
+  <div id="tab-produtos" class="tab-panel">
+    <div class="stats-bar" id="stats-produtos"></div>
+    <div class="search-wrap"><input type="search" placeholder="Filtrar por qualquer campo..." id="search-produtos"></div>
+    <div class="table-wrap" id="table-produtos"><p class="loading">Carregando dados...</p></div>
+    <div class="pagination" id="page-produtos"></div>
+  </div>
+
+  <!-- Catálogos PDF -->
+  <div id="tab-catalogos" class="tab-panel">
+    <p style="color:var(--text-secondary);margin-bottom:1rem;">4 catálogos de produtos em PDF — usados para enriquecimento semântico (RAG) no BI Conversacional. Clique em um para visualizar.</p>
+    <div class="pdf-grid">
+      <div class="pdf-card" data-pdf="assets/data/conversational_bi/pdfs/catalogo_eletronicos.pdf" data-viewer="viewer-catalogos">
+        <div class="pdf-icon">💻</div>
+        <div class="pdf-name">Eletrônicos</div>
+        <div class="pdf-desc">Smartphones, tablets, TVs e acessórios</div>
+      </div>
+      <div class="pdf-card" data-pdf="assets/data/conversational_bi/pdfs/catalogo_casa.pdf" data-viewer="viewer-catalogos">
+        <div class="pdf-icon">🏠</div>
+        <div class="pdf-name">Casa</div>
+        <div class="pdf-desc">Eletrodomésticos, móveis e utensílios domésticos</div>
+      </div>
+      <div class="pdf-card" data-pdf="assets/data/conversational_bi/pdfs/catalogo_vestuario.pdf" data-viewer="viewer-catalogos">
+        <div class="pdf-icon">👕</div>
+        <div class="pdf-name">Vestuário</div>
+        <div class="pdf-desc">Roupas, calçados e acessórios de moda</div>
+      </div>
+      <div class="pdf-card" data-pdf="assets/data/conversational_bi/pdfs/catalogo_alimentos.pdf" data-viewer="viewer-catalogos">
+        <div class="pdf-icon">🍎</div>
+        <div class="pdf-name">Alimentos</div>
+        <div class="pdf-desc">Alimentos, bebidas e produtos alimentícios</div>
+      </div>
+    </div>
+    <iframe id="viewer-catalogos" class="pdf-viewer" title="Visualizador de catálogo"></iframe>
+  </div>
+
+  <!-- Políticas PDF -->
+  <div id="tab-politicas" class="tab-panel">
+    <p style="color:var(--text-secondary);margin-bottom:1rem;">6 políticas da empresa em PDF — usadas como base de conhecimento para agentes de reclamações. Clique em uma para visualizar.</p>
+    <div class="pdf-grid">
+      <div class="pdf-card" data-pdf="assets/data/policies/politica_atendimento_cliente.pdf" data-viewer="viewer-politicas">
+        <div class="pdf-icon">🎯</div>
+        <div class="pdf-name">Atendimento ao Cliente</div>
+        <div class="pdf-desc">Padrões e procedimentos de atendimento</div>
+      </div>
+      <div class="pdf-card" data-pdf="assets/data/policies/politica_devolucoes_reembolsos.pdf" data-viewer="viewer-politicas">
+        <div class="pdf-icon">↩️</div>
+        <div class="pdf-name">Devoluções e Reembolsos</div>
+        <div class="pdf-desc">Política de devoluções e prazo para reembolso</div>
+      </div>
+      <div class="pdf-card" data-pdf="assets/data/policies/politica_envios_entregas.pdf" data-viewer="viewer-politicas">
+        <div class="pdf-icon">📦</div>
+        <div class="pdf-name">Envios e Entregas</div>
+        <div class="pdf-desc">Prazos, transportadoras e rastreamento</div>
+      </div>
+      <div class="pdf-card" data-pdf="assets/data/policies/politica_garantias.pdf" data-viewer="viewer-politicas">
+        <div class="pdf-icon">🛡️</div>
+        <div class="pdf-name">Garantias</div>
+        <div class="pdf-desc">Cobertura de garantia por categoria de produto</div>
+      </div>
+      <div class="pdf-card" data-pdf="assets/data/policies/politica_privacidade_dados.pdf" data-viewer="viewer-politicas">
+        <div class="pdf-icon">🔒</div>
+        <div class="pdf-name">Privacidade de Dados</div>
+        <div class="pdf-desc">LGPD, coleta e uso de dados pessoais</div>
+      </div>
+      <div class="pdf-card" data-pdf="assets/data/policies/termos_servico_tecnico.pdf" data-viewer="viewer-politicas">
+        <div class="pdf-icon">🔧</div>
+        <div class="pdf-name">Serviço Técnico</div>
+        <div class="pdf-desc">Termos de assistência técnica e reparos</div>
+      </div>
+    </div>
+    <iframe id="viewer-politicas" class="pdf-viewer" title="Visualizador de política"></iframe>
+  </div>
+
+</div><!-- /explorer-wrap -->
+
+<script>
+const PAGE_SIZE = 25;
+const state = {};
+
+const TABS = {
+  reclamos: {
+    url: 'assets/data/claims_analysis/claims.json',
+    cols: [
+      { key: 'caso_id',       label: 'ID' },
+      { key: 'cliente_nome',  label: 'Cliente' },
+      { key: 'categoria',     label: 'Categoria' },
+      { key: 'urgencia',      label: 'Urgência' },
+      { key: 'status',        label: 'Status' },
+      { key: 'estado',        label: 'Estado' },
+      { key: 'valor_reclamado', label: 'Valor (R$)' },
+      { key: 'reclamacao',    label: 'Reclamação', trunc: true },
+    ],
+    stats(data) {
+      const s = {};
+      data.forEach(r => { s[r.status] = (s[r.status] || 0) + 1; });
+      return [
+        { label: 'Total', val: data.length },
+        ...Object.entries(s).map(([k, v]) => ({ label: k, val: v }))
+      ];
+    }
+  },
+  clientes: {
+    url: 'assets/data/credit_analysis/clientes.json',
+    cols: [
+      { key: r => r.nome + ' ' + r.sobrenome, label: 'Nome' },
+      { key: 'cpf',            label: 'CPF' },
+      { key: 'score_credito',  label: 'Score' },
+      { key: 'nivel_risco',    label: 'Risco' },
+      { key: 'renda_mensal',   label: 'Renda (R$)' },
+      { key: 'dividas_atuais', label: 'Dívidas (R$)' },
+      { key: 'ocupacao',       label: 'Ocupação' },
+      { key: 'estado',         label: 'Estado' },
+    ],
+    stats(data) {
+      const avg = Math.round(data.reduce((s, r) => s + r.score_credito, 0) / data.length);
+      const r = {};
+      data.forEach(d => { r[d.nivel_risco] = (r[d.nivel_risco] || 0) + 1; });
+      return [
+        { label: 'Total', val: data.length },
+        { label: 'Score médio', val: avg },
+        ...Object.entries(r).map(([k, v]) => ({ label: 'Risco ' + k, val: v }))
+      ];
+    }
+  },
+  vendas: {
+    url: 'assets/data/conversational_bi/vendas.json',
+    cols: [
+      { key: 'data',         label: 'Data' },
+      { key: 'nome_produto', label: 'Produto' },
+      { key: 'categoria',    label: 'Categoria' },
+      { key: 'vendedor',     label: 'Vendedor' },
+      { key: 'regiao',       label: 'Região' },
+      { key: 'canal_venda',  label: 'Canal' },
+      { key: 'quantidade',   label: 'Qtd' },
+      { key: 'total',        label: 'Total (R$)' },
+    ],
+    stats(data) {
+      const total = data.reduce((s, r) => s + r.total, 0);
+      const dates = data.map(r => r.data).sort();
+      return [
+        { label: 'Transações', val: data.length.toLocaleString('pt-BR') },
+        { label: 'Receita total', val: 'R$ ' + total.toLocaleString('pt-BR') },
+        { label: 'Período', val: dates[0] + ' → ' + dates[dates.length - 1] },
+      ];
+    }
+  },
+  produtos: {
+    url: 'assets/data/conversational_bi/produtos.json',
+    cols: [
+      { key: 'produto_id',          label: 'ID' },
+      { key: 'nome',                label: 'Nome' },
+      { key: 'marca',               label: 'Marca' },
+      { key: 'categoria',           label: 'Categoria' },
+      { key: 'preco_base',          label: 'Preço (R$)' },
+      { key: 'estoque_disponivel',  label: 'Estoque' },
+    ],
+    stats(data) {
+      const cats = {};
+      data.forEach(r => { cats[r.categoria] = (cats[r.categoria] || 0) + 1; });
+      return [
+        { label: 'Total', val: data.length },
+        ...Object.entries(cats).map(([k, v]) => ({ label: k, val: v }))
+      ];
+    }
+  }
+};
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    if (TABS[btn.dataset.tab] && !state[btn.dataset.tab]) initTab(btn.dataset.tab);
+  });
+});
+
+// PDF cards
+document.querySelectorAll('.pdf-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const viewerId = card.dataset.viewer;
+    card.closest('.tab-panel').querySelectorAll('.pdf-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    const iframe = document.getElementById(viewerId);
+    iframe.src = card.dataset.pdf;
+    iframe.style.display = 'block';
+    iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+function initTab(name) {
+  const cfg = TABS[name];
+  state[name] = { page: 1, query: '', data: null, filtered: null };
+  const s = state[name];
+
+  fetch(cfg.url)
+    .then(r => r.json())
+    .then(data => {
+      s.data = data;
+      s.filtered = data;
+      renderStats(name, cfg.stats(data));
+      renderTable(name, cfg.cols, s.filtered, s.page);
+      renderPagination(name, cfg.cols, s.filtered);
+    })
+    .catch(() => {
+      document.getElementById('table-' + name).innerHTML =
+        '<p style="color:#c0392b">Erro ao carregar dados. Acesse via servidor HTTP (não file://).</p>';
+    });
+
+  document.getElementById('search-' + name).addEventListener('input', e => {
+    s.query = e.target.value.toLowerCase();
+    s.filtered = s.query
+      ? s.data.filter(row => cfg.cols.some(col => {
+          const v = typeof col.key === 'function' ? col.key(row) : row[col.key];
+          return String(v ?? '').toLowerCase().includes(s.query);
+        }))
+      : s.data;
+    s.page = 1;
+    renderTable(name, cfg.cols, s.filtered, s.page);
+    renderPagination(name, cfg.cols, s.filtered);
+  });
+}
+
+function renderStats(name, stats) {
+  document.getElementById('stats-' + name).innerHTML = stats
+    .map(s => `<div class="stat-chip"><strong>${s.val}</strong>${s.label}</div>`)
+    .join('');
+}
+
+function cellVal(col, row) {
+  return typeof col.key === 'function' ? col.key(row) : row[col.key];
+}
+
+function renderTable(name, cols, data, page) {
+  const wrap = document.getElementById('table-' + name);
+  const slice = data.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  if (!slice.length) { wrap.innerHTML = '<p style="color:var(--text-secondary)">Nenhum resultado.</p>'; return; }
+  const ths = cols.map(c => `<th>${c.label}</th>`).join('');
+  const rows = slice.map(row =>
+    '<tr>' + cols.map(col => {
+      const v = String(cellVal(col, row) ?? '');
+      return col.trunc
+        ? `<td class="trunc" title="${v.replace(/"/g, '&quot;')}">${v}</td>`
+        : `<td>${v}</td>`;
+    }).join('') + '</tr>'
+  ).join('');
+  wrap.innerHTML = `<table><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function renderPagination(name, cols, data) {
+  const s = state[name];
+  const total = Math.ceil(data.length / PAGE_SIZE);
+  const pg = document.getElementById('page-' + name);
+  if (total <= 1) { pg.innerHTML = `<span>${data.length} registros</span>`; return; }
+  pg.innerHTML = `
+    <button id="prev-${name}"${s.page === 1 ? ' disabled' : ''}>← Anterior</button>
+    <span>Página ${s.page} de ${total} &nbsp;·&nbsp; ${data.length} registros</span>
+    <button id="next-${name}"${s.page === total ? ' disabled' : ''}>Próxima →</button>
+  `;
+  document.getElementById('prev-' + name).onclick = () => {
+    s.page--; renderTable(name, cols, data, s.page); renderPagination(name, cols, data);
+  };
+  document.getElementById('next-' + name).onclick = () => {
+    s.page++; renderTable(name, cols, data, s.page); renderPagination(name, cols, data);
+  };
+}
+
+initTab('reclamos');
+</script>
+
+</body>
+</html>
